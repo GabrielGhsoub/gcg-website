@@ -34,6 +34,29 @@
   --color-border: #334155;
 }
 
+/* Apply dark mode to hardcoded backgrounds (override Tailwind classes) */
+[data-theme='dark'] .bg-white {
+  background-color: var(--color-background) !important;
+}
+
+[data-theme='dark'] .text-white {
+  color: var(--color-text) !important;
+}
+
+/* Keep navy elements navy in both modes (brand color) */
+[data-theme='dark'] .bg-navy,
+[data-theme='dark'] .bg-\[var\(--color-navy\)\],
+[data-theme='light'] .bg-navy,
+[data-theme='light'] .bg-\[var\(--color-navy\)\] {
+  background-color: #000040 !important;
+}
+
+/* Text on navy background should stay white in both modes */
+[data-theme='dark'] .bg-navy *,
+[data-theme='dark'] .bg-\[var\(--color-navy\)\] * {
+  color: white !important;
+}
+
 @theme {
   /* Tailwind theme extension */
   --color-navy: #000040;
