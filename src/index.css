@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #000040;
+  --color-navy-light: #271e59;
+  --color-navy-deep: #1b0e52;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d48b;
+  --color-cream: #faf8f5;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #1a1a2e;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Custom text selection                                              */
+/* ------------------------------------------------------------------ */
+
+::selection {
+  background-color: #c9a84c;
+  color: #000040;
+}
+
+::-moz-selection {
+  background-color: #c9a84c;
+  color: #000040;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Custom scrollbar                                                   */
+/* ------------------------------------------------------------------ */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9a84c #000040;
+}
+
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000040;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a84c;
+  border-radius: 9999px;
+  border: 2px solid #000040;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e8d48b;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Focus-visible styles                                               */
+/* ------------------------------------------------------------------ */
+
+:focus-visible {
+  outline: 2px solid #c9a84c;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Remove default focus ring for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion preference                                          */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Subtle custom cursor on interactive elements                       */
+/* ------------------------------------------------------------------ */
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select,
+summary {
+  cursor: pointer;
+}
+
+/* Gold dot cursor trail effect for large screens */
+@media (pointer: fine) {
+  html {
+    cursor: default;
+  }
+
+  a:hover,
+  button:hover,
+  [role="button"]:hover {
+    cursor: pointer;
+  }
+}
