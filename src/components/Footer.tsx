@@ -58,13 +58,13 @@ const columnVariants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.4, ease: "easeOut" },
+    transition: { delay: i * 0.08, duration: 0.4, ease: "easeOut" as const },
   }),
 };
 
 const linkUnderline = {
   rest: { scaleX: 0, originX: 0 },
-  hover: { scaleX: 1, originX: 0, transition: { duration: 0.3, ease: "easeOut" } },
+  hover: { scaleX: 1, originX: 0, transition: { duration: 0.3, ease: "easeOut" as const } },
 };
 
 /* ------------------------------------------------------------------ */
