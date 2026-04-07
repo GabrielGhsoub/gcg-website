@@ -571,7 +571,7 @@ export default function Hero() {
         </motion.p>
 
         {/* ---- Rotating headline ---- */}
-        <div className="relative h-[8rem] sm:h-[7rem] md:h-[5.5rem]">
+        <div className="relative h-[8rem] sm:h-[7rem] md:h-[7.5rem]">
           <AnimatePresence mode="wait">
             <motion.h1
               key={`headline-${activeIndex}`}
