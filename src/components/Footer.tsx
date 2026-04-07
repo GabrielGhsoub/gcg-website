@@ -200,16 +200,16 @@ function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none"
+          className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-base text-white placeholder-white/40 outline-none"
         />
         <button
           type="submit"
           disabled={status === "sending" || status === "success"}
-          className="shrink-0 bg-gold px-3 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-navy transition-colors hover:bg-gold-light disabled:opacity-70"
+          className="shrink-0 bg-gold px-4 sm:px-6 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-gold-light disabled:opacity-70 whitespace-nowrap"
         >
           {status === "idle" && "Subscribe"}
           {status === "sending" && "..."}
-          {status === "success" && "Done!"}
+          {status === "success" && "✓"}
         </button>
       </div>
       {status === "error" && (
@@ -458,14 +458,34 @@ function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/5">
           <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-            <motion.p
-              className="text-center text-sm text-white/50"
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              &copy; {currentYear} Copyright Ghoussoub Consulting Group
-            </motion.p>
+            <div className="flex items-center justify-center gap-4">
+              <motion.p
+                className="text-center text-sm text-white/50"
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+              >
+                &copy; {currentYear} Copyright Ghoussoub Consulting Group
+              </motion.p>
+
+              {/* Periodic Table Easter Egg */}
+              <motion.div
+                className="periodic-element group relative"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ delay: 0.8, duration: 0.4 }}
+              >
+                <div className="flex h-12 w-12 flex-col items-center justify-center rounded border border-gold/30 bg-navy text-gold transition-all duration-300 hover:border-gold hover:shadow-lg hover:shadow-gold/20">
+                  <span className="text-[10px] font-medium leading-none">79</span>
+                  <span className="text-lg font-bold leading-none">Gc</span>
+                </div>
+                {/* Tooltip */}
+                <div className="tooltip absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded bg-gold px-3 py-1.5 text-xs font-medium text-navy opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+                  Gold Consulting Group
+                  <div className="tooltip-arrow" />
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </footer>

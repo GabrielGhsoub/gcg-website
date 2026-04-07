@@ -169,3 +169,81 @@ summary {
     cursor: pointer;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Periodic Table Tooltip Arrow                                      */
+/* ------------------------------------------------------------------ */
+
+.tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #c9a84c;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mathematical Constant Watermarks (Easter Egg #3)                  */
+/* ------------------------------------------------------------------ */
+
+/* Apply watermarks to main content sections */
+main section:nth-child(1)::before {
+  content: 'φ';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  font-size: 280px;
+  font-weight: 100;
+  color: #000040;
+  opacity: 0.025;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: 'Times New Roman', serif;
+}
+
+main section:nth-child(2)::before {
+  content: 'π';
+  position: absolute;
+  top: 30%;
+  left: 8%;
+  font-size: 240px;
+  font-weight: 100;
+  color: #000040;
+  opacity: 0.03;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: 'Times New Roman', serif;
+}
+
+main section:nth-child(3)::before {
+  content: 'e';
+  position: absolute;
+  bottom: 15%;
+  right: 12%;
+  font-size: 260px;
+  font-weight: 100;
+  font-style: italic;
+  color: #000040;
+  opacity: 0.025;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  font-family: 'Times New Roman', serif;
+}
+
+/* Ensure sections have position relative for watermarks */
+main section {
+  position: relative;
+}
+
+/* Ensure content stays above watermarks */
+main section > * {
+  position: relative;
+  z-index: 1;
+}
