@@ -371,7 +371,7 @@ function Footer() {
               variants={columnVariants}
             >
               <Link to="/" className="inline-flex items-center gap-3 no-underline">
-                <img src="/logo.png" alt="GCG" className="h-10 w-10 object-contain" />
+                <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-10 w-10 object-contain" />
                 <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
                   GCG
                 </span>
