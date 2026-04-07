@@ -150,7 +150,7 @@ function useScrollDirection() {
       const y = window.scrollY;
       setScrolled(y > 10);
 
-      if (y > 300) {
+      if (y > 150) {
         setHidden(y > lastY.current && y - lastY.current > 5);
       } else {
         setHidden(false);
@@ -206,7 +206,7 @@ function MegaDropdown({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -8, scale: 0.97 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="absolute left-1/2 top-full mt-3 w-[360px] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/10 bg-navy/95 shadow-2xl shadow-black/30 backdrop-blur-2xl"
+      className="absolute left-1/2 top-full mt-3 w-[90vw] max-w-[360px] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/10 bg-navy/95 shadow-2xl shadow-black/30 backdrop-blur-2xl"
     >
       {/* Decorative top gradient line */}
       <div className="h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
@@ -359,17 +359,17 @@ function Navbar() {
   /*  Glassmorphism border gradient based on scroll position                */
   /* ---------------------------------------------------------------------- */
   const borderGradient = scrolled
-    ? "border-b border-gold/15"
-    : "border-b border-white/5";
+    ? "border-b border-gold/15 transition-colors duration-300"
+    : "border-b border-white/5 transition-colors duration-300";
 
   return (
     <motion.nav
       initial={{ y: 0 }}
       animate={{ y: hidden && !mobileOpen ? "-100%" : "0%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed left-0 right-0 top-0 z-50 transition-[background,box-shadow] duration-300 ${borderGradient} ${
+      className={`fixed left-0 right-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[background,box-shadow] duration-300 ${borderGradient} ${
         scrolled
-          ? "bg-navy/85 shadow-lg shadow-navy/30 backdrop-blur-2xl"
+          ? "bg-navy/85 shadow-lg shadow-navy/30 backdrop-blur-xl"
           : "bg-navy/60 backdrop-blur-xl"
       }`}
       role="navigation"
@@ -378,7 +378,7 @@ function Navbar() {
       {/* Scroll progress bar */}
       <ScrollProgressBar />
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:py-3 sm:px-6 lg:px-8">
         {/* ---- Logo ---- */}
         <Link
           to="/"
@@ -542,7 +542,7 @@ function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 250 }}
-              className="fixed right-0 top-0 z-50 flex h-dvh w-72 flex-col bg-navy/95 backdrop-blur-2xl md:hidden"
+              className="fixed right-0 top-0 z-50 flex h-dvh w-[85vw] max-w-sm flex-col bg-navy/95 backdrop-blur-2xl md:hidden"
             >
               {/* Panel header */}
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
@@ -552,13 +552,16 @@ function Navbar() {
                     GCG
                   </span>
                 </span>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  className="cursor-pointer rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10"
-                  aria-label="Close menu"
-                >
-                  <FaTimes className="h-5 w-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <button
+                    onClick={() => setMobileOpen(false)}
+                    className="cursor-pointer rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10"
+                    aria-label="Close menu"
+                  >
+                    <FaTimes className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
 
               {/* Mobile links with staggered animation */}

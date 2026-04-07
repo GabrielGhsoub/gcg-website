@@ -129,7 +129,7 @@ function FloatingInput({
           if (filled) onTouch();
         }}
         placeholder=" "
-        className={`peer w-full rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-white outline-none transition-all duration-300
+        className={`peer w-full rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300
           ${
             isFocusedField
               ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
@@ -239,7 +239,7 @@ function FloatingTextarea({
           if (filled) onTouch();
         }}
         placeholder=" "
-        className={`peer w-full resize-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-white outline-none transition-all duration-300
+        className={`peer w-full resize-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300
           ${
             isFocusedField
               ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
@@ -318,7 +318,7 @@ function FloatingSelect({
         onChange={onChange}
         onFocus={onFocusField}
         onBlur={onBlurField}
-        className={`w-full cursor-pointer appearance-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-white outline-none transition-all duration-300 [&>option]:bg-navy [&>option]:text-white
+        className={`w-full cursor-pointer appearance-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300 [&>option]:bg-navy [&>option]:text-white
           ${
             isFocusedField
               ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
@@ -489,7 +489,7 @@ function ContactCard({
 /** Decorative location pin animation used as a map placeholder. */
 function MapPlaceholder() {
   return (
-    <div className="relative mt-6 flex h-44 w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+    <div className="relative mt-6 flex h-44 sm:h-48 md:h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
       {/* Stylized grid lines */}
       <div className="absolute inset-0 opacity-[0.04]">
         {Array.from({ length: 8 }).map((_, i) => (
