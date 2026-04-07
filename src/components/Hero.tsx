@@ -571,11 +571,11 @@ export default function Hero() {
         </motion.p>
 
         {/* ---- Rotating headline ---- */}
-        <div className="relative h-[12rem] sm:h-[10rem] md:h-[9rem]">
+        <div className="relative h-[8rem] sm:h-[7rem] md:h-[5.5rem]">
           <AnimatePresence mode="wait">
             <motion.h1
               key={`headline-${activeIndex}`}
-              className="absolute inset-x-0 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              className="absolute inset-x-0 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -601,7 +601,7 @@ export default function Hero() {
         </motion.div>
 
         {/* ---- Rotating subline ---- */}
-        <div className="relative h-[4.5rem] sm:h-[3.5rem]">
+        <div className="relative h-[3.5rem] sm:h-[2.5rem]">
           <AnimatePresence mode="wait">
             <SublineText
               key={`subline-${activeIndex}`}
