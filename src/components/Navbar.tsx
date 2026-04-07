@@ -385,7 +385,9 @@ function Navbar() {
           className="group flex items-center gap-2 text-white no-underline"
           aria-label="GCG Home"
         >
-          <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-8 w-8 object-contain" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5 shadow-sm transition-transform duration-200 group-hover:scale-105">
+            <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-full w-full object-contain" />
+          </div>
           <motion.span
             whileHover={{ scale: 1.06 }}
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -547,7 +549,9 @@ function Navbar() {
               {/* Panel header */}
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
                 <span className="flex items-center gap-2">
-                  <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-8 w-8 object-contain" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5 shadow-sm">
+                    <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-full w-full object-contain" />
+                  </div>
                   <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-xl font-extrabold text-transparent">
                     GCG
                   </span>
