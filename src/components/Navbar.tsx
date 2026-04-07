@@ -13,6 +13,7 @@ import {
   FaFacebook,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+import ThemeToggle from "./ThemeToggle";
 
 /* -------------------------------------------------------------------------- */
 /*  Data                                                                      */
@@ -404,6 +405,9 @@ function Navbar() {
             Ghoussoub Consulting Group
           </span>
         </Link>
+
+        {/* ---- Theme Toggle ---- */}
+        <ThemeToggle />
 
         {/* ---- Desktop navigation ---- */}
         <div className="hidden items-center gap-1 md:flex" ref={dropdownRef}>

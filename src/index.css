@@ -1,14 +1,33 @@
 @import "tailwindcss";
 
 @theme {
+  /* GCG Brand Colors (STATIC - always available) */
   --color-navy: #000040;
   --color-navy-light: #271e59;
   --color-navy-deep: #1b0e52;
   --color-gold: #c9a84c;
   --color-gold-light: #e8d48b;
   --color-cream: #faf8f5;
+
+  /* Semantic Colors (DYNAMIC - change with theme) */
+  --color-background: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-text: #1a1a2e;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+
+  /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Dark mode overrides */
+[data-theme='dark'] {
+  --color-background: #0F172A;
+  --color-surface: #1E293B;
+  --color-text: #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-border: #334155;
 }
 
 /* ------------------------------------------------------------------ */
