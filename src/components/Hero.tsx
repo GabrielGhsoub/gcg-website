@@ -571,7 +571,7 @@ export default function Hero() {
         </motion.p>
 
         {/* ---- Rotating headline ---- */}
-        <div className="relative h-[8rem] sm:h-[7rem] md:h-[7.5rem] overflow-hidden">
+        <div className="relative min-h-[8rem] sm:min-h-[7rem] md:min-h-[7.5rem] overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.h1
               key={`headline-${activeIndex}`}
@@ -601,7 +601,7 @@ export default function Hero() {
         </motion.div>
 
         {/* ---- Rotating subline ---- */}
-        <div className="relative h-[3.5rem] sm:h-[2.5rem] overflow-hidden">
+        <div className="relative min-h-[3.5rem] sm:min-h-[2.5rem] overflow-hidden">
           <AnimatePresence mode="wait">
             <SublineText
               key={`subline-${activeIndex}`}
@@ -623,7 +623,7 @@ export default function Hero() {
               key={i}
               onClick={() => setActiveIndex(i)}
               aria-label={`Go to slide ${i + 1}`}
-              className="group relative h-1.5 cursor-pointer overflow-hidden rounded-full bg-white/15 transition-all duration-300"
+              className="group relative h-2.5 cursor-pointer overflow-hidden rounded-full bg-white/15 transition-all duration-300"
               style={{ width: i === activeIndex ? 40 : 16 }}
             >
               {i === activeIndex && (
@@ -650,14 +650,14 @@ export default function Hero() {
         >
           <a
             href="#services"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-gold)] px-9 py-4 text-xs sm:text-sm font-bold tracking-widest text-[var(--color-navy)] uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)] hover:brightness-110"
+            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-gold)] px-9 py-4 text-sm sm:text-base font-bold tracking-widest text-[var(--color-navy)] uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)] hover:brightness-110"
           >
             Explore Our Services
           </a>
 
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-9 py-4 text-xs sm:text-sm font-bold tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-9 py-4 text-sm sm:text-base font-bold tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/10"
           >
             Book Consultation
           </a>

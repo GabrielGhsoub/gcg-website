@@ -489,7 +489,7 @@ function ContactCard({
 /** Decorative location pin animation used as a map placeholder. */
 function MapPlaceholder() {
   return (
-    <div className="relative mt-6 flex h-44 sm:h-48 md:h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+    <div className="relative mt-6 flex h-52 sm:h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
       {/* Stylized grid lines */}
       <div className="absolute inset-0 opacity-[0.04]">
         {Array.from({ length: 8 }).map((_, i) => (

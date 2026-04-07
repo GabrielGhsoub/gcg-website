@@ -513,7 +513,7 @@ function Navbar() {
         {/* ---- Mobile menu toggle ---- */}
         <button
           onClick={() => setMobileOpen((prev) => !prev)}
-          className="cursor-pointer rounded-lg p-2 text-white/90 transition-colors hover:bg-white/10 md:hidden"
+          className="cursor-pointer rounded-lg p-3 text-white/90 transition-colors hover:bg-white/10 md:hidden"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
         >
           {mobileOpen ? (
@@ -544,7 +544,7 @@ function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 250 }}
-              className="fixed right-0 top-0 z-50 flex h-dvh w-[85vw] max-w-sm flex-col bg-navy/95 backdrop-blur-2xl md:hidden"
+              className="fixed right-0 top-0 z-50 flex h-dvh w-[85vw] max-w-sm flex-col bg-navy/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl md:hidden"
             >
               {/* Panel header */}
               <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
@@ -606,7 +606,7 @@ function Navbar() {
                                   key={item.label}
                                   to={item.href}
                                   onClick={handleRouteClick}
-                                  className="flex items-center gap-3 rounded-lg py-2.5 pl-5 pr-3 text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-gold"
+                                  className="flex items-center gap-3 rounded-lg py-4 pl-5 pr-3 text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-gold"
                                 >
                                   <item.icon className="h-3.5 w-3.5 text-gold/70" />
                                   {item.label}
@@ -616,7 +616,7 @@ function Navbar() {
                                   key={item.label}
                                   type="button"
                                   onClick={() => handleHashNavClick(item.href)}
-                                  className="flex w-full items-center gap-3 rounded-lg py-2.5 pl-5 pr-3 text-left text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-gold"
+                                  className="flex w-full items-center gap-3 rounded-lg py-4 pl-5 pr-3 text-left text-sm text-white/70 transition-colors hover:bg-white/10 hover:text-gold"
                                 >
                                   <item.icon className="h-3.5 w-3.5 text-gold/70" />
                                   {item.label}
