@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
-@theme {
+/* ------------------------------------------------------------------ */
+/*  CSS Custom Properties (Theme System)                              */
+/* ------------------------------------------------------------------ */
+
+:root {
   /* GCG Brand Colors (STATIC - always available) */
   --color-navy: #000040;
   --color-navy-light: #271e59;
@@ -9,7 +13,7 @@
   --color-gold-light: #e8d48b;
   --color-cream: #faf8f5;
 
-  /* Semantic Colors (DYNAMIC - change with theme) */
+  /* Semantic Colors (DYNAMIC - change with theme) - Light Mode Defaults */
   --color-background: #FFFFFF;
   --color-surface: #F8FAFC;
   --color-text: #1a1a2e;
@@ -30,6 +34,16 @@
   --color-border: #334155;
 }
 
+@theme {
+  /* Tailwind theme extension */
+  --color-navy: #000040;
+  --color-navy-light: #271e59;
+  --color-navy-deep: #1b0e52;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d48b;
+  --color-cream: #faf8f5;
+}
+
 /* ------------------------------------------------------------------ */
 /*  Base                                                               */
 /* ------------------------------------------------------------------ */
@@ -37,16 +51,22 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans);
-  color: #1a1a2e;
+  color: var(--color-text);
+  background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* ------------------------------------------------------------------ */

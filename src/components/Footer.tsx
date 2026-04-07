@@ -191,7 +191,7 @@ function NewsletterForm() {
       </label>
       <div className="relative flex overflow-hidden rounded-lg border border-white/20 focus-within:border-gold transition-colors">
         <div className="flex items-center pl-3 text-white/40">
-          <FaEnvelope className="h-4 w-4" />
+          <FaEnvelope className="h-4 w-4 shrink-0" />
         </div>
         <input
           id="footer-email"
@@ -200,16 +200,16 @@ function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="flex-1 bg-transparent px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none"
+          className="flex-1 min-w-0 bg-transparent px-3 py-2.5 text-sm text-white placeholder-white/40 outline-none"
         />
         <button
           type="submit"
           disabled={status === "sending" || status === "success"}
-          className="bg-gold px-5 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-gold-light disabled:opacity-70"
+          className="shrink-0 bg-gold px-3 sm:px-5 py-2.5 text-xs sm:text-sm font-semibold text-navy transition-colors hover:bg-gold-light disabled:opacity-70"
         >
           {status === "idle" && "Subscribe"}
           {status === "sending" && "..."}
-          {status === "success" && "Subscribed!"}
+          {status === "success" && "Done!"}
         </button>
       </div>
       {status === "error" && (
@@ -261,7 +261,7 @@ function BackToTopButton() {
 
 function WaveSeparator() {
   return (
-    <div className="relative -mb-px w-full overflow-hidden leading-[0]">
+    <div className="relative -mb-1 w-full overflow-hidden leading-[0]">
       <svg
         className="relative block w-full"
         viewBox="0 0 1440 100"
@@ -359,7 +359,7 @@ function Footer() {
       <WaveSeparator />
 
       {/* Footer */}
-      <footer ref={footerRef} className="bg-navy text-white">
+      <footer ref={footerRef} className="bg-navy text-white pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand column */}
@@ -456,7 +456,7 @@ function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10">
+        <div className="border-t border-white/5">
           <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
             <motion.p
               className="text-center text-sm text-white/50"

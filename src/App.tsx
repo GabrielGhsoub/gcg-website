@@ -13,7 +13,7 @@ import ResearchDevelopment from './pages/ResearchDevelopment'
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen overflow-x-hidden bg-background">
       <ScrollToTop />
       <Navbar />
       <AnimatePresence mode="wait">
