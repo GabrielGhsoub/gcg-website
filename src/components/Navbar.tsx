@@ -405,9 +405,6 @@ function Navbar() {
           </span>
         </Link>
 
-        {/* ---- Theme Toggle ---- */}
-        <ThemeToggle />
-
         {/* ---- Desktop navigation ---- */}
         <div className="hidden items-center gap-1 md:flex" ref={dropdownRef}>
           {NAV_LINKS.map((link) =>
@@ -505,20 +502,28 @@ function Navbar() {
             Book Consultation
             <PulsingDot />
           </button>
+
+          {/* Theme Toggle - Desktop */}
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* ---- Mobile menu toggle ---- */}
-        <button
-          onClick={() => setMobileOpen((prev) => !prev)}
-          className="cursor-pointer rounded-lg p-3 text-white/90 transition-colors hover:bg-white/10 md:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-        >
-          {mobileOpen ? (
-            <FaTimes className="h-5 w-5" />
-          ) : (
-            <FaBars className="h-5 w-5" />
-          )}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="cursor-pointer rounded-lg p-3 text-white/90 transition-colors hover:bg-white/10"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          >
+            {mobileOpen ? (
+              <FaTimes className="h-5 w-5" />
+            ) : (
+              <FaBars className="h-5 w-5" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* ---- Mobile menu overlay + slide-in panel ---- */}
@@ -553,17 +558,14 @@ function Navbar() {
                     GCG
                   </span>
                 </span>
-                <div className="flex items-center gap-3">
-                  <ThemeToggle />
-                  <motion.button
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setMobileOpen(false)}
-                    className="cursor-pointer rounded-full p-3 text-white bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
-                    aria-label="Close menu"
-                  >
-                    <FaTimes className="h-6 w-6" />
-                  </motion.button>
-                </div>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setMobileOpen(false)}
+                  className="cursor-pointer rounded-full p-3 text-white bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
+                  aria-label="Close menu"
+                >
+                  <FaTimes className="h-6 w-6" />
+                </motion.button>
               </div>
 
               {/* Mobile links with staggered animation */}
