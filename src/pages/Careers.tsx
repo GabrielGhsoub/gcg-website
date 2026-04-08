@@ -275,7 +275,7 @@ function Careers() {
             </p>
             <a
               href={`mailto:${CONTACT_EMAIL}?subject=CV%20Submission`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
             >
               <FaEnvelope className="h-4 w-4" />
               Send Your CV

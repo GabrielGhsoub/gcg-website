@@ -256,7 +256,7 @@ function Invest() {
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               to="/#contact"
-              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
             >
               Schedule a Discussion
             </Link>

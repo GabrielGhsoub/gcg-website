@@ -447,7 +447,7 @@ function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 top-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm md:hidden"
               onClick={() => setMobileOpen(false)}
             />
 
@@ -457,7 +457,7 @@ function Navbar() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 z-50 flex flex-col bg-navy backdrop-blur-xl md:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+              className="fixed inset-0 z-[70] flex flex-col bg-[#000040] md:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Panel header */}
               <div className="flex items-center justify-between border-b border-gold/20 px-6 py-5">

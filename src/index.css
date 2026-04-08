@@ -150,13 +150,6 @@ body {
   }
 }
 
-/* Mobile: Reduce animation delays for better UX */
-@media (max-width: 768px) {
-  * {
-    animation-delay: 0ms;
-    transition-delay: 0ms;
-  }
-}
 
 /* ------------------------------------------------------------------ */
 /*  Subtle custom cursor on interactive elements                       */

@@ -394,7 +394,7 @@ function ResearchDevelopment() {
           </p>
           <Link
             to="/#contact"
-            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
           >
             Discuss Your Research Project
           </Link>
