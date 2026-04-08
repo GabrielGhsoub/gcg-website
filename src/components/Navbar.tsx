@@ -8,12 +8,11 @@ import {
   FaHandshake,
   FaLightbulb,
   FaChalkboardTeacher,
-  FaLinkedin,
-  FaInstagram,
-  FaFacebook,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
 import ThemeToggle from "./ThemeToggle";
+import { SOCIAL_LINKS } from "@shared/constants/social-links";
+import { ROUTES } from "@shared/constants/routes";
 
 /* -------------------------------------------------------------------------- */
 /*  Data                                                                      */
@@ -45,14 +44,14 @@ const SERVICE_ITEMS: DropdownItem[] = [
   },
   {
     label: "Research & Development",
-    href: "/services/research",
+    href: ROUTES.RESEARCH,
     icon: FaLightbulb,
     description: "Driving breakthroughs through innovative research.",
     isRoute: true,
   },
   {
     label: "Tutoring Services",
-    href: "/services/tutoring",
+    href: ROUTES.TUTORING,
     icon: FaChalkboardTeacher,
     description: "Personalized instruction for academic excellence.",
     isRoute: true,
@@ -66,28 +65,10 @@ const NAV_LINKS: NavLink[] = [
     sectionId: "services",
     dropdown: SERVICE_ITEMS,
   },
-  { label: "Invest", href: "/invest", isRoute: true },
-  { label: "Careers", href: "/careers", isRoute: true },
+  { label: "Invest", href: ROUTES.INVEST, isRoute: true },
+  { label: "Careers", href: ROUTES.CAREERS, isRoute: true },
   { label: "About Us", href: "#about", sectionId: "about" },
   { label: "Contact", href: "#contact", sectionId: "contact" },
-];
-
-const SOCIAL_LINKS = [
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/gcginnovate",
-    icon: FaLinkedin,
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/gcginnovate",
-    icon: FaInstagram,
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/gcginnovate",
-    icon: FaFacebook,
-  },
 ];
 
 const SECTION_IDS = NAV_LINKS.filter((l) => l.sectionId).map(

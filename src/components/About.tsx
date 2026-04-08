@@ -5,8 +5,8 @@ import {
   useMotionValue,
   useTransform,
   useSpring,
-  type Variants,
 } from "framer-motion";
+import { containerVariants, fadeUp } from "@shared/animations";
 
 /* ------------------------------------------------------------------ */
 /*  Simple count-up stat component                                     */
@@ -343,24 +343,6 @@ function VerticalTimeline({ inView }: TimelineProps) {
     </div>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/*  Animation variants                                                 */
-/* ------------------------------------------------------------------ */
-
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
 
 /* ------------------------------------------------------------------ */
 /*  About section                                                      */

@@ -10,7 +10,8 @@ import {
   FaChartBar,
   FaBriefcase,
 } from "react-icons/fa";
-import PageTransition from "../components/PageTransition";
+import { PageTransition } from "@components/index";
+import { CONTACT_EMAIL } from "@shared/constants/contact-info";
 
 const VALUES = [
   {
@@ -274,14 +275,14 @@ function Careers() {
               arises.
             </p>
             <a
-              href="mailto:contact@gcginnovate.com?subject=CV%20Submission"
+              href={`mailto:${CONTACT_EMAIL}?subject=CV%20Submission`}
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
             >
               <FaEnvelope className="h-4 w-4" />
               Send Your CV
             </a>
             <p className="mt-4 text-sm text-navy/40">
-              contact@gcginnovate.com
+              {CONTACT_EMAIL}
             </p>
           </motion.div>
         </div>

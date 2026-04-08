@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "@contexts/ThemeContext";
 
 // ---------------------------------------------------------------------------
 // Constants

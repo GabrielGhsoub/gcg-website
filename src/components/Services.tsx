@@ -5,7 +5,6 @@ import {
   useMotionValue,
   useTransform,
   useSpring,
-  type Variants,
 } from "framer-motion";
 import {
   FaHandshake,
@@ -14,6 +13,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -208,33 +208,6 @@ function HexMolecularPattern() {
     </div>
   );
 }
-
-/* ------------------------------------------------------------------ */
-/*  Animation variants                                                 */
-/* ------------------------------------------------------------------ */
-
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const headingVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.22, 0.61, 0.36, 1] },
-  },
-};
 
 /* ------------------------------------------------------------------ */
 /*  Service card component                                             */

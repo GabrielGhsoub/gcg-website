@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "@contexts/ThemeContext";
 
 function ThemeToggle() {
   const { resolvedMode, setMode } = useTheme();

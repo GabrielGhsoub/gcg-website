@@ -1,14 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import { ThemeProvider } from './contexts/ThemeContext'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import ScrollToTop from './components/ScrollToTop'
-import Home from './pages/Home'
-import Invest from './pages/Invest'
-import Careers from './pages/Careers'
-import TutoringServices from './pages/TutoringServices'
-import ResearchDevelopment from './pages/ResearchDevelopment'
+import { ThemeProvider } from '@contexts/ThemeContext'
+import { Navbar, Footer, ScrollToTop } from '@components/index'
+import { routes } from '@config/routes'
 
 function App() {
   return (
@@ -18,11 +12,9 @@ function App() {
       <Navbar />
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/invest" element={<Invest />} />
-          <Route path="/careers" element={<Careers />} />
-          <Route path="/services/tutoring" element={<TutoringServices />} />
-          <Route path="/services/research" element={<ResearchDevelopment />} />
+          {routes.map(({ path, element: Element }) => (
+            <Route key={path} path={path} element={<Element />} />
+          ))}
         </Routes>
       </AnimatePresence>
       <Footer />

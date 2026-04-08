@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useTheme } from "../contexts/ThemeContext";
+import { useTheme } from "@contexts/ThemeContext";
+import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
 import {
   FaUserGraduate,
   FaChartLine,
@@ -55,31 +56,6 @@ const DIFFERENTIATORS: Differentiator[] = [
       "Clear KPIs, transparent reporting, and continuous optimization ensure every initiative delivers tangible, quantifiable impact.",
   },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12 },
-  },
-} as const;
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
-} as const;
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" as const },
-  },
-} as const;
 
 const lineVariants = {
   hidden: { scaleX: 0 },

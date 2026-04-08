@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
 
 interface Testimonial {
   quote: string;
@@ -46,31 +47,6 @@ const TESTIMONIALS: Testimonial[] = [
 ];
 
 const AUTO_SCROLL_INTERVAL = 5000;
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.15 },
-  },
-} as const;
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
-} as const;
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" as const },
-  },
-} as const;
 
 function StarRating({ rating }: { rating: number }) {
   return (

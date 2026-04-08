@@ -8,7 +8,8 @@ import {
   FaSolarPanel,
   FaGraduationCap,
 } from "react-icons/fa";
-import PageTransition from "../components/PageTransition";
+import { PageTransition } from "@components/index";
+import { CONTACT_EMAIL } from "@shared/constants/contact-info";
 
 const FOCUS_AREAS = [
   {
@@ -261,10 +262,10 @@ function Invest() {
               Schedule a Discussion
             </Link>
             <a
-              href="mailto:contact@gcginnovate.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="inline-flex items-center rounded-full border border-white/20 px-8 py-3 text-base font-semibold text-white transition-colors hover:border-gold hover:text-gold"
             >
-              contact@gcginnovate.com
+              {CONTACT_EMAIL}
             </a>
           </div>
         </div>

@@ -7,6 +7,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+import { containerVariants, headingVariants } from "@shared/animations";
 
 interface Step {
   number: string;
@@ -46,24 +47,8 @@ const STEPS: Step[] = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.25 },
-  },
-} as const;
-
 const stepVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
-} as const;
-
-const headingVariants = {
-  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,

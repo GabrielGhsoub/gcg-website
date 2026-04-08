@@ -11,7 +11,7 @@ import {
   FaCogs,
   FaQuoteLeft,
 } from "react-icons/fa";
-import PageTransition from "../components/PageTransition";
+import { PageTransition } from "@components/index";
 
 const SUBJECTS = [
   {

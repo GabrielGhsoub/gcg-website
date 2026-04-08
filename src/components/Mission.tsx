@@ -15,6 +15,7 @@ import {
   FaAward,
   FaQuoteLeft,
 } from "react-icons/fa";
+import { containerVariants, fadeUp } from "@shared/animations";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -81,20 +82,6 @@ const MARQUEE_VALUES = [
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
 /* ------------------------------------------------------------------ */
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
 
 const fadeLeft = {
   hidden: { opacity: 0, x: 20 },

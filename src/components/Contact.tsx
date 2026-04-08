@@ -12,6 +12,8 @@ import {
   FaClock,
   FaPaperPlane,
 } from "react-icons/fa";
+import { containerVariants, fadeUp } from "@shared/animations";
+import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -21,18 +23,18 @@ const contactInfo = [
   {
     icon: FaMapMarkerAlt,
     label: "Location",
-    value: "Downtown Beirut, Nejmeh Square",
+    value: LOCATION,
   },
   {
     icon: FaEnvelope,
     label: "Email",
-    value: "contact@gcginnovate.com",
-    href: "mailto:contact@gcginnovate.com",
+    value: CONTACT_EMAIL,
+    href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     icon: FaPhone,
     label: "Phone",
-    lines: ["+33 06 48 70 89 50", "+961 71 22 33 88"],
+    lines: PHONE_NUMBERS.map((p) => p.display),
   },
 ] as const;
 
@@ -41,24 +43,6 @@ const serviceOptions = [
   "Research & Development",
   "Tutoring Services",
 ] as const;
-
-/* ------------------------------------------------------------------ */
-/*  Animation variants                                                 */
-/* ------------------------------------------------------------------ */
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
-};
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */

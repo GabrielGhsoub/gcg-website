@@ -3,50 +3,21 @@ import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef } from "react";
 import {
-  FaLinkedin,
-  FaInstagram,
-  FaFacebook,
   FaArrowUp,
   FaEnvelope,
 } from "react-icons/fa";
 import { HiLocationMarker, HiMail, HiPhone } from "react-icons/hi";
+import { SOCIAL_LINKS, type SocialLink } from "@shared/constants/social-links";
+import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
+import { ROUTES } from "@shared/constants/routes";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
 const FOOTER_LINKS = [
-  { label: "Invest", href: "/invest" },
-  { label: "Careers", href: "/careers" },
-];
-
-const SOCIAL_LINKS = [
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/gcginnovate",
-    icon: FaLinkedin,
-    handle: "gcginnovate",
-    hoverColor: "#0A66C2",
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/gcginnovate",
-    icon: FaInstagram,
-    handle: undefined as string | undefined,
-    hoverColor: "#E1306C",
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/gcginnovate",
-    icon: FaFacebook,
-    handle: undefined as string | undefined,
-    hoverColor: "#1877F2",
-  },
-];
-
-const PHONE_NUMBERS = [
-  { display: "+33 06 48 70 89 50", href: "tel:+33064870 8950" },
-  { display: "+961 71 22 33 88", href: "tel:+96171223388" },
+  { label: "Invest", href: ROUTES.INVEST },
+  { label: "Careers", href: ROUTES.CAREERS },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -126,7 +97,7 @@ function AnimatedLink({
 function SocialIcon({
   social,
 }: {
-  social: (typeof SOCIAL_LINKS)[number];
+  social: SocialLink;
 }) {
   const Icon = social.icon;
   return (
@@ -401,12 +372,12 @@ function Footer() {
               <ul className="space-y-3 text-sm text-white/80">
                 <li className="flex items-start gap-2">
                   <HiLocationMarker className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                  <span>Downtown Beirut, Nejmeh Square</span>
+                  <span>{LOCATION}</span>
                 </li>
                 <li>
-                  <AnimatedLink href="mailto:contact@gcginnovate.com">
+                  <AnimatedLink href={`mailto:${CONTACT_EMAIL}`}>
                     <HiMail className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                    <span>contact@gcginnovate.com</span>
+                    <span>{CONTACT_EMAIL}</span>
                   </AnimatedLink>
                 </li>
                 {PHONE_NUMBERS.map((phone) => (
