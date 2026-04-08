@@ -363,14 +363,11 @@ function Navbar() {
     : "border-b border-white/5 transition-colors duration-300";
 
   return (
-    <motion.nav
-      initial={{ y: 0 }}
-      animate={{ y: hidden && !mobileOpen ? "-100%" : "0%" }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+    <nav
       className={`fixed left-0 right-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-[background,box-shadow] duration-300 ${borderGradient} ${
         scrolled
-          ? "bg-navy/85 shadow-lg shadow-navy/30 backdrop-blur-xl"
-          : "bg-navy/60 backdrop-blur-xl"
+          ? "bg-navy/95 shadow-lg shadow-navy/30 backdrop-blur-xl"
+          : "bg-navy/80 backdrop-blur-xl"
       }`}
       role="navigation"
       aria-label="Main navigation"
@@ -538,50 +535,51 @@ function Navbar() {
               onClick={() => setMobileOpen(false)}
             />
 
-            {/* Slide-in panel */}
+            {/* Full-screen modal panel */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 250 }}
-              className="fixed right-0 top-0 z-50 flex h-dvh w-[85vw] max-w-sm flex-col bg-navy/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-2xl md:hidden"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 z-50 flex flex-col bg-navy/98 backdrop-blur-xl md:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Panel header */}
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-                <span className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white p-1.5 shadow-sm">
+              <div className="flex items-center justify-between border-b border-gold/20 px-6 py-5">
+                <span className="flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white p-2 shadow-lg">
                     <img src={`${import.meta.env.BASE_URL}logo.png`} alt="GCG" className="h-full w-full object-contain" />
                   </div>
-                  <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-xl font-extrabold text-transparent">
+                  <span className="bg-gradient-to-r from-gold via-gold-light to-gold bg-clip-text text-2xl font-extrabold text-transparent">
                     GCG
                   </span>
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <ThemeToggle />
-                  <button
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => setMobileOpen(false)}
-                    className="cursor-pointer rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10"
+                    className="cursor-pointer rounded-full p-3 text-white bg-white/10 backdrop-blur-sm transition-colors hover:bg-white/20"
                     aria-label="Close menu"
                   >
-                    <FaTimes className="h-5 w-5" />
-                  </button>
+                    <FaTimes className="h-6 w-6" />
+                  </motion.button>
                 </div>
               </div>
 
               {/* Mobile links with staggered animation */}
-              <div className="flex-1 overflow-y-auto px-3 py-4">
+              <div className="flex-1 overflow-y-auto px-6 py-6">
                 {NAV_LINKS.map((link, i) =>
                   link.dropdown ? (
                     <motion.div
                       key={link.label}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.07, duration: 0.3 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <button
                         onClick={() => toggleDropdown(link.label)}
-                        className={`flex w-full cursor-pointer items-center justify-between rounded-lg px-3 py-3 text-base font-medium transition-colors hover:bg-white/10 ${
-                          isActive(link) ? "text-gold" : "text-white/90"
+                        className={`flex w-full cursor-pointer items-center justify-between rounded-xl px-4 py-4 text-lg font-semibold transition-all hover:bg-white/10 hover:pl-5 ${
+                          isActive(link) ? "text-gold bg-gold/10" : "text-white/90"
                         }`}
                       >
                         {link.label}
@@ -630,15 +628,15 @@ function Navbar() {
                   ) : link.isRoute ? (
                     <motion.div
                       key={link.label}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.07, duration: 0.3 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <Link
                         to={link.href}
                         onClick={handleRouteClick}
-                        className={`block rounded-lg px-3 py-3 text-base font-medium transition-colors hover:bg-white/10 hover:text-white ${
-                          isActive(link) ? "text-gold" : "text-white/90"
+                        className={`block rounded-xl px-4 py-4 text-lg font-semibold transition-all hover:bg-white/10 hover:pl-5 hover:text-white ${
+                          isActive(link) ? "text-gold bg-gold/10" : "text-white/90"
                         }`}
                       >
                         {link.label}
@@ -648,7 +646,7 @@ function Navbar() {
                     <motion.button
                       key={link.label}
                       type="button"
-                      initial={{ opacity: 0, x: 30 }}
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.05 + i * 0.07, duration: 0.3 }}
                       onClick={() => handleHashNavClick(link.href)}
@@ -693,7 +691,7 @@ function Navbar() {
           </>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
   );
 }
 

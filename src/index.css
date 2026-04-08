@@ -34,27 +34,22 @@
   --color-border: #334155;
 }
 
-/* Apply dark mode to hardcoded backgrounds (override Tailwind classes) */
-[data-theme='dark'] .bg-white {
+/* Theme-aware color overrides for sections with white backgrounds */
+[data-theme='dark'] section.bg-white,
+[data-theme='dark'] div.bg-white:not(.bg-navy *):not(nav *):not(footer *) {
   background-color: var(--color-background) !important;
 }
 
-[data-theme='dark'] .text-white {
-  color: var(--color-text) !important;
+/* Keep navigation and footer elements unchanged (they're designed for specific colors) */
+[data-theme='dark'] nav,
+[data-theme='dark'] footer {
+  /* Let these components keep their designed colors */
 }
 
-/* Keep navy elements navy in both modes (brand color) */
-[data-theme='dark'] .bg-navy,
-[data-theme='dark'] .bg-\[var\(--color-navy\)\],
-[data-theme='light'] .bg-navy,
-[data-theme='light'] .bg-\[var\(--color-navy\)\] {
-  background-color: #000040 !important;
-}
-
-/* Text on navy background should stay white in both modes */
-[data-theme='dark'] .bg-navy *,
-[data-theme='dark'] .bg-\[var\(--color-navy\)\] * {
-  color: white !important;
+/* Adjust card and surface backgrounds in dark mode */
+[data-theme='dark'] .bg-white\/\[0\.02\],
+[data-theme='dark'] .bg-white\/\[0\.05\] {
+  background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 @theme {
