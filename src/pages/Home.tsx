@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import {
   Hero,
   LogoBanner,
@@ -12,7 +13,7 @@ import {
 } from "@components/index";
 import { usePageTitle } from "@shared/hooks";
 
-function Home() {
+function Home(): ReactElement {
   usePageTitle("GCG | Ghoussoub Consulting Group");
 
   return (

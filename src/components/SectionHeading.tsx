@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { headingVariants } from "@shared/animations";
 
@@ -17,7 +18,7 @@ function SectionHeading({
   highlight,
   subtitle,
   variant = "dark",
-}: SectionHeadingProps) {
+}: SectionHeadingProps): ReactElement {
   const isDarkSection = variant === "dark";
 
   return (

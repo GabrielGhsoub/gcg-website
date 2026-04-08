@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useState, useEffect, useCallback, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
@@ -316,7 +317,7 @@ function CTABanner() {
 /*  Main Footer                                                        */
 /* ------------------------------------------------------------------ */
 
-function Footer() {
+function Footer(): ReactElement {
   const footerRef = useRef<HTMLElement>(null);
   const inView = useInView(footerRef, { once: true, margin: "-80px" });
   const currentYear = new Date().getFullYear();

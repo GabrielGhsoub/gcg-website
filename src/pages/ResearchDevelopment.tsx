@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
@@ -105,7 +106,7 @@ const fadeIn = {
   visible: { opacity: 1, y: 0 },
 };
 
-function ResearchDevelopment() {
+function ResearchDevelopment(): ReactElement {
   usePageTitle("Research & Development | GCG");
 
   const areasRef = useRef<HTMLDivElement>(null);

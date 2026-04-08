@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
@@ -45,7 +46,7 @@ const METRICS = [
   { value: "3", label: "Patent Applications" },
 ];
 
-function Invest() {
+function Invest(): ReactElement {
   usePageTitle("Invest | GCG");
 
   const focusRef = useRef<HTMLDivElement>(null);

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { containerVariants, cardVariants } from "@shared/animations";
@@ -65,7 +66,7 @@ const lineVariants = {
   },
 } as const;
 
-function WhyChooseUs() {
+function WhyChooseUs(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 

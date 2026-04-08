@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa";
@@ -64,7 +65,7 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function Testimonials() {
+function Testimonials(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
   const [activeIndex, setActiveIndex] = useState(0);

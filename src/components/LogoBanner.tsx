@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 
 const PARTNERS = [
@@ -11,7 +12,7 @@ const PARTNERS = [
   "Horizon Group",
 ];
 
-function LogoBanner() {
+function LogoBanner(): ReactElement {
   // Duplicate the list so the marquee appears infinite
   const logos = [...PARTNERS, ...PARTNERS];
 

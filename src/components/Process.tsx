@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
@@ -73,7 +74,7 @@ const verticalLineVariants = {
   },
 } as const;
 
-function Process() {
+function Process(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 

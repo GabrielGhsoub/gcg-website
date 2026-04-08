@@ -17,8 +17,8 @@ function getStoredMode(): ThemeMode {
     if (stored === 'light' || stored === 'dark' || stored === 'system') {
       return stored;
     }
-  } catch (error) {
-    console.warn('Failed to read theme from localStorage:', error);
+  } catch {
+    // Silently fall back to default theme
   }
   return 'system';
 }
@@ -30,7 +30,7 @@ function resolveTheme(mode: ThemeMode): 'light' | 'dark' {
   return mode;
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children }: { children: React.ReactNode }): React.ReactElement {
   const [mode, setModeState] = useState<ThemeMode>(getStoredMode);
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>(() => resolveTheme(getStoredMode()));
 
@@ -66,8 +66,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setModeState(newMode);
     try {
       localStorage.setItem(STORAGE_KEY, newMode);
-    } catch (error) {
-      console.warn('Failed to save theme to localStorage:', error);
+    } catch {
+      // Silently ignore storage failures
     }
   }, []);
 

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 
 /**
@@ -5,7 +6,7 @@ import { motion } from "framer-motion";
  * Pure CSS animation with navy/gold base pairs
  * Science Easter egg #1
  */
-export default function DNALoader() {
+export default function DNALoader(): ReactElement {
   return (
     <div className="flex items-center justify-center min-h-screen bg-navy">
       <div className="relative h-64 w-32">

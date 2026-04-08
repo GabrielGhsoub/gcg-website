@@ -1,8 +1,9 @@
+import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { useTheme } from "@contexts/ThemeContext";
 
-function ThemeToggle() {
+function ThemeToggle(): ReactElement {
   const { resolvedMode, setMode } = useTheme();
   const isDark = resolvedMode === "dark";
 

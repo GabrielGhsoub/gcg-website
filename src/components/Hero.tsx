@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   motion,
@@ -407,7 +408,7 @@ function SublineText({ text, className, style }: { text: string; className?: str
 // Main Hero Component
 // ---------------------------------------------------------------------------
 
-export default function Hero() {
+export default function Hero(): ReactElement {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 

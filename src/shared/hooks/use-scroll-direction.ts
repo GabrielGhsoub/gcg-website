@@ -1,7 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
-/** Tracks scroll direction so the nav can hide/show. */
-export function useScrollDirection() {
+interface ScrollDirectionState {
+  hidden: boolean;
+  scrolled: boolean;
+}
+
+export function useScrollDirection(): ScrollDirectionState {
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const lastY = useRef(0);

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef, useState, useEffect, type FormEvent } from "react";
 import {
   motion,
@@ -589,7 +590,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
-function Contact() {
+function Contact(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
 

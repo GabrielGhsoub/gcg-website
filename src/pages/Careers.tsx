@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
@@ -68,7 +69,7 @@ const DEPARTMENTS = [
   },
 ];
 
-function Careers() {
+function Careers(): ReactElement {
   usePageTitle("Careers | GCG");
 
   const valuesRef = useRef<HTMLDivElement>(null);

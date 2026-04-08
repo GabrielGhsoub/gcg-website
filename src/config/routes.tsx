@@ -1,9 +1,11 @@
+import { lazy } from "react";
 import { ROUTES } from "@shared/constants/routes";
-import Home from "@pages/Home";
-import Invest from "@pages/Invest";
-import Careers from "@pages/Careers";
-import TutoringServices from "@pages/TutoringServices";
-import ResearchDevelopment from "@pages/ResearchDevelopment";
+
+const Home = lazy(() => import("@pages/Home"));
+const Invest = lazy(() => import("@pages/Invest"));
+const Careers = lazy(() => import("@pages/Careers"));
+const TutoringServices = lazy(() => import("@pages/TutoringServices"));
+const ResearchDevelopment = lazy(() => import("@pages/ResearchDevelopment"));
 
 interface RouteConfig {
   path: string;

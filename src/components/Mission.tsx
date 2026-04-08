@@ -7,6 +7,7 @@ import {
   useSpring,
   animate,
 } from "framer-motion";
+import type { ReactElement } from "react";
 import { useRef, useEffect, useState } from "react";
 import {
   FaFlask,
@@ -312,7 +313,7 @@ function PillarCard({ pillar }: { pillar: Pillar }) {
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
-function Mission() {
+function Mission(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 

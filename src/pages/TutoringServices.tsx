@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
@@ -87,7 +88,7 @@ const fadeIn = {
   visible: { opacity: 1, y: 0 },
 };
 
-function TutoringServices() {
+function TutoringServices(): ReactElement {
   usePageTitle("Science Tutoring Services | GCG");
 
   const subjectsRef = useRef<HTMLDivElement>(null);

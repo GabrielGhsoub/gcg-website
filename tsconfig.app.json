@@ -25,9 +25,12 @@
       "@config/*": ["./src/config/*"]
     },
 
+    /* Strictness */
+    "strict": true,
+
     /* Linting */
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },

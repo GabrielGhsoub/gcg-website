@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
@@ -123,7 +124,7 @@ function MegaDropdown({
       <div className="h-[2px] bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
 
       <div className="p-2">
-        {items.map((item, i) =>
+        {items.map((item) =>
           item.isRoute ? (
             <Link
               key={item.label}
@@ -191,10 +192,10 @@ function MegaDropdown({
 /*  Navbar                                                                    */
 /* -------------------------------------------------------------------------- */
 
-function Navbar() {
+function Navbar(): ReactElement {
   const navigate = useNavigate();
   const location = useLocation();
-  const { hidden, scrolled } = useScrollDirection();
+  const { scrolled } = useScrollDirection();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -481,7 +482,7 @@ function Navbar() {
 
               {/* Mobile links with staggered animation */}
               <div className="flex-1 overflow-y-auto px-6 py-6">
-                {NAV_LINKS.map((link, i) =>
+                {NAV_LINKS.map((link) =>
                   link.dropdown ? (
                     <motion.div
                       key={link.label}

@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef, useCallback } from "react";
 import {
   motion,
@@ -59,11 +60,9 @@ const services: Service[] = [
 function SimpleBorder({
   children,
   className = "",
-  featured = false,
 }: {
   children: React.ReactNode;
   className?: string;
-  featured?: boolean;
 }) {
   return (
     <div
@@ -229,7 +228,7 @@ function ServiceCard({ service }: ServiceCardProps) {
       {service.badge && <FloatingBadge text={service.badge} />}
 
       <TiltCard className="h-full">
-        <SimpleBorder featured={service.featured}>
+        <SimpleBorder>
           <div
             className={`relative overflow-hidden rounded-2xl p-8 ${
               service.featured ? "md:p-10" : ""
@@ -313,7 +312,7 @@ function ServiceCard({ service }: ServiceCardProps) {
 /*  Services section                                                   */
 /* ------------------------------------------------------------------ */
 
-function Services() {
+function Services(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 

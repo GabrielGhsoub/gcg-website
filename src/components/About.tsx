@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import {
   motion,
@@ -331,7 +332,7 @@ function VerticalTimeline({ inView }: TimelineProps) {
 /*  About section                                                      */
 /* ------------------------------------------------------------------ */
 
-function About() {
+function About(): ReactElement {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-100px" });
 
