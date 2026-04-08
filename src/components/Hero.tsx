@@ -7,6 +7,7 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -391,10 +392,11 @@ function FadeUpText({ text, className }: { text: string; className?: string }) {
 }
 
 /** Subline fade transition */
-function SublineText({ text, className }: { text: string; className?: string }) {
+function SublineText({ text, className, style }: { text: string; className?: string; style?: React.CSSProperties }) {
   return (
     <motion.p
       className={className}
+      style={style}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
@@ -412,6 +414,8 @@ function SublineText({ text, className }: { text: string; className?: string }) 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const { resolvedMode } = useTheme();
+  const isDark = resolvedMode === "dark";
 
   // Memoized molecular network
   const nodes = useMemo(() => generateNodes(NODE_COUNT), []);
@@ -465,41 +469,46 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
     >
       {/* ----------------------------------------------------------------- */}
-      {/* Deep navy background with teal/cyan bioluminescent glows          */}
+      {/* Background with theme-aware colors                                 */}
       {/* ----------------------------------------------------------------- */}
       <motion.div
         className="absolute inset-0"
         style={{ scale: bgScale, willChange: "transform" }}
       >
-        {/* Base: deep navy */}
+        {/* Base gradient - changes based on theme */}
         <div
           className="absolute inset-0"
           style={{
-            background: "linear-gradient(160deg, #000030 0%, #000040 40%, #000a3a 100%)",
+            background: isDark
+              ? "linear-gradient(160deg, #000030 0%, #000040 40%, #000a3a 100%)"
+              : "linear-gradient(160deg, #f8fafc 0%, #ffffff 40%, #f1f5f9 100%)",
           }}
         />
-        {/* Teal bioluminescent glow – top left */}
+        {/* Teal/cyan glow – top left */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(0, 180, 200, 0.06) 0%, transparent 70%)",
+            background: isDark
+              ? "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(0, 180, 200, 0.06) 0%, transparent 70%)"
+              : "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(201, 168, 76, 0.04) 0%, transparent 70%)",
           }}
         />
-        {/* Cyan glow – center right */}
+        {/* Cyan/gold glow – center right */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(0, 210, 230, 0.04) 0%, transparent 70%)",
+            background: isDark
+              ? "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(0, 210, 230, 0.04) 0%, transparent 70%)"
+              : "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)",
           }}
         />
         {/* Subtle gold glow – center */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)",
+            background: isDark
+              ? "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)"
+              : "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(100, 116, 139, 0.03) 0%, transparent 70%)",
           }}
         />
       </motion.div>
@@ -562,7 +571,8 @@ export default function Hero() {
       >
         {/* Company name */}
         <motion.p
-          className="mb-6 text-xs font-semibold tracking-[0.35em] uppercase text-[var(--color-gold)] md:text-sm"
+          className="mb-6 text-xs font-semibold tracking-[0.35em] uppercase md:text-sm"
+          style={{ color: "var(--color-gold)" }}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -575,7 +585,8 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={`headline-${activeIndex}`}
-              className="absolute inset-x-0 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
+              className="absolute inset-x-0 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl"
+              style={{ color: isDark ? "#ffffff" : "#1a1a2e" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -606,7 +617,8 @@ export default function Hero() {
             <SublineText
               key={`subline-${activeIndex}`}
               text={current.subline}
-              className="absolute inset-x-0 text-base font-light tracking-wide text-white/70 sm:text-lg"
+              className="absolute inset-x-0 text-base font-light tracking-wide sm:text-lg"
+              style={{ color: isDark ? "rgba(255, 255, 255, 0.7)" : "rgba(26, 26, 46, 0.7)" }}
             />
           </AnimatePresence>
         </div>
@@ -650,14 +662,22 @@ export default function Hero() {
         >
           <a
             href="#services"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--color-gold)] px-9 py-4 text-sm sm:text-base font-bold tracking-widest text-[var(--color-navy)] uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)] hover:brightness-110"
+            className="inline-flex items-center gap-2 rounded-full px-9 py-4 text-sm sm:text-base font-bold tracking-widest uppercase transition-all duration-300 hover:shadow-[0_0_30px_rgba(201,168,76,0.35)] hover:brightness-110"
+            style={{
+              backgroundColor: "var(--color-gold)",
+              color: "var(--color-navy)",
+            }}
           >
             Explore Our Services
           </a>
 
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-9 py-4 text-sm sm:text-base font-bold tracking-widest text-white uppercase backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full px-9 py-4 text-sm sm:text-base font-bold tracking-widest uppercase backdrop-blur-sm transition-all duration-300"
+            style={{
+              border: isDark ? "1px solid rgba(255, 255, 255, 0.3)" : "1px solid rgba(26, 26, 46, 0.3)",
+              color: isDark ? "#ffffff" : "#1a1a2e",
+            }}
           >
             Book Consultation
           </a>
@@ -669,7 +689,10 @@ export default function Hero() {
       {/* ----------------------------------------------------------------- */}
       <motion.a
         href="#about"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 text-white/40 transition-colors hover:text-white/70"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 transition-colors"
+        style={{
+          color: isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(26, 26, 46, 0.4)",
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
@@ -678,9 +701,15 @@ export default function Hero() {
         <span className="text-[10px] font-light tracking-[0.25em] uppercase">
           Scroll
         </span>
-        <div className="relative h-10 w-[1.5px] overflow-hidden rounded-full bg-white/10">
+        <div
+          className="relative h-10 w-[1.5px] overflow-hidden rounded-full"
+          style={{
+            backgroundColor: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(26, 26, 46, 0.1)",
+          }}
+        >
           <motion.div
-            className="absolute top-0 left-0 w-full rounded-full bg-[var(--color-gold)]"
+            className="absolute top-0 left-0 w-full rounded-full"
+            style={{ backgroundColor: "var(--color-gold)" }}
             animate={{ height: ["0%", "100%"], top: ["0%", "0%"] }}
             transition={{
               duration: 1.6,
