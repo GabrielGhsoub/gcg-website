@@ -165,7 +165,7 @@ function FloatingBadge({ text }: { text: string }) {
       className="absolute -right-2 -top-3 z-20"
       initial={{ scale: 0, rotate: -12 }}
       animate={{ scale: 1, rotate: -12 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.6 }}
+      transition={{ type: "spring", stiffness: 300, damping: 15 }}
     >
       <span className="inline-block rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-navy shadow-lg">
         {text}
@@ -409,7 +409,7 @@ function Services() {
           className="mt-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.3 }}
         >
           <a
             href="#contact"

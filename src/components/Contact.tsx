@@ -520,7 +520,6 @@ function MapPlaceholder() {
           duration: 2.5,
           repeat: Infinity,
           ease: "easeOut",
-          delay: 0.8,
         }}
         className="absolute h-8 w-8 rounded-full border border-gold/20"
       />

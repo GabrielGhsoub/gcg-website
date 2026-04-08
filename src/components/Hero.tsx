@@ -575,7 +575,7 @@ export default function Hero() {
           style={{ color: "var(--color-gold)" }}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.3 }}
         >
           Ghoussoub Consulting Group
         </motion.p>
@@ -602,7 +602,7 @@ export default function Hero() {
           className="mx-auto my-6 flex items-center justify-center gap-2"
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 0.7 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.4 }}
         >
           <div className="h-[1px] w-8 bg-[rgba(0,210,230,0.4)]" />
           <div className="h-1.5 w-1.5 rounded-full bg-[var(--color-gold)]" />
@@ -628,7 +628,7 @@ export default function Hero() {
           className="mt-10 flex items-center justify-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
+          transition={{ duration: 0.3 }}
         >
           {taglines.map((_, i) => (
             <button
@@ -658,7 +658,7 @@ export default function Hero() {
           className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.3 }}
         >
           <a
             href="#services"
@@ -695,7 +695,7 @@ export default function Hero() {
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ duration: 0.4, delay: 0.5 }}
         aria-label="Scroll to next section"
       >
         <span className="text-[10px] font-light tracking-[0.25em] uppercase">

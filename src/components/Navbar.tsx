@@ -223,7 +223,7 @@ function MegaDropdown({
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ duration: 0.2 }}
                 className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/10 text-gold transition-colors group-hover:bg-gold/20"
               >
                 <item.icon className="h-4 w-4" />
@@ -231,7 +231,7 @@ function MegaDropdown({
               <motion.div
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 + 0.03 }}
+                transition={{ duration: 0.2 }}
               >
                 <span className="block text-sm font-semibold text-white/90 transition-colors group-hover:text-gold">
                   {item.label}
@@ -251,7 +251,7 @@ function MegaDropdown({
               <motion.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ duration: 0.2 }}
                 className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/10 text-gold transition-colors group-hover:bg-gold/20"
               >
                 <item.icon className="h-4 w-4" />
@@ -259,7 +259,7 @@ function MegaDropdown({
               <motion.div
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 + 0.03 }}
+                transition={{ duration: 0.2 }}
               >
                 <span className="block text-sm font-semibold text-white/90 transition-colors group-hover:text-gold">
                   {item.label}
@@ -576,7 +576,7 @@ function Navbar() {
                       key={link.label}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <button
                         onClick={() => toggleDropdown(link.label)}
@@ -632,7 +632,7 @@ function Navbar() {
                       key={link.label}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                     >
                       <Link
                         to={link.href}
@@ -649,8 +649,8 @@ function Navbar() {
                       key={link.label}
                       type="button"
                       initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.07, duration: 0.3 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.2 }}
                       onClick={() => handleHashNavClick(link.href)}
                       className={`block w-full rounded-lg px-3 py-3 text-left text-base font-medium transition-colors hover:bg-white/10 hover:text-white ${
                         isActive(link) ? "text-gold" : "text-white/90"

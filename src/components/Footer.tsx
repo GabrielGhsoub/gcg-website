@@ -463,7 +463,7 @@ function Footer() {
                 className="text-center text-sm text-white/50"
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
+                transition={{ duration: 0.3 }}
               >
                 &copy; {currentYear} Copyright Ghoussoub Consulting Group
               </motion.p>
@@ -473,7 +473,7 @@ function Footer() {
                 className="periodic-element group relative"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.8, duration: 0.4 }}
+                transition={{ duration: 0.3 }}
               >
                 <div className="flex h-12 w-12 flex-col items-center justify-center rounded border border-gold/30 bg-navy text-gold transition-all duration-300 hover:border-gold hover:shadow-lg hover:shadow-gold/20">
                   <span className="text-[10px] font-medium leading-none">79</span>

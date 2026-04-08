@@ -156,6 +156,54 @@
   color: #000040 !important;
 }
 
+/* Light Mode Text Visibility Fixes - HIGH PRIORITY */
+
+/* 1. Fix About section stats labels - white text on white background */
+[data-theme='light'] #about .tracking-widest,
+[data-theme='light'] section.bg-navy .tracking-widest {
+  color: rgba(26, 26, 46, 0.6) !important;
+}
+
+/* 2. Fix Mission section value descriptions - white text on white background */
+[data-theme='light'] section.bg-navy .text-sm.leading-snug,
+[data-theme='light'] section.bg-navy .leading-snug {
+  color: rgba(26, 26, 46, 0.7) !important;
+}
+
+/* 3. Fix all white/opacity text in navy sections for light mode */
+[data-theme='light'] section.bg-navy .text-white\/60,
+[data-theme='light'] section.bg-navy .text-white\/70 {
+  color: rgba(26, 26, 46, 0.7) !important;
+}
+
+/* 4. Fix testimonials gold text for better contrast on white */
+[data-theme='light'] section.bg-navy .text-gold\/70 {
+  color: rgb(160, 130, 50) !important; /* Darker gold for better contrast */
+}
+
+/* 5. Ensure all bg-navy sections have white backgrounds in light mode */
+[data-theme='light'] section.bg-navy {
+  background-color: #ffffff !important;
+}
+
+/* 6. Fix CTA section gradient background */
+[data-theme='light'] section.bg-gradient-to-r.from-navy,
+[data-theme='light'] .bg-gradient-to-r.from-navy {
+  background: linear-gradient(to right, #f8f9fa, #ffffff, #f8f9fa) !important;
+}
+
+/* 7. Ensure CTA section text is visible */
+[data-theme='light'] section.bg-gradient-to-r.from-navy h2,
+[data-theme='light'] section.bg-gradient-to-r.from-navy p {
+  color: rgb(26, 26, 46) !important;
+}
+
+/* 8. Fix Contact section body text contrast */
+[data-theme='light'] #contact .text-base,
+[data-theme='light'] #contact .mt-1 {
+  color: rgba(26, 26, 46, 0.8) !important;
+}
+
 /* Theme-aware color overrides for sections with white backgrounds */
 [data-theme='dark'] section.bg-white,
 [data-theme='dark'] div.bg-white:not(.bg-navy *):not(nav *):not(footer *) {
@@ -263,7 +311,7 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Reduced motion preference                                          */
+/*  Reduced motion preference & Mobile performance                    */
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -274,6 +322,14 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile: Reduce animation delays for better UX */
+@media (max-width: 768px) {
+  * {
+    animation-delay: 0ms !important;
+    transition-delay: 0ms !important;
   }
 }
 
