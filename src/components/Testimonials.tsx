@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa";
-import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
+import { containerVariants, cardVariants } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 
 interface Testimonial {
   quote: string;
@@ -99,26 +100,12 @@ function Testimonials() {
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          <motion.span
-            variants={headingVariants}
-            className="inline-block rounded-full border border-gold/30 bg-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-gold"
-          >
-            Testimonials
-          </motion.span>
-          <motion.h2
-            variants={headingVariants}
-            className="mt-4 text-5xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl"
-          >
-            What Our Clients{" "}
-            <span className="text-gold">Say</span>
-          </motion.h2>
-          <motion.p
-            variants={headingVariants}
-            className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/70"
-          >
-            Real stories from the people and organizations we have had the
-            privilege of working with.
-          </motion.p>
+          <SectionHeading
+            badge="Testimonials"
+            title="What Our Clients"
+            highlight="Say"
+            subtitle="Real stories from the people and organizations we have had the privilege of working with."
+          />
         </motion.div>
 
         {/* Desktop grid */}

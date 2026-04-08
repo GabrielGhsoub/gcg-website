@@ -13,7 +13,8 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
-import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
+import { containerVariants, cardVariants } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -66,9 +67,7 @@ function SimpleBorder({
 }) {
   return (
     <div
-      className={`relative rounded-2xl border border-navy/10 transition-colors duration-300 group-hover:border-gold/50 ${className} ${
-        featured ? "bg-white/50" : "bg-white/40"
-      } backdrop-blur-md`}
+      className={`relative rounded-2xl border border-[var(--color-border-light)] transition-colors duration-300 group-hover:border-gold/50 ${className} bg-[var(--color-bg-primary)] backdrop-blur-md`}
     >
       {children}
     </div>
@@ -146,7 +145,7 @@ function AnimatedIcon({
 }) {
   return (
     <div
-      className={`relative mb-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-navy to-navy-light text-white shadow-md shadow-navy/20 transition-transform duration-300 group-hover:scale-105 ${
+      className={`relative mb-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-transform duration-300 group-hover:scale-105 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 ${
         featured ? "h-16 w-16" : "h-14 w-14"
       }`}
     >
@@ -250,14 +249,14 @@ function ServiceCard({ service }: ServiceCardProps) {
 
               <div className="relative">
                 <h3
-                  className={`mb-3 font-bold tracking-tight text-navy ${
+                  className={`mb-3 font-bold tracking-tight text-[var(--color-text-primary)] ${
                     service.featured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
                   }`}
                 >
                   {service.title}
                 </h3>
                 <p
-                  className={`leading-relaxed text-gray-600 ${
+                  className={`leading-relaxed text-[var(--color-text-secondary)] ${
                     service.featured ? "text-base md:text-lg" : "text-base"
                   }`}
                 >
@@ -267,13 +266,13 @@ function ServiceCard({ service }: ServiceCardProps) {
                 {/* Learn more link with animated arrow */}
                 <motion.a
                   href="#contact"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-navy/70 transition-colors duration-200 hover:text-navy"
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text-primary)]"
                   whileHover="hover"
                 >
                   <span className="relative">
                     Learn more
                     <motion.span
-                      className="absolute -bottom-0.5 left-0 h-px w-0 bg-navy/40"
+                      className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold/40"
                       variants={{
                         hover: {
                           width: "100%",
@@ -322,7 +321,7 @@ function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative bg-cream py-28 md:py-36"
+      className="relative bg-[var(--color-bg-secondary)] py-28 md:py-36"
     >
       {/* Hexagonal molecular background */}
       <HexMolecularPattern />
@@ -344,25 +343,13 @@ function Services() {
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          <motion.span
-            variants={headingVariants}
-            className="inline-block rounded-full border border-navy/10 bg-navy/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-navy"
-          >
-            What We Do
-          </motion.span>
-          <motion.h2
-            variants={headingVariants}
-            className="mt-4 text-5xl font-extrabold tracking-tight text-navy md:text-6xl lg:text-7xl"
-          >
-            Our <span className="text-gold">Services</span>
-          </motion.h2>
-          <motion.p
-            variants={headingVariants}
-            className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600"
-          >
-            Science-driven solutions tailored to advance your research,
-            education, and business goals.
-          </motion.p>
+          <SectionHeading
+            badge="What We Do"
+            title="Our"
+            highlight="Services"
+            subtitle="Science-driven solutions tailored to advance your research, education, and business goals."
+            variant="light"
+          />
         </motion.div>
 
         {/* Bento grid */}

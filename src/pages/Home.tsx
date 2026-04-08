@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Hero,
   LogoBanner,
@@ -11,11 +10,10 @@ import {
   Contact,
   PageTransition,
 } from "@components/index";
+import { usePageTitle } from "@shared/hooks";
 
 function Home() {
-  useEffect(() => {
-    document.title = "GCG | Ghoussoub Consulting Group";
-  }, []);
+  usePageTitle("GCG | Ghoussoub Consulting Group");
 
   return (
     <PageTransition>

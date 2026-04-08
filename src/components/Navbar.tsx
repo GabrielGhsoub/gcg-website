@@ -13,6 +13,7 @@ import type { IconType } from "react-icons";
 import ThemeToggle from "./ThemeToggle";
 import { SOCIAL_LINKS } from "@shared/constants/social-links";
 import { ROUTES } from "@shared/constants/routes";
+import { useActiveSection, useScrollDirection } from "@shared/hooks";
 
 /* -------------------------------------------------------------------------- */
 /*  Data                                                                      */
@@ -74,77 +75,6 @@ const NAV_LINKS: NavLink[] = [
 const SECTION_IDS = NAV_LINKS.filter((l) => l.sectionId).map(
   (l) => l.sectionId as string,
 );
-
-/* -------------------------------------------------------------------------- */
-/*  Hooks                                                                     */
-/* -------------------------------------------------------------------------- */
-
-/** Returns the id of the section currently most visible in the viewport. */
-function useActiveSection(sectionIds: string[]): string | null {
-  const [active, setActive] = useState<string | null>(null);
-  const location = useLocation();
-
-  useEffect(() => {
-    // Only track sections on the homepage
-    if (location.pathname !== "/") {
-      setActive(null);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let best: IntersectionObserverEntry | null = null;
-        for (const entry of entries) {
-          if (
-            entry.isIntersecting &&
-            (!best || entry.intersectionRatio > best.intersectionRatio)
-          ) {
-            best = entry;
-          }
-        }
-        if (best) {
-          setActive(best.target.id);
-        }
-      },
-      { rootMargin: "-20% 0px -60% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-
-    for (const id of sectionIds) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-
-    return () => observer.disconnect();
-  }, [sectionIds, location.pathname]);
-
-  return active;
-}
-
-/** Tracks scroll direction so the nav can hide/show. */
-function useScrollDirection() {
-  const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const lastY = useRef(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 10);
-
-      if (y > 150) {
-        setHidden(y > lastY.current && y - lastY.current > 5);
-      } else {
-        setHidden(false);
-      }
-      lastY.current = y;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return { hidden, scrolled };
-}
 
 /* -------------------------------------------------------------------------- */
 /*  Sub-components                                                            */

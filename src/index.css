@@ -14,316 +14,31 @@
   --color-cream: #faf8f5;
 
   /* Semantic Colors (DYNAMIC - change with theme) - Light Mode Defaults */
-  --color-background: #FFFFFF;
-  --color-surface: #F8FAFC;
-  --color-text: #1a1a2e;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-bg-section-dark: #000040;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #64748b;
+  --color-text-on-dark: #ffffff;
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.7);
+  --color-border-light: #e2e8f0;
+  --color-border-on-dark: rgba(255, 255, 255, 0.1);
 
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Light mode - override navy backgrounds to be light/white */
-[data-theme='light'] {
-  --color-background: #FFFFFF;
-  --color-surface: #F8FAFC;
-  --color-text: #1a1a2e;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
-  --color-navy-override: #FFFFFF;
-  --color-nav-bg: rgba(255, 255, 255, 0.95);
-  --color-nav-text: #1a1a2e;
-}
-
-/* Dark mode overrides */
-[data-theme='dark'] {
-  --color-background: #0F172A;
-  --color-surface: #1E293B;
-  --color-text: #F1F5F9;
-  --color-text-muted: #94A3B8;
-  --color-border: #334155;
-  --color-navy-override: #000040;
-  --color-nav-bg: rgba(0, 0, 64, 0.95);
-  --color-nav-text: #FFFFFF;
-}
-
-/* LIGHT MODE: Override ALL navy backgrounds */
-[data-theme='light'] nav {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Dark mode: Ensure navy backgrounds */
-[data-theme='dark'] nav {
-  background: rgba(0, 0, 64, 0.95) !important;
-  border-bottom-color: rgba(201, 168, 76, 0.15) !important;
-}
-
-[data-theme='light'] nav .text-white,
-[data-theme='light'] nav .text-white\/90,
-[data-theme='light'] nav .text-white\/80,
-[data-theme='light'] nav .text-white\/70 {
-  color: #1a1a2e !important;
-}
-
-[data-theme='light'] nav .text-white\/50 {
-  color: #64748b !important;
-}
-
-[data-theme='light'] nav .bg-navy\/95,
-[data-theme='light'] nav .bg-navy\/80 {
-  background: rgba(255, 255, 255, 0.95) !important;
-}
-
-[data-theme='light'] nav .border-gold\/15,
-[data-theme='light'] nav .border-white\/5 {
-  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Light mode: ALL sections - white background with gold accents */
-[data-theme='light'] section {
-  background: #ffffff !important;
-}
-
-[data-theme='light'] section:first-of-type {
-  background: linear-gradient(160deg, #f8fafc 0%, #ffffff 40%, #f1f5f9 100%) !important;
-}
-
-/* Light mode: Override ALL navy backgrounds in sections */
-[data-theme='light'] section .bg-navy,
-[data-theme='light'] section .bg-navy\/95,
-[data-theme='light'] section .bg-navy\/90,
-[data-theme='light'] section .bg-navy\/80 {
-  background: #ffffff !important;
-}
-
-[data-theme='light'] section h1,
-[data-theme='light'] section h2,
-[data-theme='light'] section h3,
-[data-theme='light'] section .text-white {
-  color: #1a1a2e !important;
-}
-
-[data-theme='light'] section .text-white\/90,
-[data-theme='light'] section .text-white\/80 {
-  color: rgba(26, 26, 46, 0.9) !important;
-}
-
-[data-theme='light'] section .text-white\/70 {
-  color: rgba(26, 26, 46, 0.7) !important;
-}
-
-[data-theme='light'] section .text-white\/50 {
-  color: rgba(26, 26, 46, 0.5) !important;
-}
-
-[data-theme='light'] section .text-white\/40 {
-  color: rgba(26, 26, 46, 0.4) !important;
-}
-
-/* Light mode: Dropdown menus */
-[data-theme='light'] nav .bg-navy\/95 {
-  background: rgba(255, 255, 255, 0.98) !important;
-  border: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
-
-[data-theme='light'] nav .hover\:bg-white\/\[0\.06\]:hover,
-[data-theme='light'] nav .hover\:bg-white\/10:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
-}
-
-/* Light mode: Mobile menu */
-[data-theme='light'] .bg-navy,
-[data-theme='light'] .bg-navy\/98,
-[data-theme='light'] .bg-navy\/95 {
-  background: rgba(255, 255, 255, 0.98) !important;
-}
-
-[data-theme='light'] .border-gold\/20 {
-  border-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-[data-theme='light'] .bg-gold\/10 {
-  background-color: rgba(201, 168, 76, 0.15) !important;
-}
-
-/* Light mode: Buttons stay gold */
-[data-theme='light'] .bg-gold {
-  background-color: #c9a84c !important;
-  color: #000040 !important;
-}
-
-/* Light Mode Text Visibility Fixes - HIGH PRIORITY */
-
-/* 1. Fix About section stats labels - white text on white background */
-[data-theme='light'] #about .tracking-widest,
-[data-theme='light'] section.bg-navy .tracking-widest {
-  color: rgba(26, 26, 46, 0.6) !important;
-}
-
-/* 2. Fix Mission section value descriptions - white text on white background */
-[data-theme='light'] section.bg-navy .text-sm.leading-snug,
-[data-theme='light'] section.bg-navy .leading-snug {
-  color: rgba(26, 26, 46, 0.7) !important;
-}
-
-/* 3. Fix all white/opacity text in navy sections for light mode */
-[data-theme='light'] section.bg-navy .text-white\/60,
-[data-theme='light'] section.bg-navy .text-white\/70 {
-  color: rgba(26, 26, 46, 0.7) !important;
-}
-
-/* 4. Fix testimonials gold text for better contrast on white */
-[data-theme='light'] section.bg-navy .text-gold\/70 {
-  color: rgb(160, 130, 50) !important; /* Darker gold for better contrast */
-}
-
-/* 5. Ensure all bg-navy sections have white backgrounds in light mode */
-[data-theme='light'] section.bg-navy {
-  background-color: #ffffff !important;
-}
-
-/* 6. Fix CTA section gradient background */
-[data-theme='light'] section.bg-gradient-to-r.from-navy,
-[data-theme='light'] .bg-gradient-to-r.from-navy {
-  background: linear-gradient(to right, #f8f9fa, #ffffff, #f8f9fa) !important;
-}
-
-/* 7. Ensure CTA section text is visible */
-[data-theme='light'] section.bg-gradient-to-r.from-navy h2,
-[data-theme='light'] section.bg-gradient-to-r.from-navy p,
-[data-theme='light'] section.bg-gradient-to-r.from-navy .text-white,
-[data-theme='light'] section.bg-gradient-to-r.from-navy .text-white\/70 {
-  color: rgb(26, 26, 46) !important;
-}
-
-/* 8. Fix Contact section body text contrast */
-[data-theme='light'] #contact .text-base,
-[data-theme='light'] #contact .mt-1 {
-  color: rgba(26, 26, 46, 0.8) !important;
-}
-
-/* 9. Fix Contact section subtitle paragraph - too light */
-[data-theme='light'] #contact .mx-auto.max-w-3xl,
-[data-theme='light'] #contact p.text-center {
-  color: rgba(26, 26, 46, 0.75) !important;
-}
-
-/* 10. Fix "Typically responds" badge text */
-[data-theme='light'] #contact .inline-flex.items-center.gap-2 {
-  color: rgba(26, 26, 46, 0.8) !important;
-}
-
-/* 11. Fix Why Choose section - navy icon squares barely visible */
-[data-theme='light'] .bg-navy-deep,
-[data-theme='light'] .bg-navy\/5,
-[data-theme='light'] .bg-navy\/10 {
-  background-color: rgba(0, 0, 64, 0.15) !important; /* Visible navy tint */
-  border: 1px solid rgba(0, 0, 64, 0.2) !important;
-}
-
-/* 12. Ensure all icon containers have proper contrast in light mode */
-[data-theme='light'] .rounded-xl.bg-navy,
-[data-theme='light'] .rounded-2xl.bg-navy {
-  background-color: rgba(0, 0, 64, 0.08) !important;
-  border: 1px solid rgba(0, 0, 64, 0.15) !important;
-}
-
-/* 13. Fix services dropdown icon backgrounds for better visibility */
-[data-theme='light'] nav .bg-gold\/10 {
-  background-color: rgba(201, 168, 76, 0.25) !important; /* More visible gold */
-  border: 1px solid rgba(201, 168, 76, 0.3) !important;
-}
-
-/* 14. Improve icon colors in light mode */
-[data-theme='light'] .text-navy {
-  color: #000040 !important; /* Solid navy, not transparent */
-}
-
-/* 15. Fix Footer - CRITICAL: Footer has navy background in light mode, content invisible */
-[data-theme='light'] footer {
-  background-color: #f8f9fa !important; /* Light gray background instead of navy */
-}
-
-/* Fix footer headings and text visibility in light mode */
-[data-theme='light'] footer h3,
-[data-theme='light'] footer p,
-[data-theme='light'] footer a,
-[data-theme='light'] footer span,
-[data-theme='light'] footer li {
-  color: rgba(26, 26, 46, 0.9) !important;
-}
-
-/* Fix footer link hover states */
-[data-theme='light'] footer a:hover {
-  color: #c9a84c !important; /* Gold on hover */
-}
-
-/* Fix footer muted text and opacity variants */
-[data-theme='light'] footer .text-white\/80,
-[data-theme='light'] footer .text-white\/70,
-[data-theme='light'] footer .text-white\/60,
-[data-theme='light'] footer .text-white\/50,
-[data-theme='light'] footer .text-white\/40 {
-  color: rgba(26, 26, 46, 0.75) !important;
-}
-
-/* Fix newsletter input in light mode */
-[data-theme='light'] footer input {
-  background-color: white !important;
-  border-color: rgba(0, 0, 64, 0.2) !important;
-  color: rgba(26, 26, 46, 0.9) !important;
-}
-
-/* Fix newsletter placeholder text */
-[data-theme='light'] footer input::placeholder {
-  color: rgba(26, 26, 46, 0.4) !important;
-}
-
-/* Fix newsletter input border on focus */
-[data-theme='light'] footer .border-white\/20 {
-  border-color: rgba(0, 0, 64, 0.15) !important;
-}
-
-/* Fix social icon borders and colors */
-[data-theme='light'] footer .border-white\/20 {
-  border-color: rgba(0, 0, 64, 0.2) !important;
-}
-
-/* Fix footer bottom border */
-[data-theme='light'] footer .border-white\/5 {
-  border-color: rgba(0, 0, 64, 0.08) !important;
-}
-
-/* Fix copyright text */
-[data-theme='light'] footer .text-white\/50 {
-  color: rgba(26, 26, 46, 0.5) !important;
-}
-
-/* Keep footer wave decoration navy in light mode */
-[data-theme='light'] footer svg path {
-  fill: #000040 !important;
-}
-
-/* Wave separator above footer should adapt to theme */
-[data-theme='light'] .wave-separator svg path,
-[data-theme='light'] section + div svg path {
-  fill: #f8f9fa !important; /* Match footer background in light mode */
-}
-
-/* Theme-aware color overrides for sections with white backgrounds */
-[data-theme='dark'] section.bg-white,
-[data-theme='dark'] div.bg-white:not(.bg-navy *):not(nav *):not(footer *) {
-  background-color: var(--color-background) !important;
-}
-
-/* Adjust card and surface backgrounds in dark mode */
-[data-theme='dark'] .bg-white\/\[0\.02\],
-[data-theme='dark'] .bg-white\/\[0\.05\] {
-  background-color: rgba(255, 255, 255, 0.03) !important;
+[data-theme="dark"] {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-section-dark: #000040;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-on-dark: #ffffff;
+  --color-text-on-dark-muted: rgba(255, 255, 255, 0.7);
+  --color-border-light: #334155;
+  --color-border-on-dark: rgba(255, 255, 255, 0.1);
 }
 
 @theme {
@@ -350,8 +65,8 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  color: var(--color-text);
-  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -428,18 +143,18 @@ body {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    scroll-behavior: auto;
   }
 }
 
 /* Mobile: Reduce animation delays for better UX */
 @media (max-width: 768px) {
   * {
-    animation-delay: 0ms !important;
-    transition-delay: 0ms !important;
+    animation-delay: 0ms;
+    transition-delay: 0ms;
   }
 }
 
@@ -492,7 +207,7 @@ summary {
 
 /* Apply watermarks to main content sections */
 main section:nth-child(1)::before {
-  content: 'φ';
+  content: '\03C6';
   position: absolute;
   top: 20%;
   right: 10%;
@@ -507,7 +222,7 @@ main section:nth-child(1)::before {
 }
 
 main section:nth-child(2)::before {
-  content: 'π';
+  content: '\03C0';
   position: absolute;
   top: 30%;
   left: 8%;

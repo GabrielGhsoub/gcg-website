@@ -13,6 +13,7 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { containerVariants, fadeUp } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
 
 /* ------------------------------------------------------------------ */
@@ -525,54 +526,6 @@ function MapPlaceholder() {
   );
 }
 
-/** Confetti particles for the success state. */
-function Confetti() {
-  const particles = Array.from({ length: 24 }).map((_, i) => ({
-    id: i,
-    x: Math.random() * 300 - 150,
-    y: -(Math.random() * 200 + 80),
-    rotate: Math.random() * 720 - 360,
-    scale: Math.random() * 0.6 + 0.4,
-    color:
-      i % 3 === 0
-        ? "bg-gold"
-        : i % 3 === 1
-          ? "bg-gold-light"
-          : "bg-white",
-    delay: Math.random() * 0.3,
-  }));
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          initial={{
-            x: 0,
-            y: 0,
-            rotate: 0,
-            scale: 0,
-            opacity: 1,
-          }}
-          animate={{
-            x: p.x,
-            y: p.y,
-            rotate: p.rotate,
-            scale: p.scale,
-            opacity: 0,
-          }}
-          transition={{
-            duration: 1.2,
-            ease: "easeOut",
-            delay: p.delay,
-          }}
-          className={`absolute left-1/2 top-1/2 h-2 w-2 rounded-sm ${p.color}`}
-        />
-      ))}
-    </div>
-  );
-}
-
 /** Animated checkmark using SVG path drawing. */
 function AnimatedCheckmark() {
   return (
@@ -733,27 +686,13 @@ function Contact() {
       >
         {/* Section heading */}
         <motion.div variants={fadeUp} className="mb-4 text-center">
-          <span className="inline-block rounded-full border border-gold/30 bg-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-gold">
-            Get In Touch
-          </span>
+          <SectionHeading
+            badge="Get In Touch"
+            title="Contact"
+            highlight="Us"
+            subtitle="If you require assistance with our services, please fill out the form with your information for immediate support. Our Customer Service team comprises highly qualified technicians who will promptly contact you back to provide the best assistance possible."
+          />
         </motion.div>
-
-        <motion.h2
-          variants={fadeUp}
-          className="mb-6 text-center text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl"
-        >
-          Contact <span className="text-gold">Us</span>
-        </motion.h2>
-
-        <motion.p
-          variants={fadeUp}
-          className="mx-auto mb-6 max-w-3xl text-center text-lg leading-relaxed text-gray-300"
-        >
-          If you require assistance with our services, please fill out the form
-          with your information for immediate support. Our Customer Service team
-          comprises highly qualified technicians who will promptly contact you
-          back to provide the best assistance possible.
-        </motion.p>
 
         {/* Response time badge */}
         <motion.div

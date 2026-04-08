@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   FaMicroscope,
@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import { PageTransition } from "@components/index";
 import { CONTACT_EMAIL } from "@shared/constants/contact-info";
+import { usePageTitle } from "@shared/hooks";
 
 const VALUES = [
   {
@@ -68,9 +69,7 @@ const DEPARTMENTS = [
 ];
 
 function Careers() {
-  useEffect(() => {
-    document.title = "Careers | GCG";
-  }, []);
+  usePageTitle("Careers | GCG");
 
   const valuesRef = useRef<HTMLDivElement>(null);
   const valuesInView = useInView(valuesRef, { once: true, margin: "-80px" });
@@ -159,7 +158,7 @@ function Careers() {
       </section>
 
       {/* Scientific Culture & Values */}
-      <section ref={valuesRef} className="bg-cream py-24">
+      <section ref={valuesRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -167,10 +166,10 @@ function Careers() {
             animate={valuesInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
               Our Scientific Culture
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               At GCG, scientific rigor meets creative ambition. We foster an
               environment where researchers, engineers, and educators collaborate
               to solve problems that matter.
@@ -181,7 +180,7 @@ function Careers() {
             {VALUES.map((value, i) => (
               <motion.div
                 key={value.title}
-                className="rounded-2xl border border-navy/10 bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm transition-shadow hover:shadow-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -189,10 +188,10 @@ function Careers() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <value.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
                   {value.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/60">
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                   {value.description}
                 </p>
               </motion.div>
@@ -202,7 +201,7 @@ function Careers() {
       </section>
 
       {/* Departments */}
-      <section ref={deptRef} className="bg-white py-24">
+      <section ref={deptRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -210,10 +209,10 @@ function Careers() {
             animate={deptInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
               Departments
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Our work spans multiple disciplines, each contributing a vital
               piece to the broader mission of scientific advancement.
             </p>
@@ -223,7 +222,7 @@ function Careers() {
             {DEPARTMENTS.map((dept, i) => (
               <motion.div
                 key={dept.title}
-                className="rounded-2xl border border-navy/10 bg-cream p-8 shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-8 shadow-sm transition-shadow hover:shadow-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={deptInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -231,10 +230,10 @@ function Careers() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <dept.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
                   {dept.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/60">
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                   {dept.description}
                 </p>
               </motion.div>
@@ -244,20 +243,20 @@ function Careers() {
       </section>
 
       {/* Open Positions */}
-      <section ref={positionsRef} className="bg-cream py-24">
+      <section ref={positionsRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={positionsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
               Open Positions
             </h2>
           </motion.div>
 
           <motion.div
-            className="mx-auto mt-12 max-w-xl rounded-2xl border border-navy/10 bg-white p-10"
+            className="mx-auto mt-12 max-w-xl rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-10"
             initial={{ opacity: 0, y: 20 }}
             animate={positionsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.15 }}
@@ -265,23 +264,23 @@ function Careers() {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gold/10">
               <FaUsers className="h-7 w-7 text-gold" />
             </div>
-            <p className="text-lg font-medium text-navy">
+            <p className="text-lg font-medium text-[var(--color-text-primary)]">
               We're always looking for talented scientists, researchers, and
               educators
             </p>
-            <p className="mt-3 text-base text-navy/60">
+            <p className="mt-3 text-base text-[var(--color-text-secondary)]">
               No specific openings at this time, but we'd love to hear from you.
               Send us your CV and we'll reach out when a fitting opportunity
               arises.
             </p>
             <a
               href={`mailto:${CONTACT_EMAIL}?subject=CV%20Submission`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
             >
               <FaEnvelope className="h-4 w-4" />
               Send Your CV
             </a>
-            <p className="mt-4 text-sm text-navy/40">
+            <p className="mt-4 text-sm text-[var(--color-text-secondary)]">
               {CONTACT_EMAIL}
             </p>
           </motion.div>

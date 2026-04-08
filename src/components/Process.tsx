@@ -7,7 +7,8 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
-import { containerVariants, headingVariants } from "@shared/animations";
+import { containerVariants } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 
 interface Step {
   number: string;
@@ -103,25 +104,12 @@ function Process() {
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          <motion.span
-            variants={headingVariants}
-            className="inline-block rounded-full border border-gold/30 bg-gold/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-gold"
-          >
-            Our Methodology
-          </motion.span>
-          <motion.h2
-            variants={headingVariants}
-            className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl"
-          >
-            The Scientific <span className="text-gold">Process</span>
-          </motion.h2>
-          <motion.p
-            variants={headingVariants}
-            className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/70"
-          >
-            A rigorous, evidence-based methodology that transforms inquiry into
-            measurable outcomes.
-          </motion.p>
+          <SectionHeading
+            badge="Our Methodology"
+            title="The Scientific"
+            highlight="Process"
+            subtitle="A rigorous, evidence-based methodology that transforms inquiry into measurable outcomes."
+          />
         </motion.div>
 
         {/* Desktop horizontal timeline */}

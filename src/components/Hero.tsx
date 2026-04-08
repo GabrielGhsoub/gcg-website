@@ -7,8 +7,6 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import { useTheme } from "@contexts/ThemeContext";
-
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
@@ -31,8 +29,6 @@ const taglines = [
 const CYCLE_INTERVAL_MS = 5000;
 const NODE_COUNT = 28;
 const BOND_DISTANCE = 220; // px – max distance to draw a bond between nodes
-
-const EASE_CURVE = [0.22, 1, 0.36, 1] as const;
 
 const prefersReducedMotion =
   typeof window !== "undefined"
@@ -414,8 +410,6 @@ function SublineText({ text, className, style }: { text: string; className?: str
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const { resolvedMode } = useTheme();
-  const isDark = resolvedMode === "dark";
 
   // Memoized molecular network
   const nodes = useMemo(() => generateNodes(NODE_COUNT), []);
@@ -465,50 +459,42 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-navy"
       onMouseMove={handleMouseMove}
     >
       {/* ----------------------------------------------------------------- */}
-      {/* Background with theme-aware colors                                 */}
+      {/* Background layers (always dark navy)                               */}
       {/* ----------------------------------------------------------------- */}
       <motion.div
         className="absolute inset-0"
         style={{ scale: bgScale, willChange: "transform" }}
       >
-        {/* Base gradient - changes based on theme */}
+        {/* Base gradient */}
         <div
           className="absolute inset-0"
           style={{
-            background: isDark
-              ? "linear-gradient(160deg, #000030 0%, #000040 40%, #000a3a 100%)"
-              : "linear-gradient(160deg, #f8fafc 0%, #ffffff 40%, #f1f5f9 100%)",
+            background: "linear-gradient(160deg, #000030 0%, #000040 40%, #000a3a 100%)",
           }}
         />
-        {/* Teal/cyan glow – top left */}
+        {/* Teal/cyan glow -- top left */}
         <div
           className="absolute inset-0"
           style={{
-            background: isDark
-              ? "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(0, 180, 200, 0.06) 0%, transparent 70%)"
-              : "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(201, 168, 76, 0.04) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 50% 40% at 25% 30%, rgba(0, 180, 200, 0.06) 0%, transparent 70%)",
           }}
         />
-        {/* Cyan/gold glow – center right */}
+        {/* Cyan glow -- center right */}
         <div
           className="absolute inset-0"
           style={{
-            background: isDark
-              ? "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(0, 210, 230, 0.04) 0%, transparent 70%)"
-              : "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 40% 50% at 75% 55%, rgba(0, 210, 230, 0.04) 0%, transparent 70%)",
           }}
         />
-        {/* Subtle gold glow – center */}
+        {/* Subtle gold glow -- center */}
         <div
           className="absolute inset-0"
           style={{
-            background: isDark
-              ? "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)"
-              : "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(100, 116, 139, 0.03) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 35% 30% at 50% 45%, rgba(201, 168, 76, 0.03) 0%, transparent 70%)",
           }}
         />
       </motion.div>
@@ -585,8 +571,7 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={`headline-${activeIndex}`}
-              className="absolute inset-x-0 text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl md:text-5xl"
-              style={{ color: isDark ? "#ffffff" : "#1a1a2e" }}
+              className="absolute inset-x-0 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -617,8 +602,7 @@ export default function Hero() {
             <SublineText
               key={`subline-${activeIndex}`}
               text={current.subline}
-              className="absolute inset-x-0 text-base font-light tracking-wide sm:text-lg"
-              style={{ color: isDark ? "rgba(255, 255, 255, 0.7)" : "rgba(26, 26, 46, 0.7)" }}
+              className="absolute inset-x-0 text-base font-light tracking-wide text-white/70 sm:text-lg"
             />
           </AnimatePresence>
         </div>
@@ -673,11 +657,7 @@ export default function Hero() {
 
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full px-9 py-4 text-sm sm:text-base font-bold tracking-widest uppercase backdrop-blur-sm transition-all duration-300"
-            style={{
-              border: isDark ? "1px solid rgba(255, 255, 255, 0.3)" : "1px solid rgba(26, 26, 46, 0.3)",
-              color: isDark ? "#ffffff" : "#1a1a2e",
-            }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 px-9 py-4 text-sm sm:text-base font-bold tracking-widest uppercase text-white backdrop-blur-sm transition-all duration-300"
           >
             Book Consultation
           </a>
@@ -689,10 +669,7 @@ export default function Hero() {
       {/* ----------------------------------------------------------------- */}
       <motion.a
         href="#about"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 transition-colors"
-        style={{
-          color: isDark ? "rgba(255, 255, 255, 0.4)" : "rgba(26, 26, 46, 0.4)",
-        }}
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 text-white/40 transition-colors"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.5 }}
@@ -701,12 +678,7 @@ export default function Hero() {
         <span className="text-[10px] font-light tracking-[0.25em] uppercase">
           Scroll
         </span>
-        <div
-          className="relative h-10 w-[1.5px] overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(26, 26, 46, 0.1)",
-          }}
-        >
+        <div className="relative h-10 w-[1.5px] overflow-hidden rounded-full bg-white/10">
           <motion.div
             className="absolute top-0 left-0 w-full rounded-full"
             style={{ backgroundColor: "var(--color-gold)" }}

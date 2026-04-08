@@ -1,1 +1,1 @@
-export type { ThemeMode, ThemeColors, ThemeContextType } from "./theme";
+export type { ThemeMode, ThemeContextType } from "./theme";

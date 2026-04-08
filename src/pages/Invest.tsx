@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { PageTransition } from "@components/index";
 import { CONTACT_EMAIL } from "@shared/constants/contact-info";
+import { usePageTitle } from "@shared/hooks";
 
 const FOCUS_AREAS = [
   {
@@ -45,9 +46,7 @@ const METRICS = [
 ];
 
 function Invest() {
-  useEffect(() => {
-    document.title = "Invest | GCG";
-  }, []);
+  usePageTitle("Invest | GCG");
 
   const focusRef = useRef<HTMLDivElement>(null);
   const focusInView = useInView(focusRef, { once: true, margin: "-80px" });
@@ -128,7 +127,7 @@ function Invest() {
       </section>
 
       {/* Investment Focus Areas */}
-      <section ref={focusRef} className="bg-cream py-24">
+      <section ref={focusRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -136,10 +135,10 @@ function Invest() {
             animate={focusInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
               Investment Focus Areas
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               We channel capital into high-impact scientific domains where
               rigorous research meets transformative commercial potential.
             </p>
@@ -149,7 +148,7 @@ function Invest() {
             {FOCUS_AREAS.map((area, i) => (
               <motion.div
                 key={area.title}
-                className="rounded-2xl border border-navy/10 bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm transition-shadow hover:shadow-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={focusInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -157,8 +156,8 @@ function Invest() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <area.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy">{area.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/60">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{area.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                   {area.description}
                 </p>
               </motion.div>
@@ -168,7 +167,7 @@ function Invest() {
       </section>
 
       {/* Why Invest - Science-Backed Returns */}
-      <section ref={whyRef} className="bg-white py-24">
+      <section ref={whyRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <motion.div
@@ -176,17 +175,17 @@ function Invest() {
               animate={whyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl font-bold text-navy sm:text-4xl">
+              <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
                 Science-Backed Returns
               </h2>
-              <p className="mt-6 text-base leading-relaxed text-navy/60">
+              <p className="mt-6 text-base leading-relaxed text-[var(--color-text-secondary)]">
                 GCG's R&D pipeline is designed to translate fundamental research
                 into scalable commercial applications. By investing at the
                 intersection of scientific discovery and market demand, we
                 identify opportunities where peer-reviewed innovation creates
                 durable competitive advantages.
               </p>
-              <p className="mt-4 text-base leading-relaxed text-navy/60">
+              <p className="mt-4 text-base leading-relaxed text-[var(--color-text-secondary)]">
                 Our portfolio approach balances early-stage research bets with
                 near-market technologies, providing investors with exposure to
                 high-growth potential while managing risk through diversification
@@ -205,10 +204,10 @@ function Invest() {
               {METRICS.map((metric) => (
                 <div
                   key={metric.label}
-                  className="rounded-2xl border border-navy/10 bg-cream p-6 text-center lg:text-left"
+                  className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-6 text-center lg:text-left"
                 >
                   <p className="text-3xl font-bold text-gold">{metric.value}</p>
-                  <p className="mt-1 text-sm font-medium text-navy/60">
+                  <p className="mt-1 text-sm font-medium text-[var(--color-text-secondary)]">
                     {metric.label}
                   </p>
                 </div>
@@ -257,7 +256,7 @@ function Invest() {
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               to="/#contact"
-              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
             >
               Schedule a Discussion
             </Link>

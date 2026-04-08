@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useTheme } from "@contexts/ThemeContext";
-import { containerVariants, headingVariants, cardVariants } from "@shared/animations";
+import { containerVariants, cardVariants } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 import {
   FaUserGraduate,
   FaChartLine,
@@ -68,13 +68,11 @@ const lineVariants = {
 function WhyChooseUs() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const { resolvedMode } = useTheme();
-  const isDark = resolvedMode === "dark";
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-cream py-28 md:py-36"
+      className="relative overflow-hidden bg-[var(--color-bg-primary)] py-28 md:py-36"
     >
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -90,25 +88,13 @@ function WhyChooseUs() {
           animate={inView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          <motion.span
-            variants={headingVariants}
-            className="inline-block rounded-full border border-navy/10 bg-navy/5 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-navy"
-          >
-            Our Advantage
-          </motion.span>
-          <motion.h2
-            variants={headingVariants}
-            className="mt-4 text-5xl font-extrabold tracking-tight text-navy md:text-6xl lg:text-7xl"
-          >
-            Why Choose <span className="text-gold">GCG</span>
-          </motion.h2>
-          <motion.p
-            variants={headingVariants}
-            className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-gray-600"
-          >
-            What sets us apart is our scientific rigor and the lasting impact
-            we create for every client.
-          </motion.p>
+          <SectionHeading
+            badge="Our Advantage"
+            title="Why Choose"
+            highlight="GCG"
+            subtitle="What sets us apart is our scientific rigor and the lasting impact we create for every client."
+            variant="light"
+          />
 
           {/* Animated decorative line */}
           <motion.div
@@ -132,42 +118,21 @@ function WhyChooseUs() {
                 variants={cardVariants}
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative rounded-2xl border border-navy/[0.06] bg-white/60 p-8 shadow-sm backdrop-blur-md transition-shadow duration-300 hover:shadow-lg hover:shadow-navy/[0.06]"
+                className="group relative rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm backdrop-blur-md transition-shadow duration-300 hover:shadow-lg hover:shadow-navy/[0.06] dark:bg-[var(--color-bg-secondary)]"
               >
                 {/* Hover gradient overlay */}
                 <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-navy/[0.02] to-gold/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div
-                  className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl shadow-md transition-shadow duration-300 group-hover:shadow-lg"
-                  style={{
-                    background: isDark
-                      ? "linear-gradient(to bottom right, #000040, #271e59)"
-                      : "linear-gradient(to bottom right, #c9a84c, rgba(201, 168, 76, 0.8))",
-                    color: isDark ? "#ffffff" : "#000040",
-                    boxShadow: isDark
-                      ? "0 4px 6px -1px rgba(0, 0, 64, 0.2)"
-                      : "0 4px 6px -1px rgba(201, 168, 76, 0.2)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = isDark
-                      ? "0 10px 15px -3px rgba(0, 0, 64, 0.3)"
-                      : "0 10px 15px -3px rgba(201, 168, 76, 0.3)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = isDark
-                      ? "0 4px 6px -1px rgba(0, 0, 64, 0.2)"
-                      : "0 4px 6px -1px rgba(201, 168, 76, 0.2)";
-                  }}
-                >
+                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-gold/30 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 dark:group-hover:shadow-navy/30">
                   <Icon className="h-6 w-6" />
                 </div>
 
                 {/* Content */}
-                <h3 className="relative mb-3 text-xl font-bold tracking-tight text-navy">
+                <h3 className="relative mb-3 text-xl font-bold tracking-tight text-[var(--color-text-primary)]">
                   {item.title}
                 </h3>
-                <p className="relative text-base leading-relaxed text-gray-600">
+                <p className="relative text-base leading-relaxed text-[var(--color-text-secondary)]">
                   {item.description}
                 </p>
 

@@ -9,6 +9,7 @@ export { default as Navbar } from "./Navbar";
 export { default as PageTransition } from "./PageTransition";
 export { default as Process } from "./Process";
 export { default as ScrollToTop } from "./ScrollToTop";
+export { default as SectionHeading } from "./SectionHeading";
 export { default as Services } from "./Services";
 export { default as Testimonials } from "./Testimonials";
 export { default as ThemeToggle } from "./ThemeToggle";

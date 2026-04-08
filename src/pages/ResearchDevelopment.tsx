@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
@@ -13,6 +13,7 @@ import {
   FaBookOpen,
 } from "react-icons/fa";
 import { PageTransition } from "@components/index";
+import { usePageTitle } from "@shared/hooks";
 
 const RESEARCH_AREAS = [
   {
@@ -105,9 +106,7 @@ const fadeIn = {
 };
 
 function ResearchDevelopment() {
-  useEffect(() => {
-    document.title = "Research & Development | GCG";
-  }, []);
+  usePageTitle("Research & Development | GCG");
 
   const areasRef = useRef<HTMLDivElement>(null);
   const areasInView = useInView(areasRef, { once: true, margin: "-80px" });
@@ -174,7 +173,7 @@ function ResearchDevelopment() {
       </section>
 
       {/* Research Areas */}
-      <section ref={areasRef} className="bg-cream py-24">
+      <section ref={areasRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -183,10 +182,10 @@ function ResearchDevelopment() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Research Areas
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Our interdisciplinary research spans four core domains, each
               grounded in empirical methodology and oriented toward real-world
               application.
@@ -197,7 +196,7 @@ function ResearchDevelopment() {
             {RESEARCH_AREAS.map((area, i) => (
               <motion.div
                 key={area.title}
-                className="rounded-2xl border border-navy/10 bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm transition-shadow hover:shadow-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={areasInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -205,8 +204,8 @@ function ResearchDevelopment() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <area.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy">{area.title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-navy/60">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{area.title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-[var(--color-text-secondary)]">
                   {area.description}
                 </p>
               </motion.div>
@@ -216,7 +215,7 @@ function ResearchDevelopment() {
       </section>
 
       {/* R&D Methodology */}
-      <section ref={methodologyRef} className="bg-white py-24">
+      <section ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -225,10 +224,10 @@ function ResearchDevelopment() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Our R&D Methodology
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               A systematic pipeline from initial inquiry through validated
               innovation.
             </p>
@@ -253,13 +252,13 @@ function ResearchDevelopment() {
                   animate={methodologyInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <div className="mb-4 flex h-[5rem] w-[5rem] items-center justify-center rounded-full border-2 border-gold/30 bg-cream">
+                  <div className="mb-4 flex h-[5rem] w-[5rem] items-center justify-center rounded-full border-2 border-gold/30 bg-[var(--color-bg-secondary)]">
                     <step.icon className="h-6 w-6 text-gold" />
                   </div>
-                  <h3 className="mb-1 text-base font-semibold text-navy">
+                  <h3 className="mb-1 text-base font-semibold text-[var(--color-text-primary)]">
                     {step.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-navy/60">
+                  <p className="text-sm leading-relaxed text-[var(--color-text-secondary)]">
                     {step.description}
                   </p>
                 </motion.div>
@@ -286,14 +285,14 @@ function ResearchDevelopment() {
                   animate={methodologyInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-gold/30 bg-cream">
+                  <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-gold/30 bg-[var(--color-bg-secondary)]">
                     <step.icon className="h-5 w-5 text-gold" />
                   </div>
                   <div className="pt-2">
-                    <h3 className="text-base font-semibold text-navy">
+                    <h3 className="text-base font-semibold text-[var(--color-text-primary)]">
                       {step.title}
                     </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-navy/60">
+                    <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                       {step.description}
                     </p>
                   </div>
@@ -305,7 +304,7 @@ function ResearchDevelopment() {
       </section>
 
       {/* Lab Capabilities */}
-      <section ref={labRef} className="bg-cream py-24">
+      <section ref={labRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -314,10 +313,10 @@ function ResearchDevelopment() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Laboratory Capabilities
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Our facilities are equipped with instrumentation and infrastructure
               to support research across all four focus areas.
             </p>
@@ -327,13 +326,13 @@ function ResearchDevelopment() {
             {LAB_CAPABILITIES.map((capability, i) => (
               <motion.div
                 key={capability}
-                className="flex items-start gap-3 rounded-xl border border-navy/5 bg-white p-5"
+                className="flex items-start gap-3 rounded-xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-5"
                 initial={{ opacity: 0, y: 15 }}
                 animate={labInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
               >
                 <FaMicroscope className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
-                <span className="text-base text-navy/80">{capability}</span>
+                <span className="text-base text-[var(--color-text-primary)]">{capability}</span>
               </motion.div>
             ))}
           </div>
@@ -341,7 +340,7 @@ function ResearchDevelopment() {
       </section>
 
       {/* Publications */}
-      <section ref={pubRef} className="bg-white py-24">
+      <section ref={pubRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -350,10 +349,10 @@ function ResearchDevelopment() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Recent Publications
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Selected papers from our research team, published in peer-reviewed
               journals.
             </p>
@@ -363,7 +362,7 @@ function ResearchDevelopment() {
             {PUBLICATIONS.map((pub, i) => (
               <motion.div
                 key={pub.title}
-                className="rounded-2xl border border-navy/10 bg-cream p-6"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={pubInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -374,7 +373,7 @@ function ResearchDevelopment() {
                     {pub.title}
                   </h3>
                 </div>
-                <p className="ml-7 text-sm text-navy/50">
+                <p className="ml-7 text-sm text-[var(--color-text-secondary)]">
                   {pub.journal} -- {pub.year}
                 </p>
               </motion.div>
@@ -395,7 +394,7 @@ function ResearchDevelopment() {
           </p>
           <Link
             to="/#contact"
-            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
           >
             Discuss Your Research Project
           </Link>

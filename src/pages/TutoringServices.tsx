@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
@@ -12,6 +12,7 @@ import {
   FaQuoteLeft,
 } from "react-icons/fa";
 import { PageTransition } from "@components/index";
+import { usePageTitle } from "@shared/hooks";
 
 const SUBJECTS = [
   {
@@ -87,9 +88,7 @@ const fadeIn = {
 };
 
 function TutoringServices() {
-  useEffect(() => {
-    document.title = "Science Tutoring Services | GCG";
-  }, []);
+  usePageTitle("Science Tutoring Services | GCG");
 
   const subjectsRef = useRef<HTMLDivElement>(null);
   const subjectsInView = useInView(subjectsRef, { once: true, margin: "-80px" });
@@ -154,7 +153,7 @@ function TutoringServices() {
       </section>
 
       {/* Subjects Covered */}
-      <section ref={subjectsRef} className="bg-cream py-24">
+      <section ref={subjectsRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -163,10 +162,10 @@ function TutoringServices() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Subjects We Cover
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Comprehensive tutoring across core STEM disciplines, delivered by
               subject-matter specialists with research backgrounds.
             </p>
@@ -176,7 +175,7 @@ function TutoringServices() {
             {SUBJECTS.map((subject, i) => (
               <motion.div
                 key={subject.title}
-                className="rounded-2xl border border-navy/10 bg-white p-8 shadow-sm transition-shadow hover:shadow-md"
+                className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm transition-shadow hover:shadow-md"
                 initial={{ opacity: 0, y: 30 }}
                 animate={subjectsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
@@ -184,10 +183,10 @@ function TutoringServices() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <subject.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-navy">
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
                   {subject.title}
                 </h3>
-                <p className="mt-2 text-base leading-relaxed text-navy/60">
+                <p className="mt-2 text-base leading-relaxed text-[var(--color-text-secondary)]">
                   {subject.description}
                 </p>
               </motion.div>
@@ -197,7 +196,7 @@ function TutoringServices() {
       </section>
 
       {/* Teaching Methodology */}
-      <section ref={methodologyRef} className="bg-white py-24">
+      <section ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -206,10 +205,10 @@ function TutoringServices() {
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl font-bold text-navy md:text-5xl">
+            <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
               Our Scientific Approach to Learning
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-navy/60">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
               Every tutoring program is built on cognitive science research,
               applying the same rigor to teaching that we bring to the subjects
               themselves.
@@ -220,7 +219,7 @@ function TutoringServices() {
             {METHODOLOGY.map((item, i) => (
               <motion.div
                 key={item.title}
-                className="flex gap-4 rounded-2xl border border-navy/5 bg-cream p-6"
+                className="flex gap-4 rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={methodologyInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -229,10 +228,10 @@ function TutoringServices() {
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-navy">
+                  <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
                     {item.title}
                   </h3>
-                  <p className="mt-1 text-base leading-relaxed text-navy/60">
+                  <p className="mt-1 text-base leading-relaxed text-[var(--color-text-secondary)]">
                     {item.description}
                   </p>
                 </div>
@@ -265,24 +264,24 @@ function TutoringServices() {
       </section>
 
       {/* Testimonial */}
-      <section ref={testimonialRef} className="bg-cream py-24">
+      <section ref={testimonialRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="rounded-2xl border border-navy/10 bg-white p-8 text-center shadow-sm md:p-12"
+            className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 text-center shadow-sm md:p-12"
             initial={{ opacity: 0, y: 20 }}
             animate={testimonialInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
             <FaQuoteLeft className="mx-auto mb-6 h-8 w-8 text-gold/30" />
-            <p className="text-base leading-relaxed text-navy/80 md:text-lg">
+            <p className="text-base leading-relaxed text-[var(--color-text-primary)] md:text-lg">
               "I was struggling with organic chemistry and nearly dropped the
               course. After working with GCG for just six weeks, everything
               clicked. Their systematic approach didn't just help me pass -- it
               gave me the confidence to pursue a biochemistry major."
             </p>
             <div className="mt-6">
-              <p className="font-semibold text-navy">Amara K.</p>
-              <p className="text-sm text-navy/50">
+              <p className="font-semibold text-[var(--color-text-primary)]">Amara K.</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">
                 Undergraduate, Biochemistry
               </p>
             </div>
@@ -302,7 +301,7 @@ function TutoringServices() {
           </p>
           <Link
             to="/#contact"
-            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+            className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-[var(--color-text-primary)] shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
           >
             Book a Free Session
           </Link>

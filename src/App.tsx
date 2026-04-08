@@ -7,7 +7,7 @@ import { routes } from '@config/routes'
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen overflow-x-hidden bg-background">
+      <div className="min-h-screen overflow-x-hidden bg-[var(--color-bg-primary)]">
       <ScrollToTop />
       <Navbar />
       <AnimatePresence mode="wait">

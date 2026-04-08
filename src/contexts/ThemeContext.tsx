@@ -1,38 +1,9 @@
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
-import type { ThemeMode, ThemeColors, ThemeContextType } from '@/types/theme';
+import type { ThemeMode, ThemeContextType } from '@/types/theme';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'gcg-theme';
-
-const colors: Record<'light' | 'dark', ThemeColors> = {
-  light: {
-    navy: '#000040',
-    navyLight: '#271e59',
-    navyDeep: '#1b0e52',
-    gold: '#c9a84c',
-    goldLight: '#e8d48b',
-    cream: '#faf8f5',
-    background: '#ffffff',
-    surface: '#F8FAFC',
-    text: '#1a1a2e',
-    textMuted: '#64748b',
-    border: '#e2e8f0',
-  },
-  dark: {
-    navy: '#000040',
-    navyLight: '#271e59',
-    navyDeep: '#1b0e52',
-    gold: '#c9a84c',
-    goldLight: '#e8d48b',
-    cream: '#faf8f5',
-    background: '#0F172A',
-    surface: '#1E293B',
-    text: '#F1F5F9',
-    textMuted: '#94A3B8',
-    border: '#334155',
-  },
-};
 
 function getSystemPreference(): 'light' | 'dark' {
   if (typeof window === 'undefined') return 'light';
@@ -110,7 +81,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       resolvedMode: resolvedTheme,
       setMode,
       toggleTheme,
-      colors: colors[resolvedTheme],
     }),
     [mode, resolvedTheme, setMode, toggleTheme]
   );
