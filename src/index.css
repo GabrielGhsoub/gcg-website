@@ -204,6 +204,43 @@
   color: rgba(26, 26, 46, 0.8) !important;
 }
 
+/* 9. Fix Contact section subtitle paragraph - too light */
+[data-theme='light'] #contact .mx-auto.max-w-3xl,
+[data-theme='light'] #contact p.text-center {
+  color: rgba(26, 26, 46, 0.75) !important;
+}
+
+/* 10. Fix "Typically responds" badge text */
+[data-theme='light'] #contact .inline-flex.items-center.gap-2 {
+  color: rgba(26, 26, 46, 0.8) !important;
+}
+
+/* 11. Fix Why Choose section - navy icon squares barely visible */
+[data-theme='light'] .bg-navy-deep,
+[data-theme='light'] .bg-navy\/5,
+[data-theme='light'] .bg-navy\/10 {
+  background-color: rgba(0, 0, 64, 0.15) !important; /* Visible navy tint */
+  border: 1px solid rgba(0, 0, 64, 0.2) !important;
+}
+
+/* 12. Ensure all icon containers have proper contrast in light mode */
+[data-theme='light'] .rounded-xl.bg-navy,
+[data-theme='light'] .rounded-2xl.bg-navy {
+  background-color: rgba(0, 0, 64, 0.08) !important;
+  border: 1px solid rgba(0, 0, 64, 0.15) !important;
+}
+
+/* 13. Fix services dropdown icon backgrounds for better visibility */
+[data-theme='light'] nav .bg-gold\/10 {
+  background-color: rgba(201, 168, 76, 0.25) !important; /* More visible gold */
+  border: 1px solid rgba(201, 168, 76, 0.3) !important;
+}
+
+/* 14. Improve icon colors in light mode */
+[data-theme='light'] .text-navy {
+  color: #000040 !important; /* Solid navy, not transparent */
+}
+
 /* Theme-aware color overrides for sections with white backgrounds */
 [data-theme='dark'] section.bg-white,
 [data-theme='dark'] div.bg-white:not(.bg-navy *):not(nav *):not(footer *) {
