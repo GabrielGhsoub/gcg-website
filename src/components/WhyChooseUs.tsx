@@ -159,7 +159,7 @@ function WhyChooseUs() {
                 <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-navy/[0.02] to-gold/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-navy to-navy-light text-white shadow-md shadow-navy/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-navy/30">
+                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-gold/30 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 dark:group-hover:shadow-navy/30">
                   <Icon className="h-6 w-6" />
                 </div>
 

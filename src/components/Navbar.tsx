@@ -406,7 +406,7 @@ function Navbar() {
         </Link>
 
         {/* ---- Desktop navigation ---- */}
-        <div className="hidden md:flex items-center gap-1" ref={dropdownRef}>
+        <div className="hidden md:flex md:items-center md:gap-1" ref={dropdownRef}>
           {NAV_LINKS.map((link) =>
             link.dropdown ? (
               <div key={link.label} className="relative">
