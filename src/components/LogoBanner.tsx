@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 
 const PARTNERS = [
   "TechVision",
@@ -12,14 +13,25 @@ const PARTNERS = [
 ];
 
 function LogoBanner() {
+  const { resolvedMode } = useTheme();
+  const isDark = resolvedMode === "dark";
+
   // Duplicate the list so the marquee appears infinite
   const logos = [...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 md:py-20">
+    <section
+      className="relative overflow-hidden py-16 md:py-20"
+      style={{
+        backgroundColor: isDark ? "#0F172A" : "#ffffff",
+      }}
+    >
       {/* Section heading */}
       <motion.p
-        className="mb-12 text-center text-xs font-semibold uppercase tracking-[0.3em] text-gray-500"
+        className="mb-12 text-center text-xs font-semibold uppercase tracking-[0.3em]"
+        style={{
+          color: isDark ? "rgba(148, 163, 184, 0.7)" : "rgba(107, 114, 128, 1)",
+        }}
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
@@ -31,9 +43,23 @@ function LogoBanner() {
       {/* Marquee container */}
       <div className="relative">
         {/* Left fade */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent md:w-40" />
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 md:w-40"
+          style={{
+            background: isDark
+              ? "linear-gradient(to right, #0F172A, transparent)"
+              : "linear-gradient(to right, #ffffff, transparent)",
+          }}
+        />
         {/* Right fade */}
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent md:w-40" />
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 md:w-40"
+          style={{
+            background: isDark
+              ? "linear-gradient(to left, #0F172A, transparent)"
+              : "linear-gradient(to left, #ffffff, transparent)",
+          }}
+        />
 
         {/* Scrolling track */}
         <div className="flex overflow-hidden">
@@ -51,7 +77,16 @@ function LogoBanner() {
             {logos.map((name, i) => (
               <span
                 key={`${name}-${i}`}
-                className="shrink-0 select-none whitespace-nowrap text-xl font-bold tracking-wide text-gray-300 transition-colors duration-300 hover:text-gray-500 md:text-2xl"
+                className="shrink-0 select-none whitespace-nowrap text-xl font-bold tracking-wide transition-colors duration-300 md:text-2xl"
+                style={{
+                  color: isDark ? "rgba(148, 163, 184, 0.4)" : "rgb(209, 213, 219)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = isDark ? "rgba(148, 163, 184, 0.7)" : "rgb(107, 114, 128)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = isDark ? "rgba(148, 163, 184, 0.4)" : "rgb(209, 213, 219)";
+                }}
               >
                 {name}
               </span>

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTheme } from "../contexts/ThemeContext";
 import {
   FaUserGraduate,
   FaChartLine,
@@ -91,6 +92,8 @@ const lineVariants = {
 function WhyChooseUs() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const { resolvedMode } = useTheme();
+  const isDark = resolvedMode === "dark";
 
   return (
     <section
@@ -159,7 +162,28 @@ function WhyChooseUs() {
                 <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-navy/[0.02] to-gold/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-gold/30 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 dark:group-hover:shadow-navy/30">
+                <div
+                  className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl shadow-md transition-shadow duration-300 group-hover:shadow-lg"
+                  style={{
+                    background: isDark
+                      ? "linear-gradient(to bottom right, #000040, #271e59)"
+                      : "linear-gradient(to bottom right, #c9a84c, rgba(201, 168, 76, 0.8))",
+                    color: isDark ? "#ffffff" : "#000040",
+                    boxShadow: isDark
+                      ? "0 4px 6px -1px rgba(0, 0, 64, 0.2)"
+                      : "0 4px 6px -1px rgba(201, 168, 76, 0.2)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = isDark
+                      ? "0 10px 15px -3px rgba(0, 0, 64, 0.3)"
+                      : "0 10px 15px -3px rgba(201, 168, 76, 0.3)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = isDark
+                      ? "0 4px 6px -1px rgba(0, 0, 64, 0.2)"
+                      : "0 4px 6px -1px rgba(201, 168, 76, 0.2)";
+                  }}
+                >
                   <Icon className="h-6 w-6" />
                 </div>
 
