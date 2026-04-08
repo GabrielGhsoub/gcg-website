@@ -241,6 +241,36 @@
   color: #000040 !important; /* Solid navy, not transparent */
 }
 
+/* 15. Fix Footer - CRITICAL: Footer has navy background in light mode, content invisible */
+[data-theme='light'] footer {
+  background-color: #f8f9fa !important; /* Light gray background instead of navy */
+}
+
+/* Fix footer headings and text visibility in light mode */
+[data-theme='light'] footer h3,
+[data-theme='light'] footer p,
+[data-theme='light'] footer a,
+[data-theme='light'] footer span {
+  color: rgba(26, 26, 46, 0.9) !important;
+}
+
+/* Fix footer link hover states */
+[data-theme='light'] footer a:hover {
+  color: #c9a84c !important; /* Gold on hover */
+}
+
+/* Fix newsletter input in light mode */
+[data-theme='light'] footer input {
+  background-color: white !important;
+  border-color: rgba(0, 0, 64, 0.2) !important;
+  color: rgba(26, 26, 46, 0.9) !important;
+}
+
+/* Keep footer wave decoration navy */
+[data-theme='light'] footer svg path {
+  fill: #000040 !important;
+}
+
 /* Theme-aware color overrides for sections with white backgrounds */
 [data-theme='dark'] section.bg-white,
 [data-theme='dark'] div.bg-white:not(.bg-navy *):not(nav *):not(footer *) {
