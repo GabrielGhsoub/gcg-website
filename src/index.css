@@ -56,6 +56,12 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* Dark mode: Ensure navy backgrounds */
+[data-theme='dark'] nav {
+  background: rgba(0, 0, 64, 0.95) !important;
+  border-bottom-color: rgba(201, 168, 76, 0.15) !important;
+}
+
 [data-theme='light'] nav .text-white,
 [data-theme='light'] nav .text-white\/90,
 [data-theme='light'] nav .text-white\/80,
@@ -77,9 +83,21 @@
   border-bottom-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Light mode: Hero section - white background */
+/* Light mode: ALL sections - white background with gold accents */
+[data-theme='light'] section {
+  background: #ffffff !important;
+}
+
 [data-theme='light'] section:first-of-type {
   background: linear-gradient(160deg, #f8fafc 0%, #ffffff 40%, #f1f5f9 100%) !important;
+}
+
+/* Light mode: Override ALL navy backgrounds in sections */
+[data-theme='light'] section .bg-navy,
+[data-theme='light'] section .bg-navy\/95,
+[data-theme='light'] section .bg-navy\/90,
+[data-theme='light'] section .bg-navy\/80 {
+  background: #ffffff !important;
 }
 
 [data-theme='light'] section h1,
@@ -118,7 +136,9 @@
 }
 
 /* Light mode: Mobile menu */
-[data-theme='light'] .bg-navy\/98 {
+[data-theme='light'] .bg-navy,
+[data-theme='light'] .bg-navy\/98,
+[data-theme='light'] .bg-navy\/95 {
   background: rgba(255, 255, 255, 0.98) !important;
 }
 
@@ -127,7 +147,7 @@
 }
 
 [data-theme='light'] .bg-gold\/10 {
-  background-color: rgba(201, 168, 76, 0.1) !important;
+  background-color: rgba(201, 168, 76, 0.15) !important;
 }
 
 /* Light mode: Buttons stay gold */
