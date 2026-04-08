@@ -514,7 +514,7 @@ function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="cursor-pointer rounded-lg p-3 text-white/90 transition-colors hover:bg-white/10"
+            className="cursor-pointer rounded-lg bg-white/10 p-3 text-white shadow-md transition-colors hover:bg-white/20"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             {mobileOpen ? (
@@ -546,7 +546,7 @@ function Navbar() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 z-50 flex flex-col bg-navy/98 backdrop-blur-xl md:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+              className="fixed inset-0 z-50 flex flex-col bg-navy backdrop-blur-xl md:hidden pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {/* Panel header */}
               <div className="flex items-center justify-between border-b border-gold/20 px-6 py-5">
