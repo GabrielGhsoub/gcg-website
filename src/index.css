@@ -194,7 +194,9 @@
 
 /* 7. Ensure CTA section text is visible */
 [data-theme='light'] section.bg-gradient-to-r.from-navy h2,
-[data-theme='light'] section.bg-gradient-to-r.from-navy p {
+[data-theme='light'] section.bg-gradient-to-r.from-navy p,
+[data-theme='light'] section.bg-gradient-to-r.from-navy .text-white,
+[data-theme='light'] section.bg-gradient-to-r.from-navy .text-white\/70 {
   color: rgb(26, 26, 46) !important;
 }
 
@@ -250,13 +252,23 @@
 [data-theme='light'] footer h3,
 [data-theme='light'] footer p,
 [data-theme='light'] footer a,
-[data-theme='light'] footer span {
+[data-theme='light'] footer span,
+[data-theme='light'] footer li {
   color: rgba(26, 26, 46, 0.9) !important;
 }
 
 /* Fix footer link hover states */
 [data-theme='light'] footer a:hover {
   color: #c9a84c !important; /* Gold on hover */
+}
+
+/* Fix footer muted text and opacity variants */
+[data-theme='light'] footer .text-white\/80,
+[data-theme='light'] footer .text-white\/70,
+[data-theme='light'] footer .text-white\/60,
+[data-theme='light'] footer .text-white\/50,
+[data-theme='light'] footer .text-white\/40 {
+  color: rgba(26, 26, 46, 0.75) !important;
 }
 
 /* Fix newsletter input in light mode */
@@ -266,9 +278,40 @@
   color: rgba(26, 26, 46, 0.9) !important;
 }
 
-/* Keep footer wave decoration navy */
+/* Fix newsletter placeholder text */
+[data-theme='light'] footer input::placeholder {
+  color: rgba(26, 26, 46, 0.4) !important;
+}
+
+/* Fix newsletter input border on focus */
+[data-theme='light'] footer .border-white\/20 {
+  border-color: rgba(0, 0, 64, 0.15) !important;
+}
+
+/* Fix social icon borders and colors */
+[data-theme='light'] footer .border-white\/20 {
+  border-color: rgba(0, 0, 64, 0.2) !important;
+}
+
+/* Fix footer bottom border */
+[data-theme='light'] footer .border-white\/5 {
+  border-color: rgba(0, 0, 64, 0.08) !important;
+}
+
+/* Fix copyright text */
+[data-theme='light'] footer .text-white\/50 {
+  color: rgba(26, 26, 46, 0.5) !important;
+}
+
+/* Keep footer wave decoration navy in light mode */
 [data-theme='light'] footer svg path {
   fill: #000040 !important;
+}
+
+/* Wave separator above footer should adapt to theme */
+[data-theme='light'] .wave-separator svg path,
+[data-theme='light'] section + div svg path {
+  fill: #f8f9fa !important; /* Match footer background in light mode */
 }
 
 /* Theme-aware color overrides for sections with white backgrounds */
