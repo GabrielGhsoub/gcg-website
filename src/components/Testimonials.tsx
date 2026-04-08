@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
 import { useRef, useState, useEffect, useCallback } from "react";
+
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { FaStar } from "react-icons/fa";
+
 import { containerVariants, cardVariants } from "@shared/animations";
 import SectionHeading from "./SectionHeading";
 

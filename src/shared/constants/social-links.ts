@@ -1,5 +1,5 @@
-import type { IconType } from "react-icons";
 import { FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
+import type { IconType } from "react-icons";
 
 export interface SocialLink {
   label: string;

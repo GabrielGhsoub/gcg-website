@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
+
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import {
@@ -11,10 +12,11 @@ import {
   FaChalkboardTeacher,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
-import ThemeToggle from "./ThemeToggle";
+
 import { SOCIAL_LINKS } from "@shared/constants/social-links";
 import { ROUTES } from "@shared/constants/routes";
 import { useActiveSection, useScrollDirection } from "@shared/hooks";
+import ThemeToggle from "./ThemeToggle";
 
 /* -------------------------------------------------------------------------- */
 /*  Data                                                                      */

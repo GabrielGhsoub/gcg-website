@@ -1,7 +1,9 @@
 import type { ReactElement } from 'react'
 import { Suspense } from 'react'
+
 import { Routes, Route } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+
 import { ThemeProvider } from '@contexts/ThemeContext'
 import { Navbar, Footer, ScrollToTop } from '@components/index'
 import { routes } from '@config/routes'

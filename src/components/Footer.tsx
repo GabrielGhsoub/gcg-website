@@ -1,13 +1,11 @@
 import type { ReactElement } from "react";
-import { useState, useEffect, useCallback, type FormEvent } from "react";
+import { useRef, useState, useEffect, useCallback, type FormEvent } from "react";
+
 import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { useRef } from "react";
-import {
-  FaArrowUp,
-  FaEnvelope,
-} from "react-icons/fa";
+import { FaArrowUp, FaEnvelope } from "react-icons/fa";
 import { HiLocationMarker, HiMail, HiPhone } from "react-icons/hi";
+
 import { SOCIAL_LINKS, type SocialLink } from "@shared/constants/social-links";
 import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
 import { ROUTES } from "@shared/constants/routes";

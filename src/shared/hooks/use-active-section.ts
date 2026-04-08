@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { useLocation } from "react-router-dom";
 
 /** Returns the id of the section currently most visible in the viewport. */

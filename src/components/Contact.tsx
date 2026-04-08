@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
-import { useRef, useState, useEffect, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+
 import {
   motion,
   useInView,
@@ -13,9 +14,10 @@ import {
   FaClock,
   FaPaperPlane,
 } from "react-icons/fa";
+
 import { containerVariants, fadeUp } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
 import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
+import SectionHeading from "./SectionHeading";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -656,16 +658,6 @@ function Contact(): ReactElement {
     if (focusedField === null) return true; // nothing focused, all bright
     return focusedField === field;
   };
-
-  // Reset submit status after delay if user doesn't interact
-  useEffect(() => {
-    if (submitStatus === "success") {
-      const t = setTimeout(() => {
-        // Auto-reset could happen here, but we let user click instead.
-      }, 5000);
-      return () => clearTimeout(t);
-    }
-  }, [submitStatus]);
 
   return (
     <section

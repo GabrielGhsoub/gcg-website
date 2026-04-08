@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useRef, useCallback } from "react";
+
 import {
   motion,
   useInView,
@@ -14,6 +15,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+
 import { containerVariants, cardVariants } from "@shared/animations";
 import SectionHeading from "./SectionHeading";
 

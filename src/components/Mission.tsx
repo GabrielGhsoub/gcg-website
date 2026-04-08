@@ -1,3 +1,6 @@
+import type { ReactElement } from "react";
+import { useRef, useEffect, useState } from "react";
+
 import {
   motion,
   useInView,
@@ -7,8 +10,6 @@ import {
   useSpring,
   animate,
 } from "framer-motion";
-import type { ReactElement } from "react";
-import { useRef, useEffect, useState } from "react";
 import {
   FaFlask,
   FaShieldAlt,
@@ -16,6 +17,7 @@ import {
   FaAward,
   FaQuoteLeft,
 } from "react-icons/fa";
+
 import { containerVariants, fadeUp } from "@shared/animations";
 
 /* ------------------------------------------------------------------ */

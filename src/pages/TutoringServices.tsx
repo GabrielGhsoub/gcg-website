@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useRef } from "react";
+
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import {
@@ -12,6 +13,7 @@ import {
   FaCogs,
   FaQuoteLeft,
 } from "react-icons/fa";
+
 import { PageTransition } from "@components/index";
 import { usePageTitle } from "@shared/hooks";
 

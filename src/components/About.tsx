@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+
 import {
   motion,
   useInView,
@@ -7,6 +8,7 @@ import {
   useTransform,
   useSpring,
 } from "framer-motion";
+
 import { containerVariants, fadeUp } from "@shared/animations";
 import SectionHeading from "./SectionHeading";
 

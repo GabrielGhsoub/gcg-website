@@ -1,8 +1,7 @@
 import type { ReactElement } from "react";
 import { useRef } from "react";
+
 import { motion, useInView } from "framer-motion";
-import { containerVariants, cardVariants } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
 import {
   FaUserGraduate,
   FaChartLine,
@@ -12,6 +11,9 @@ import {
   FaClipboardCheck,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+
+import { containerVariants, cardVariants } from "@shared/animations";
+import SectionHeading from "./SectionHeading";
 
 interface Differentiator {
   icon: IconType;

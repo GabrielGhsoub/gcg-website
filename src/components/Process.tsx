@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useRef } from "react";
+
 import { motion, useInView } from "framer-motion";
 import {
   FaMicroscope,
@@ -8,6 +9,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import type { IconType } from "react-icons";
+
 import { containerVariants } from "@shared/animations";
 import SectionHeading from "./SectionHeading";
 

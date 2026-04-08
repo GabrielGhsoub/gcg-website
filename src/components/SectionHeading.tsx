@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
+
 import { motion } from "framer-motion";
+
 import { headingVariants } from "@shared/animations";
 
 interface SectionHeadingProps {

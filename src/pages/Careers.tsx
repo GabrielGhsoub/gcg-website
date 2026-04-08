@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { useRef } from "react";
+
 import { motion, useInView } from "framer-motion";
 import {
   FaMicroscope,
@@ -11,6 +12,7 @@ import {
   FaChartBar,
   FaBriefcase,
 } from "react-icons/fa";
+
 import { PageTransition } from "@components/index";
 import { CONTACT_EMAIL } from "@shared/constants/contact-info";
 import { usePageTitle } from "@shared/hooks";

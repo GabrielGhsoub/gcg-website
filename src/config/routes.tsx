@@ -1,4 +1,5 @@
 import { lazy } from "react";
+
 import { ROUTES } from "@shared/constants/routes";
 
 const Home = lazy(() => import("@pages/Home"));
