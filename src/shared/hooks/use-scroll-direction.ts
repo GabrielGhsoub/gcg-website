@@ -1,31 +1,38 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react'
 
 interface ScrollDirectionState {
-  hidden: boolean;
-  scrolled: boolean;
+  hidden: boolean
+  scrolled: boolean
 }
 
 export function useScrollDirection(): ScrollDirectionState {
-  const [hidden, setHidden] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const lastY = useRef(0);
+  const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const lastY = useRef(0)
 
   useEffect(() => {
+    let ticking = false
+
     const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 10);
+      if (ticking) return
 
-      if (y > 150) {
-        setHidden(y > lastY.current && y - lastY.current > 5);
-      } else {
-        setHidden(false);
-      }
-      lastY.current = y;
-    };
+      ticking = true
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY
+        const nextScrolled = y > 10
+        const nextHidden = y > 150 ? y > lastY.current && y - lastY.current > 5 : false
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+        setScrolled((current) => (current === nextScrolled ? current : nextScrolled))
+        setHidden((current) => (current === nextHidden ? current : nextHidden))
 
-  return { hidden, scrolled };
+        lastY.current = y
+        ticking = false
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return { hidden, scrolled }
 }

@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
-import { useRef } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from 'framer-motion'
 import {
   FaMicroscope,
   FaUsers,
@@ -11,99 +11,102 @@ import {
   FaFlask,
   FaChartBar,
   FaBriefcase,
-} from "react-icons/fa";
+} from 'react-icons/fa'
 
-import { PageTransition } from "@components/index";
-import { CONTACT_EMAIL } from "@shared/constants/contact-info";
-import { usePageTitle } from "@shared/hooks";
+import PageTransition from '@components/PageTransition'
+import ScienceBackdrop from '@components/ScienceBackdrop'
+import { CONTACT_EMAIL } from '@shared/constants/contact-info'
+import { ROUTES } from '@shared/constants/routes'
+import { useSEO } from '@shared/hooks'
 
 const VALUES = [
   {
     icon: FaMicroscope,
-    title: "Intellectual Curiosity",
+    title: 'Intellectual Curiosity',
     description:
-      "We encourage questioning and exploration. Every hypothesis matters, and no idea is too bold to investigate.",
+      'We encourage questioning and exploration. Every hypothesis matters, and no idea is too bold to investigate.',
   },
   {
     icon: FaUsers,
-    title: "Collaborative Research",
+    title: 'Collaborative Research',
     description:
-      "Cross-disciplinary teamwork drives our best work. Breakthroughs happen when diverse expertise converges.",
+      'Cross-disciplinary teamwork drives our best work. Breakthroughs happen when diverse expertise converges.',
   },
   {
     icon: FaBookOpen,
-    title: "Continuous Learning",
+    title: 'Continuous Learning',
     description:
-      "Regular seminars, conferences, and skill development keep our team at the forefront of scientific knowledge.",
+      'Regular seminars, conferences, and skill development keep our team at the forefront of scientific knowledge.',
   },
   {
     icon: FaRocket,
-    title: "Impact-Driven Work",
+    title: 'Impact-Driven Work',
     description:
-      "Every project contributes to meaningful scientific advancement. We measure success by the difference we make.",
+      'Every project contributes to meaningful scientific advancement. We measure success by the difference we make.',
   },
-];
+]
 
 const DEPARTMENTS = [
   {
     icon: FaFlask,
-    title: "Research Lab",
+    title: 'Research Lab',
     description:
-      "Design and execute experiments, analyze data, and publish findings that push the boundaries of current knowledge.",
+      'Design and execute experiments, analyze data, and publish findings that push the boundaries of current knowledge.',
   },
   {
     icon: FaChartBar,
-    title: "Data Science",
+    title: 'Data Science',
     description:
-      "Build models and analytics pipelines that turn raw research data into actionable scientific insights.",
+      'Build models and analytics pipelines that turn raw research data into actionable scientific insights.',
   },
   {
     icon: FaBookOpen,
-    title: "Education",
+    title: 'Education',
     description:
-      "Develop curricula, learning tools, and outreach programs that make science accessible to a broader audience.",
+      'Develop curricula, learning tools, and outreach programs that make science accessible to a broader audience.',
   },
   {
     icon: FaBriefcase,
-    title: "Business Development",
+    title: 'Business Development',
     description:
-      "Forge partnerships, secure funding, and translate research outcomes into real-world applications and market value.",
+      'Forge partnerships, secure funding, and translate research outcomes into real-world applications and market value.',
   },
-];
+]
 
 function Careers(): ReactElement {
-  usePageTitle("Careers | GCG");
+  useSEO({
+    title: 'Careers | Ghoussoub Consulting Group',
+    description:
+      "Join GCG's interdisciplinary research, data science, education, and business development teams.",
+    canonicalPath: ROUTES.CAREERS,
+  })
 
-  const valuesRef = useRef<HTMLDivElement>(null);
-  const valuesInView = useInView(valuesRef, { once: true, margin: "-80px" });
+  const valuesRef = useRef<HTMLDivElement>(null)
+  const valuesInView = useInView(valuesRef, { once: true, margin: '-80px' })
 
-  const deptRef = useRef<HTMLDivElement>(null);
-  const deptInView = useInView(deptRef, { once: true, margin: "-80px" });
+  const deptRef = useRef<HTMLDivElement>(null)
+  const deptInView = useInView(deptRef, { once: true, margin: '-80px' })
 
-  const positionsRef = useRef<HTMLDivElement>(null);
+  const positionsRef = useRef<HTMLDivElement>(null)
   const positionsInView = useInView(positionsRef, {
     once: true,
-    margin: "-80px",
-  });
+    margin: '-80px',
+  })
 
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-navy">
+      <section className="theme-inverse relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+        <ScienceBackdrop variant="dark" density="rich" />
         {/* Science background decoration */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-[150px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(169,130,43,0.10)_0%,transparent_56%)]" />
           <svg
             className="absolute inset-0 h-full w-full opacity-[0.04]"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
-              <pattern
-                id="science-grid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
+              <pattern id="science-grid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <circle cx="20" cy="20" r="1" fill="#c9a84c" />
                 <line
                   x1="0"
@@ -139,18 +142,18 @@ function Careers(): ReactElement {
             <FaMicroscope className="h-6 w-6 text-gold" />
           </motion.div>
           <motion.h1
-            className="text-4xl font-bold text-white md:text-5xl"
+            className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Join Our{" "}
+            Join Our{' '}
             <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent">
               Research Team
             </span>
           </motion.h1>
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base text-white/70"
+            className="mx-auto mt-6 max-w-2xl text-base text-[var(--text-inverse-muted)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -173,9 +176,8 @@ function Careers(): ReactElement {
               Our Scientific Culture
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              At GCG, scientific rigor meets creative ambition. We foster an
-              environment where researchers, engineers, and educators collaborate
-              to solve problems that matter.
+              At GCG, scientific rigor meets creative ambition. We foster an environment where
+              researchers, engineers, and educators collaborate to solve problems that matter.
             </p>
           </motion.div>
 
@@ -216,8 +218,8 @@ function Careers(): ReactElement {
               Departments
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Our work spans multiple disciplines, each contributing a vital
-              piece to the broader mission of scientific advancement.
+              Our work spans multiple disciplines, each contributing a vital piece to the broader
+              mission of scientific advancement.
             </p>
           </motion.div>
 
@@ -268,13 +270,11 @@ function Careers(): ReactElement {
               <FaUsers className="h-7 w-7 text-gold" />
             </div>
             <p className="text-lg font-medium text-[var(--color-text-primary)]">
-              We're always looking for talented scientists, researchers, and
-              educators
+              We're always looking for talented scientists, researchers, and educators
             </p>
             <p className="mt-3 text-base text-[var(--color-text-secondary)]">
-              No specific openings at this time, but we'd love to hear from you.
-              Send us your CV and we'll reach out when a fitting opportunity
-              arises.
+              No specific openings at this time, but we'd love to hear from you. Send us your CV and
+              we'll reach out when a fitting opportunity arises.
             </p>
             <a
               href={`mailto:${CONTACT_EMAIL}?subject=CV%20Submission`}
@@ -283,14 +283,12 @@ function Careers(): ReactElement {
               <FaEnvelope className="h-4 w-4" />
               Send Your CV
             </a>
-            <p className="mt-4 text-sm text-[var(--color-text-secondary)]">
-              {CONTACT_EMAIL}
-            </p>
+            <p className="mt-4 text-sm text-[var(--color-text-secondary)]">{CONTACT_EMAIL}</p>
           </motion.div>
         </div>
       </section>
     </PageTransition>
-  );
+  )
 }
 
-export default Careers;
+export default Careers

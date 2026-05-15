@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
-import { useRef } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from 'framer-motion'
 import {
   FaUserGraduate,
   FaChartLine,
@@ -9,78 +9,80 @@ import {
   FaMicroscope,
   FaDna,
   FaClipboardCheck,
-} from "react-icons/fa";
-import type { IconType } from "react-icons";
+} from 'react-icons/fa'
+import type { IconType } from 'react-icons'
 
-import { containerVariants, cardVariants } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
+import { containerVariants, cardVariants } from '@shared/animations'
+import ScienceBackdrop from './ScienceBackdrop'
+import SectionHeading from './SectionHeading'
 
 interface Differentiator {
-  icon: IconType;
-  title: string;
-  description: string;
+  icon: IconType
+  title: string
+  description: string
 }
 
 const DIFFERENTIATORS: Differentiator[] = [
   {
     icon: FaUserGraduate,
-    title: "Expert Team",
+    title: 'Expert Team',
     description:
-      "Our multidisciplinary specialists bring decades of combined experience across consulting, R&D, and education to every engagement.",
+      'Our multidisciplinary specialists bring decades of combined experience across consulting, R&D, and education to every engagement.',
   },
   {
     icon: FaChartLine,
-    title: "Proven Track Record",
+    title: 'Proof Discipline',
     description:
-      "A portfolio of successful projects with measurable outcomes, backed by client partnerships that span years of trust.",
+      'Representative work is separated from verified outcomes, keeping public claims grounded until approved proof is available.',
   },
   {
     icon: FaGlobeAmericas,
-    title: "Global Reach",
+    title: 'Global Reach',
     description:
-      "With offices in Beirut and Paris, we bridge markets and cultures, delivering international perspective with local insight.",
+      'With offices in Beirut and Paris, we bridge markets and cultures, delivering international perspective with local insight.',
   },
   {
     icon: FaMicroscope,
-    title: "Personalized Approach",
+    title: 'Personalized Approach',
     description:
-      "No cookie-cutter solutions. Every strategy is crafted around your unique challenges, goals, and organizational context.",
+      'No cookie-cutter solutions. Every strategy is crafted around your unique challenges, goals, and organizational context.',
   },
   {
     icon: FaDna,
-    title: "Innovative Solutions",
+    title: 'Innovative Solutions',
     description:
-      "We leverage cutting-edge methodologies and emerging technologies to keep you ahead of the curve in a rapidly evolving landscape.",
+      'We leverage cutting-edge methodologies and emerging technologies to keep you ahead of the curve in a rapidly evolving landscape.',
   },
   {
     icon: FaClipboardCheck,
-    title: "Measurable Results",
+    title: 'Measurable Results',
     description:
-      "Clear KPIs, transparent reporting, and continuous optimization ensure every initiative delivers tangible, quantifiable impact.",
+      'Clear KPIs, transparent reporting, and continuous optimization ensure every initiative delivers tangible, quantifiable impact.',
   },
-];
+]
 
 const lineVariants = {
   hidden: { scaleX: 0 },
   visible: {
     scaleX: 1,
-    transition: { duration: 1.2, ease: "easeOut" as const, delay: 0.2 },
+    transition: { duration: 1.2, ease: 'easeOut' as const, delay: 0.2 },
   },
-} as const;
+} as const
 
 function WhyChooseUs(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
     <section
       ref={sectionRef}
       className="relative overflow-hidden bg-[var(--color-bg-primary)] py-28 md:py-36"
     >
+      <ScienceBackdrop variant="light" density="calm" />
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-navy/[0.03] blur-3xl" />
-        <div className="absolute -right-40 bottom-1/4 h-80 w-80 rounded-full bg-gold/[0.06] blur-3xl" />
+        <div className="absolute -left-40 top-1/4 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,126,150,0.07)_0%,transparent_68%)]" />
+        <div className="absolute -right-40 bottom-1/4 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.07)_0%,transparent_68%)]" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6 md:px-12">
@@ -88,7 +90,7 @@ function WhyChooseUs(): ReactElement {
         <motion.div
           className="mb-16 text-center"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
           <SectionHeading
@@ -110,24 +112,24 @@ function WhyChooseUs(): ReactElement {
         <motion.div
           className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
           {DIFFERENTIATORS.map((item) => {
-            const Icon = item.icon;
+            const Icon = item.icon
             return (
               <motion.div
                 key={item.title}
                 variants={cardVariants}
                 whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm backdrop-blur-md transition-shadow duration-300 hover:shadow-lg hover:shadow-navy/[0.06] dark:bg-[var(--color-bg-secondary)]"
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="science-card group relative rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-8 shadow-sm backdrop-blur-md transition-shadow duration-300 hover:shadow-lg hover:shadow-gold/[0.10]"
               >
                 {/* Hover gradient overlay */}
-                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-navy/[0.02] to-gold/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[var(--hero-cyan-glow)] to-gold/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-gold/30 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 dark:group-hover:shadow-navy/30">
+                <div className="relative mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-gold/30">
                   <Icon className="h-6 w-6" />
                 </div>
 
@@ -142,12 +144,12 @@ function WhyChooseUs(): ReactElement {
                 {/* Bottom accent */}
                 <div className="absolute bottom-0 left-8 right-8 h-[2px] rounded-full bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </motion.div>
-            );
+            )
           })}
         </motion.div>
       </div>
     </section>
-  );
+  )
 }
 
-export default WhyChooseUs;
+export default WhyChooseUs

@@ -1,72 +1,74 @@
-import type { ReactElement } from "react";
-import { useRef } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
-import {
-  FaFlask,
-  FaDna,
-  FaRobot,
-  FaSolarPanel,
-  FaGraduationCap,
-} from "react-icons/fa";
+import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
+import { FaFlask, FaDna, FaRobot, FaSolarPanel, FaGraduationCap } from 'react-icons/fa'
 
-import { PageTransition } from "@components/index";
-import { CONTACT_EMAIL } from "@shared/constants/contact-info";
-import { usePageTitle } from "@shared/hooks";
+import PageTransition from '@components/PageTransition'
+import ScienceBackdrop from '@components/ScienceBackdrop'
+import { CONTACT_EMAIL } from '@shared/constants/contact-info'
+import { ROUTES } from '@shared/constants/routes'
+import { useSEO } from '@shared/hooks'
 
 const FOCUS_AREAS = [
   {
     icon: FaDna,
-    title: "Biotech & Life Sciences",
+    title: 'Biotech & Life Sciences',
     description:
-      "Early-stage biotech research with high growth potential, from drug discovery to genomics and personalized medicine.",
+      'Early-stage biotech research with high growth potential, from drug discovery to genomics and personalized medicine.',
   },
   {
     icon: FaRobot,
-    title: "AI & Data Science",
+    title: 'AI & Data Science',
     description:
-      "Machine learning and data-driven innovation powering breakthroughs in predictive analytics, automation, and intelligent systems.",
+      'Machine learning and data-driven innovation powering breakthroughs in predictive analytics, automation, and intelligent systems.',
   },
   {
     icon: FaSolarPanel,
-    title: "Clean Energy & Sustainability",
+    title: 'Clean Energy & Sustainability',
     description:
-      "Green technology and environmental solutions tackling climate challenges through next-generation energy and materials research.",
+      'Green technology and environmental solutions tackling climate challenges through next-generation energy and materials research.',
   },
   {
     icon: FaGraduationCap,
-    title: "Educational Technology",
+    title: 'Educational Technology',
     description:
-      "Next-gen learning platforms and scientific education tools that democratize access to knowledge and accelerate skill development.",
+      'Next-gen learning platforms and scientific education tools that democratize access to knowledge and accelerate skill development.',
   },
-];
+]
 
 const METRICS = [
-  { value: "15+", label: "Active Research Projects" },
-  { value: "$2M+", label: "Research Funding" },
-  { value: "3", label: "Patent Applications" },
-];
+  { value: '4', label: 'Focus Domains' },
+  { value: '3', label: 'Diligence Lenses' },
+  { value: '1', label: 'Decision Roadmap' },
+]
 
 function Invest(): ReactElement {
-  usePageTitle("Invest | GCG");
+  useSEO({
+    title: 'Invest | Ghoussoub Consulting Group',
+    description:
+      "Explore GCG's science-driven investment focus across biotech, AI, clean energy, and educational technology.",
+    canonicalPath: ROUTES.INVEST,
+  })
 
-  const focusRef = useRef<HTMLDivElement>(null);
-  const focusInView = useInView(focusRef, { once: true, margin: "-80px" });
+  const focusRef = useRef<HTMLDivElement>(null)
+  const focusInView = useInView(focusRef, { once: true, margin: '-80px' })
 
-  const whyRef = useRef<HTMLDivElement>(null);
-  const whyInView = useInView(whyRef, { once: true, margin: "-80px" });
+  const whyRef = useRef<HTMLDivElement>(null)
+  const whyInView = useInView(whyRef, { once: true, margin: '-80px' })
 
-  const metricsRef = useRef<HTMLDivElement>(null);
-  const metricsInView = useInView(metricsRef, { once: true, margin: "-80px" });
+  const metricsRef = useRef<HTMLDivElement>(null)
+  const metricsInView = useInView(metricsRef, { once: true, margin: '-80px' })
 
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-navy">
+      <section className="theme-inverse relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+        <ScienceBackdrop variant="dark" density="rich" />
         {/* Molecular / hexagonal pattern */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-[150px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(169,130,43,0.10)_0%,transparent_56%)]" />
           <svg
             className="absolute inset-0 h-full w-full opacity-[0.04]"
             xmlns="http://www.w3.org/2000/svg"
@@ -107,24 +109,24 @@ function Invest(): ReactElement {
             <FaFlask className="h-6 w-6 text-gold" />
           </motion.div>
           <motion.h1
-            className="text-4xl font-bold text-white md:text-5xl"
+            className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Invest in{" "}
+            Invest in{' '}
             <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent">
               Scientific Innovation
             </span>
           </motion.h1>
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base text-white/70"
+            className="mx-auto mt-6 max-w-2xl text-base text-[var(--text-inverse-muted)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Partner with GCG to fund groundbreaking research and drive the next
-            wave of scientific breakthroughs
+            Review scientific opportunities through evidence quality, technical risk, and practical
+            translation paths.
           </motion.p>
         </div>
       </section>
@@ -142,8 +144,8 @@ function Invest(): ReactElement {
               Investment Focus Areas
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              We channel capital into high-impact scientific domains where
-              rigorous research meets transformative commercial potential.
+              We channel capital into high-impact scientific domains where rigorous research meets
+              transformative commercial potential.
             </p>
           </motion.div>
 
@@ -159,7 +161,9 @@ function Invest(): ReactElement {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <area.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{area.title}</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                  {area.title}
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">
                   {area.description}
                 </p>
@@ -179,20 +183,16 @@ function Invest(): ReactElement {
               transition={{ duration: 0.5 }}
             >
               <h2 className="text-3xl font-bold text-[var(--color-text-primary)] sm:text-4xl">
-                Science-Backed Returns
+                Science-Backed Diligence
               </h2>
               <p className="mt-6 text-base leading-relaxed text-[var(--color-text-secondary)]">
-                GCG's R&D pipeline is designed to translate fundamental research
-                into scalable commercial applications. By investing at the
-                intersection of scientific discovery and market demand, we
-                identify opportunities where peer-reviewed innovation creates
-                durable competitive advantages.
+                GCG's investment lens is designed to translate research signals into practical
+                diligence questions. We examine the evidence, technical assumptions, timing, and
+                path to application before a partnership conversation moves forward.
               </p>
               <p className="mt-4 text-base leading-relaxed text-[var(--color-text-secondary)]">
-                Our portfolio approach balances early-stage research bets with
-                near-market technologies, providing investors with exposure to
-                high-growth potential while managing risk through diversification
-                across scientific disciplines.
+                The goal is not hype. It is a clearer view of the opportunity, what still needs to
+                be validated, and which milestones would make the next decision credible.
               </p>
             </motion.div>
 
@@ -221,7 +221,7 @@ function Invest(): ReactElement {
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden bg-navy py-20">
+      <section className="theme-inverse relative overflow-hidden py-20">
         {/* Subtle hex pattern */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <svg
@@ -249,12 +249,11 @@ function Invest(): ReactElement {
         </div>
 
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="text-3xl font-bold text-[var(--text-inverse)] sm:text-4xl">
             Schedule an Investment Discussion
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/60">
-            Learn how GCG's science-driven approach can deliver meaningful
-            returns while advancing critical research.
+          <p className="mx-auto mt-4 max-w-xl text-base text-[var(--text-inverse-muted)]">
+            Use the first conversation to map evidence, risk, and the next diligence step.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
@@ -265,15 +264,16 @@ function Invest(): ReactElement {
             </Link>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex items-center rounded-full border border-white/20 px-8 py-3 text-base font-semibold text-white transition-colors hover:border-gold hover:text-gold"
+              aria-label={`Email ${CONTACT_EMAIL}`}
+              className="inline-flex max-w-full items-center rounded-full border border-[var(--border-inverse)] px-8 py-3 text-base font-semibold text-[var(--text-inverse)] transition-colors hover:border-gold hover:text-gold"
             >
-              {CONTACT_EMAIL}
+              <span className="break-all">{CONTACT_EMAIL}</span>
             </a>
           </div>
         </div>
       </section>
     </PageTransition>
-  );
+  )
 }
 
-export default Invest;
+export default Invest

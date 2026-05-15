@@ -1,30 +1,30 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from 'react'
 
-import { motion } from "framer-motion";
-import { FaSun, FaMoon } from "react-icons/fa";
+import { motion } from 'framer-motion'
+import { FaSun, FaMoon } from 'react-icons/fa'
 
-import { useTheme } from "@contexts/ThemeContext";
+import { useTheme } from '@contexts/ThemeContext'
 
 function ThemeToggle(): ReactElement {
-  const { resolvedMode, setMode } = useTheme();
-  const isDark = resolvedMode === "dark";
+  const { resolvedMode, setMode } = useTheme()
+  const isDark = resolvedMode === 'dark'
 
   const toggleTheme = () => {
-    setMode(isDark ? "light" : "dark");
-  };
+    setMode(isDark ? 'light' : 'dark')
+  }
 
   return (
     <motion.button
       type="button"
       onClick={toggleTheme}
-      className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 backdrop-blur-md transition-colors hover:bg-white/20"
+      className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--nav-control-bg)] text-[var(--nav-text)] backdrop-blur-md transition-colors hover:bg-[var(--nav-control-hover)]"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       <motion.div
         animate={{ rotate: isDark ? 180 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
         {isDark ? (
           <FaMoon className="h-5 w-5 text-gold" />
@@ -33,7 +33,7 @@ function ThemeToggle(): ReactElement {
         )}
       </motion.div>
     </motion.button>
-  );
+  )
 }
 
-export default ThemeToggle;
+export default ThemeToggle

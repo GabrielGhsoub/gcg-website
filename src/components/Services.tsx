@@ -1,59 +1,70 @@
-import type { ReactElement } from "react";
-import { useRef, useCallback } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from "framer-motion";
-import {
-  FaHandshake,
-  FaFlask,
-  FaAtom,
-  FaArrowRight,
-} from "react-icons/fa";
-import type { IconType } from "react-icons";
+import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
+import { FaHandshake, FaFlask, FaAtom, FaArrowRight } from 'react-icons/fa'
+import type { IconType } from 'react-icons'
 
-import { containerVariants, cardVariants } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
+import { containerVariants, cardVariants } from '@shared/animations'
+import { ROUTES } from '@shared/constants/routes'
+import ScienceBackdrop from './ScienceBackdrop'
+import SectionHeading from './SectionHeading'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
 interface Service {
-  title: string;
-  description: string;
-  icon: IconType;
-  badge?: string;
-  featured?: boolean;
+  title: string
+  description: string
+  audience: string
+  method: string
+  outcome: string
+  cta: string
+  href: string
+  icon: IconType
+  featured?: boolean
+  isRoute?: boolean
 }
 
 const services: Service[] = [
   {
-    title: "Consulting",
+    title: 'Consulting',
     description:
-      "Strategic insights for business growth, empowering organizations through expert guidance.",
+      'Scientific strategy for growth, operations, product, and technical decision-making.',
+    audience: 'Leaders validating strategy, operations, market, or product decisions.',
+    method: 'Discovery sprint, evidence map, option scoring, and practical roadmap.',
+    outcome: 'Clear priorities, measurable next steps, and decision-ready recommendations.',
+    cta: 'Start a Strategy Brief',
+    href: '#contact',
     icon: FaHandshake,
-    badge: "Popular",
     featured: true,
   },
   {
-    title: "Research And Development",
-    description:
-      "Exploring frontiers, driving breakthroughs through innovative research across diverse fields.",
+    title: 'Research And Development',
+    description: 'Structured R&D support from hypothesis design to applied scientific translation.',
+    audience: 'Labs, founders, and institutions turning hypotheses into validated programs.',
+    method: 'Literature scan, experiment design, analysis, and translation planning.',
+    outcome: 'Reproducible protocols, data interpretation, and commercialization options.',
+    cta: 'Explore R&D',
+    href: ROUTES.RESEARCH,
+    isRoute: true,
     icon: FaFlask,
   },
   {
-    title: "Tutoring Services",
+    title: 'Tutoring Services',
     description:
-      "Unlocking potential through personalized instruction for academic excellence and growth.",
+      'Evidence-based STEM tutoring built around diagnostics, recall, and feedback loops.',
+    audience: 'Students who need deeper understanding, stronger grades, or exam readiness.',
+    method: 'Diagnostic assessment, personalized curriculum, and spaced practice.',
+    outcome: 'Better conceptual fluency, confidence, and durable study systems.',
+    cta: 'Plan Tutoring',
+    href: ROUTES.TUTORING,
+    isRoute: true,
     icon: FaAtom,
-    badge: "New",
   },
-];
+]
 
 /* ------------------------------------------------------------------ */
 /*  Animated gradient border wrapper                                   */
@@ -61,18 +72,18 @@ const services: Service[] = [
 
 function SimpleBorder({
   children,
-  className = "",
+  className = '',
 }: {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }) {
   return (
     <div
-      className={`relative rounded-2xl border border-[var(--color-border-light)] transition-colors duration-300 group-hover:border-gold/50 ${className} bg-[var(--color-bg-primary)] backdrop-blur-md`}
+      className={`science-card relative rounded-2xl border border-[var(--color-border-light)] transition-colors duration-300 group-hover:border-gold/50 ${className} bg-[var(--color-bg-primary)] backdrop-blur-md`}
     >
       {children}
     </div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -80,98 +91,32 @@ function SimpleBorder({
 /* ------------------------------------------------------------------ */
 
 interface TiltCardProps {
-  children: React.ReactNode;
-  className?: string;
+  children: React.ReactNode
+  className?: string
 }
 
-function TiltCard({ children, className = "" }: TiltCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), {
-    stiffness: 200,
-    damping: 25,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-3, 3]), {
-    stiffness: 200,
-    damping: 25,
-  });
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const el = cardRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-      mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-    },
-    [mouseX, mouseY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0);
-    mouseY.set(0);
-  }, [mouseX, mouseY]);
-
+function TiltCard({ children, className = '' }: TiltCardProps) {
   return (
-    <motion.div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        willChange: "transform",
-        transformStyle: "preserve-3d",
-      }}
-      className={`relative ${className}`}
-    >
+    <div className={`relative transition-transform duration-200 hover:-translate-y-1 ${className}`}>
       {children}
-    </motion.div>
-  );
+    </div>
+  )
 }
 
 /* ------------------------------------------------------------------ */
 /*  Animated icon with pulse + hover intensify                         */
 /* ------------------------------------------------------------------ */
 
-function AnimatedIcon({
-  icon: Icon,
-  featured,
-}: {
-  icon: IconType;
-  featured?: boolean;
-}) {
+function AnimatedIcon({ icon: Icon, featured }: { icon: IconType; featured?: boolean }) {
   return (
     <div
-      className={`relative mb-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-transform duration-300 group-hover:scale-105 dark:from-navy dark:to-navy-light dark:text-white dark:shadow-navy/20 ${
-        featured ? "h-16 w-16" : "h-14 w-14"
+      className={`relative mb-6 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-gold to-gold/80 text-navy shadow-md shadow-gold/20 transition-transform duration-300 group-hover:scale-105 ${
+        featured ? 'h-16 w-16' : 'h-14 w-14'
       }`}
     >
-      <Icon className={featured ? "h-7 w-7" : "h-6 w-6"} />
+      <Icon className={featured ? 'h-7 w-7' : 'h-6 w-6'} />
     </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Floating badge with glow                                           */
-/* ------------------------------------------------------------------ */
-
-function FloatingBadge({ text }: { text: string }) {
-  return (
-    <motion.div
-      className="absolute -right-2 -top-3 z-20"
-      initial={{ scale: 0, rotate: -12 }}
-      animate={{ scale: 1, rotate: -12 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-    >
-      <span className="inline-block rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-navy shadow-lg">
-        {text}
-      </span>
-    </motion.div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -180,33 +125,63 @@ function FloatingBadge({ text }: { text: string }) {
 
 function HexMolecularPattern() {
   return (
-    <div
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-      aria-hidden="true"
-    >
-      <svg className="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <svg
+        className="absolute inset-0 h-full w-full text-[var(--science-diagram)]"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <defs>
-          <pattern id="hex-pattern" x="0" y="0" width="56" height="48" patternUnits="userSpaceOnUse">
+          <pattern
+            id="hex-pattern"
+            x="0"
+            y="0"
+            width="56"
+            height="48"
+            patternUnits="userSpaceOnUse"
+          >
             {/* Hexagon outline */}
             <polygon
               points="28,2 50,14 50,34 28,46 6,34 6,14"
               fill="none"
-              stroke="rgba(0,0,64,0.04)"
+              stroke="currentColor"
               strokeWidth="0.8"
             />
             {/* Node dots at vertices */}
-            <circle cx="28" cy="2" r="1" fill="rgba(0,0,64,0.05)" />
-            <circle cx="50" cy="14" r="1" fill="rgba(0,0,64,0.05)" />
-            <circle cx="50" cy="34" r="1" fill="rgba(0,0,64,0.05)" />
-            <circle cx="28" cy="46" r="1" fill="rgba(0,0,64,0.05)" />
-            <circle cx="6" cy="34" r="1" fill="rgba(0,0,64,0.05)" />
-            <circle cx="6" cy="14" r="1" fill="rgba(0,0,64,0.05)" />
+            <circle cx="28" cy="2" r="1" fill="currentColor" />
+            <circle cx="50" cy="14" r="1" fill="currentColor" />
+            <circle cx="50" cy="34" r="1" fill="currentColor" />
+            <circle cx="28" cy="46" r="1" fill="currentColor" />
+            <circle cx="6" cy="34" r="1" fill="currentColor" />
+            <circle cx="6" cy="14" r="1" fill="currentColor" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#hex-pattern)" />
       </svg>
     </div>
-  );
+  )
+}
+
+function ServiceSignalDiagram({ featured }: { featured?: boolean }) {
+  return (
+    <svg
+      className={`pointer-events-none absolute right-5 bottom-5 text-[var(--science-diagram)] opacity-55 transition-opacity duration-300 group-hover:opacity-100 ${
+        featured ? 'h-28 w-40' : 'h-20 w-28'
+      }`}
+      viewBox="0 0 160 100"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M8 70 C34 28 58 88 84 44 S126 22 152 58"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeDasharray="5 8"
+      />
+      {[18, 68, 112, 146].map((cx, i) => (
+        <circle key={cx} cx={cx} cy={[56, 64, 34, 54][i]} r="3" fill="currentColor" />
+      ))}
+    </svg>
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -214,90 +189,85 @@ function HexMolecularPattern() {
 /* ------------------------------------------------------------------ */
 
 interface ServiceCardProps {
-  service: Service;
+  service: Service
 }
 
 function ServiceCard({ service }: ServiceCardProps) {
+  const actionClass =
+    'group/link mt-6 inline-flex w-fit items-center gap-2 rounded-full border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] px-4 py-2 text-sm font-semibold text-[var(--color-text-primary)] transition-all duration-200 hover:border-gold hover:text-gold'
+
+  const actionContent = (
+    <>
+      <span>{service.cta}</span>
+      <FaArrowRight className="h-3 w-3 transition-transform duration-200 group-hover/link:translate-x-1" />
+    </>
+  )
+
   return (
     <motion.div
       variants={cardVariants}
-      className={`group relative ${
-        service.featured ? "md:col-span-2 md:row-span-1" : ""
-      }`}
-      style={{ perspective: "800px" }}
+      className={`group relative ${service.featured ? 'md:col-span-2 md:row-span-1' : ''}`}
+      style={{ perspective: '800px' }}
     >
-      {/* Badge */}
-      {service.badge && <FloatingBadge text={service.badge} />}
-
       <TiltCard className="h-full">
         <SimpleBorder>
           <div
             className={`relative overflow-hidden rounded-2xl p-8 ${
-              service.featured ? "md:p-10" : ""
+              service.featured ? 'md:p-10' : ''
             }`}
           >
+            <ServiceSignalDiagram featured={service.featured} />
 
-            <div
-              className={
-                service.featured
-                  ? "md:flex md:items-start md:gap-8"
-                  : ""
-              }
-            >
-              <div className={service.featured ? "md:shrink-0" : ""}>
+            <div className={service.featured ? 'md:flex md:items-start md:gap-8' : ''}>
+              <div className={service.featured ? 'md:shrink-0' : ''}>
                 <AnimatedIcon icon={service.icon} featured={service.featured} />
               </div>
 
               <div className="relative">
                 <h3
                   className={`mb-3 font-bold tracking-tight text-[var(--color-text-primary)] ${
-                    service.featured ? "text-2xl md:text-3xl" : "text-xl md:text-2xl"
+                    service.featured ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'
                   }`}
                 >
                   {service.title}
                 </h3>
                 <p
                   className={`leading-relaxed text-[var(--color-text-secondary)] ${
-                    service.featured ? "text-base md:text-lg" : "text-base"
+                    service.featured ? 'text-base md:text-lg' : 'text-base'
                   }`}
                 >
                   {service.description}
                 </p>
 
-                {/* Learn more link with animated arrow */}
-                <motion.a
-                  href="#contact"
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text-primary)]"
-                  whileHover="hover"
-                >
-                  <span className="relative">
-                    Learn more
-                    <motion.span
-                      className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold/40"
-                      variants={{
-                        hover: {
-                          width: "100%",
-                          transition: { duration: 0.3, ease: "easeOut" },
-                        },
-                      }}
-                    />
-                  </span>
-                  <motion.span
-                    className="inline-block"
-                    variants={{
-                      hover: {
-                        x: 6,
-                        transition: {
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 15,
-                        },
-                      },
-                    }}
-                  >
-                    <FaArrowRight className="h-3 w-3" />
-                  </motion.span>
-                </motion.a>
+                <div className={`mt-6 grid gap-3 ${service.featured ? 'md:grid-cols-3' : ''}`}>
+                  {[
+                    ['Who', service.audience],
+                    ['Process', service.method],
+                    ['Outcome', service.outcome],
+                  ].map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="rounded-xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)]/70 p-3"
+                    >
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gold">
+                        {label}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                        {value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {service.isRoute ? (
+                  <Link to={service.href} className={actionClass}>
+                    {actionContent}
+                  </Link>
+                ) : (
+                  <a href={service.href} className={actionClass}>
+                    {actionContent}
+                  </a>
+                )}
               </div>
             </div>
 
@@ -307,7 +277,7 @@ function ServiceCard({ service }: ServiceCardProps) {
         </SimpleBorder>
       </TiltCard>
     </motion.div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -315,25 +285,24 @@ function ServiceCard({ service }: ServiceCardProps) {
 /* ------------------------------------------------------------------ */
 
 function Services(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
     <section
       id="services"
       ref={sectionRef}
-      className="relative bg-[var(--color-bg-secondary)] py-28 md:py-36"
+      className="relative overflow-hidden bg-[var(--color-bg-secondary)] py-28 md:py-36"
     >
+      <ScienceBackdrop variant="light" density="rich" />
       {/* Hexagonal molecular background */}
       <HexMolecularPattern />
 
       {/* Subtle background blobs */}
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        <div className="absolute -left-40 top-0 h-80 w-80 rounded-full bg-navy/[0.03] blur-3xl" />
-        <div className="absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-gold/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -left-40 top-0 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(0,126,150,0.07)_0%,transparent_68%)]" />
+        <div className="absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.07)_0%,transparent_68%)]" />
+        <div className="absolute right-[8%] top-[18%] hidden h-20 w-20 rounded-full border border-gold/20 md:block" />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6 md:px-12">
@@ -341,7 +310,7 @@ function Services(): ReactElement {
         <motion.div
           className="mb-16 text-center"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
           <SectionHeading
@@ -357,7 +326,7 @@ function Services(): ReactElement {
         <motion.div
           className="grid gap-6 md:grid-cols-2 md:auto-rows-auto"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
           {services.map((service) => (
@@ -375,6 +344,7 @@ function Services(): ReactElement {
           <a
             href="#contact"
             className="group/cta inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 text-base font-semibold text-navy shadow-lg shadow-gold/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-light hover:shadow-xl hover:shadow-gold/30"
+            data-umami-event="services-book-consultation"
           >
             Book a Free Consultation
             <motion.svg
@@ -393,9 +363,8 @@ function Services(): ReactElement {
           </a>
         </motion.div>
       </div>
-
     </section>
-  );
+  )
 }
 
-export default Services;
+export default Services

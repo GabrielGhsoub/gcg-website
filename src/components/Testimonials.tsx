@@ -1,230 +1,134 @@
-import type { ReactElement } from "react";
-import { useRef, useState, useEffect, useCallback } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { FaStar } from "react-icons/fa";
+import { motion, useInView } from 'framer-motion'
+import { FaBalanceScale, FaChartLine, FaClipboardCheck, FaFlask } from 'react-icons/fa'
+import type { IconType } from 'react-icons'
 
-import { containerVariants, cardVariants } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
+import { containerVariants, cardVariants } from '@shared/animations'
+import ScienceBackdrop from './ScienceBackdrop'
+import SectionHeading from './SectionHeading'
 
-interface Testimonial {
-  quote: string;
-  name: string;
-  title: string;
-  company: string;
-  rating: number;
+interface ValidationSignal {
+  title: string
+  domain: string
+  description: string
+  checks: string[]
+  icon: IconType
 }
 
-const TESTIMONIALS: Testimonial[] = [
+const VALIDATION_SIGNALS: ValidationSignal[] = [
   {
-    quote:
-      "GCG transformed our approach to market expansion. Their strategic consulting gave us the clarity and confidence to enter two new regions, resulting in 40% revenue growth within a year.",
-    name: "Sophie Marchand",
-    title: "CEO",
-    company: "Meridian Ventures",
-    rating: 5,
+    title: 'Evidence Quality',
+    domain: 'Research',
+    description:
+      'Before a recommendation is treated as strong, the source quality, reproducibility, and uncertainty are made explicit.',
+    checks: ['Source strength', 'Assumption log', 'Confidence range'],
+    icon: FaFlask,
   },
   {
-    quote:
-      "The R&D team at GCG is exceptional. They helped us develop a proprietary process that cut our production costs by 25% while improving quality. Truly world-class expertise.",
-    name: "Karim El-Amine",
-    title: "Director of Innovation",
-    company: "NovaTech Industries",
-    rating: 5,
+    title: 'Decision Readiness',
+    domain: 'Consulting',
+    description:
+      'Strategic options are compared against risk, timing, cost, and the operational reality of implementation.',
+    checks: ['Option scoring', 'Risk review', 'Milestone plan'],
+    icon: FaChartLine,
   },
   {
-    quote:
-      "My son went from struggling in physics to finishing top of his class. GCG's tutoring approach is personal, patient, and incredibly effective. We could not be more grateful.",
-    name: "Layla Haddad",
-    title: "Parent",
-    company: "Private Client",
-    rating: 5,
+    title: 'Learning Transfer',
+    domain: 'Tutoring',
+    description:
+      'Student progress is framed around durable understanding, not short-term memorization or vague confidence.',
+    checks: ['Diagnostic baseline', 'Recall cadence', 'Concept repair'],
+    icon: FaClipboardCheck,
   },
   {
-    quote:
-      "Working with GCG felt like having a dedicated partner, not just a consultant. Their hands-on approach and deep industry knowledge set them apart from every firm we have worked with.",
-    name: "Thomas Renaud",
-    title: "COO",
-    company: "Altera Group",
-    rating: 5,
+    title: 'Ethical Boundaries',
+    domain: 'Trust',
+    description:
+      'Claims, privacy, student needs, research context, and investment conversations stay within a clear, documented scope.',
+    checks: ['Scope clarity', 'Data care', 'Claim discipline'],
+    icon: FaBalanceScale,
   },
-];
+]
 
-const AUTO_SCROLL_INTERVAL = 5000;
+function ValidationCard({ signal }: { signal: ValidationSignal }): ReactElement {
+  const Icon = signal.icon
 
-function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-1" aria-label={`${rating} out of 5 stars`}>
-      {Array.from({ length: 5 }, (_, i) => (
-        <FaStar
-          key={i}
-          className={`h-4 w-4 ${
-            i < rating ? "text-gold" : "text-gray-300"
-          }`}
-        />
-      ))}
-    </div>
-  );
+    <motion.div
+      variants={cardVariants}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="group relative flex h-full flex-col rounded-2xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] p-7 backdrop-blur-sm transition-colors duration-300 hover:border-gold/25 hover:bg-[var(--surface-control-hover)]"
+    >
+      <div className="mb-6 flex items-center justify-between gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-gold/20 bg-gold/10 text-gold">
+          <Icon className="h-5 w-5" />
+        </div>
+        <span className="rounded-full border border-gold/20 bg-gold/[0.06] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-gold">
+          {signal.domain}
+        </span>
+      </div>
+
+      <h3 className="text-xl font-bold tracking-tight text-[var(--text-inverse)]">
+        {signal.title}
+      </h3>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-[var(--text-inverse-muted)]">
+        {signal.description}
+      </p>
+
+      <div className="mt-6 grid gap-2">
+        {signal.checks.map((check) => (
+          <div
+            key={check}
+            className="flex items-center gap-3 rounded-xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] px-3 py-2 text-sm text-[var(--text-inverse-muted)]"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+            <span>{check}</span>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  )
 }
 
 function Testimonials(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const next = useCallback(() => {
-    setActiveIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-  }, []);
-
-  // Auto-scroll carousel on mobile
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(next, AUTO_SCROLL_INTERVAL);
-    return () => clearInterval(timer);
-  }, [paused, next]);
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-80px' })
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-navy py-28 md:py-36"
-    >
-      {/* Background decorations */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -right-40 top-1/3 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-gold/10 via-transparent to-transparent blur-3xl" />
-        <div className="absolute -left-32 bottom-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-gold/8 via-transparent to-transparent blur-3xl" />
-      </div>
+    <section ref={sectionRef} className="theme-inverse relative overflow-hidden py-28 md:py-36">
+      <ScienceBackdrop variant="dark" density="calm" />
 
       <div className="relative mx-auto max-w-6xl px-6 md:px-12">
-        {/* Section heading */}
         <motion.div
           className="mb-16 text-center"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
           <SectionHeading
-            badge="Testimonials"
-            title="What Our Clients"
-            highlight="Say"
-            subtitle="Real stories from the people and organizations we have had the privilege of working with."
+            badge="Validation Signals"
+            title="Trust Starts With"
+            highlight="Proof Discipline"
+            subtitle="Claims are strongest when evidence, limits, and next decisions are easy to inspect."
           />
         </motion.div>
 
-        {/* Desktop grid */}
         <motion.div
-          className="hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4"
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
         >
-          {TESTIMONIALS.map((t) => (
-            <motion.div
-              key={t.name}
-              variants={cardVariants}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm transition-colors duration-300 hover:border-gold/25 hover:bg-white/[0.06]"
-            >
-              {/* Decorative quotation mark */}
-              <span
-                className="pointer-events-none absolute -top-2 left-5 select-none text-6xl font-serif leading-none text-gold/15"
-                aria-hidden="true"
-              >
-                &ldquo;
-              </span>
-
-              {/* Stars */}
-              <div className="relative mb-4">
-                <StarRating rating={t.rating} />
-              </div>
-
-              {/* Quote */}
-              <p className="relative mb-6 flex-1 text-base leading-relaxed text-white/80">
-                {t.quote}
-              </p>
-
-              {/* Author */}
-              <div className="relative mt-auto border-t border-white/10 pt-4">
-                <p className="text-sm font-semibold text-white">{t.name}</p>
-                <p className="text-xs text-gold/70">
-                  {t.title}, {t.company}
-                </p>
-              </div>
-            </motion.div>
+          {VALIDATION_SIGNALS.map((signal) => (
+            <ValidationCard key={signal.title} signal={signal} />
           ))}
         </motion.div>
-
-        {/* Mobile carousel */}
-        <div
-          className="md:hidden"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
-        >
-          <div className="relative min-h-[20rem]">
-            <AnimatePresence mode="wait">
-              {TESTIMONIALS.map(
-                (t, i) =>
-                  i === activeIndex && (
-                    <motion.div
-                      key={t.name}
-                      initial={{ opacity: 0, x: 60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      className="absolute inset-x-0 flex flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm"
-                    >
-                      {/* Decorative quotation mark */}
-                      <span
-                        className="pointer-events-none absolute -top-2 left-5 select-none text-6xl font-serif leading-none text-gold/15"
-                        aria-hidden="true"
-                      >
-                        &ldquo;
-                      </span>
-
-                      <div className="relative mb-4">
-                        <StarRating rating={t.rating} />
-                      </div>
-
-                      <p className="relative mb-6 text-base leading-relaxed text-white/80">
-                        {t.quote}
-                      </p>
-
-                      <div className="relative mt-auto border-t border-white/10 pt-4">
-                        <p className="text-sm font-semibold text-white">
-                          {t.name}
-                        </p>
-                        <p className="text-xs text-gold/70">
-                          {t.title}, {t.company}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Dots indicator */}
-          <div className="mt-8 flex items-center justify-center gap-2">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndex(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-                className={`h-2 cursor-pointer rounded-full transition-all duration-300 ${
-                  i === activeIndex
-                    ? "w-8 bg-gold"
-                    : "w-2 bg-white/25 hover:bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-        </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default Testimonials;
+export default Testimonials

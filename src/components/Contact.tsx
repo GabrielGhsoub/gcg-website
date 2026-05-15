@@ -1,23 +1,14 @@
-import type { ReactElement } from "react";
-import { useRef, useState, type FormEvent } from "react";
+import type { ReactElement } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 
-import {
-  motion,
-  useInView,
-  AnimatePresence,
-} from "framer-motion";
-import {
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaPhone,
-  FaCheck,
-  FaClock,
-  FaPaperPlane,
-} from "react-icons/fa";
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaCheck, FaClock, FaPaperPlane } from 'react-icons/fa'
 
-import { containerVariants, fadeUp } from "@shared/animations";
-import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from "@shared/constants/contact-info";
-import SectionHeading from "./SectionHeading";
+import { containerVariants, fadeUp } from '@shared/animations'
+import { CONTACT_EMAIL, PHONE_NUMBERS, LOCATION } from '@shared/constants/contact-info'
+import { trackAnalyticsEvent } from '@shared/analytics'
+import ScienceBackdrop from './ScienceBackdrop'
+import SectionHeading from './SectionHeading'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -26,34 +17,33 @@ import SectionHeading from "./SectionHeading";
 const contactInfo = [
   {
     icon: FaMapMarkerAlt,
-    label: "Location",
+    label: 'Location',
     value: LOCATION,
   },
   {
     icon: FaEnvelope,
-    label: "Email",
+    label: 'Email',
     value: CONTACT_EMAIL,
     href: `mailto:${CONTACT_EMAIL}`,
   },
   {
     icon: FaPhone,
-    label: "Phone",
+    label: 'Phone',
     lines: PHONE_NUMBERS.map((p) => p.display),
   },
-] as const;
+] as const
 
-const serviceOptions = [
-  "Consulting",
-  "Research & Development",
-  "Tutoring Services",
-] as const;
+const serviceOptions = ['Consulting', 'Research & Development', 'Tutoring Services'] as const
+
+const focusedInputClass = 'border-gold/25 ring-1 ring-gold/10'
+const focusedLabelColor = 'rgba(169,130,43,0.56)'
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
 function isValidEmail(email: string) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 /* ------------------------------------------------------------------ */
@@ -64,7 +54,7 @@ function isValidEmail(email: string) {
 function FloatingInput({
   id,
   name,
-  type = "text",
+  type = 'text',
   value,
   onChange,
   required,
@@ -76,25 +66,25 @@ function FloatingInput({
   onTouch,
   shake,
 }: {
-  id: string;
-  name: string;
-  type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  isFocusedField: boolean;
-  onFocusField: () => void;
-  onBlurField: () => void;
-  validate?: (v: string) => boolean;
-  touched: boolean;
-  onTouch: () => void;
-  shake?: boolean;
+  id: string
+  name: string
+  type?: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  required?: boolean
+  isFocusedField: boolean
+  onFocusField: () => void
+  onBlurField: () => void
+  validate?: (v: string) => boolean
+  touched: boolean
+  onTouch: () => void
+  shake?: boolean
 }) {
-  const label = name.charAt(0).toUpperCase() + name.slice(1);
-  const filled = value.length > 0;
-  const isValid = validate ? validate(value) : value.length >= 2;
-  const showValid = touched && filled && isValid;
-  const showInvalid = touched && filled && !isValid;
+  const label = name.charAt(0).toUpperCase() + name.slice(1)
+  const filled = value.length > 0
+  const isValid = validate ? validate(value) : value.length >= 2
+  const showValid = touched && filled && isValid
+  const showInvalid = touched && filled && !isValid
 
   return (
     <motion.div
@@ -113,17 +103,13 @@ function FloatingInput({
         onChange={onChange}
         onFocus={onFocusField}
         onBlur={() => {
-          onBlurField();
-          if (filled) onTouch();
+          onBlurField()
+          if (filled) onTouch()
         }}
         placeholder=" "
-        className={`peer w-full rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300
-          ${
-            isFocusedField
-              ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
-              : "border-white/10"
-          }
-          ${showInvalid ? "border-red-400/60" : ""}
+        className={`theme-input peer w-full rounded-lg border px-4 pt-5 pb-2 text-base outline-none transition-all duration-300
+          ${isFocusedField ? focusedInputClass : 'border-[var(--border-inverse)]'}
+          ${showInvalid ? 'border-red-400/60' : ''}
         `}
       />
       {/* Floating label -- animates from inside the input to above it */}
@@ -132,14 +118,14 @@ function FloatingInput({
         className="pointer-events-none absolute left-4"
         animate={
           filled || isFocusedField
-            ? { top: 6, fontSize: "10px", color: "rgba(201,168,76,0.7)" }
-            : { top: 14, fontSize: "14px", color: "rgba(107,114,128,1)" }
+            ? { top: 6, fontSize: '10px', color: focusedLabelColor }
+            : { top: 14, fontSize: '14px', color: 'var(--text-placeholder)' }
         }
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
         style={{
           fontWeight: filled || isFocusedField ? 600 : 400,
-          letterSpacing: filled || isFocusedField ? "0.05em" : "0",
-          textTransform: filled || isFocusedField ? "uppercase" : "none",
+          letterSpacing: filled || isFocusedField ? '0.05em' : '0',
+          textTransform: filled || isFocusedField ? 'uppercase' : 'none',
         }}
       >
         {label}
@@ -152,7 +138,7 @@ function FloatingInput({
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 15 }}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-green-400"
           >
             <FaCheck className="h-3.5 w-3.5" />
@@ -172,7 +158,7 @@ function FloatingInput({
         )}
       </AnimatePresence>
     </motion.div>
-  );
+  )
 }
 
 /** Floating-label textarea with the same focus/dim behavior. */
@@ -189,22 +175,22 @@ function FloatingTextarea({
   onTouch,
   shake,
 }: {
-  id: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  required?: boolean;
-  isFocusedField: boolean;
-  onFocusField: () => void;
-  onBlurField: () => void;
-  touched: boolean;
-  onTouch: () => void;
-  shake?: boolean;
+  id: string
+  name: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  required?: boolean
+  isFocusedField: boolean
+  onFocusField: () => void
+  onBlurField: () => void
+  touched: boolean
+  onTouch: () => void
+  shake?: boolean
 }) {
-  const label = name.charAt(0).toUpperCase() + name.slice(1);
-  const filled = value.length > 0;
-  const isValid = value.length >= 10;
-  const showValid = touched && filled && isValid;
+  const label = name.charAt(0).toUpperCase() + name.slice(1)
+  const filled = value.length > 0
+  const isValid = value.length >= 10
+  const showValid = touched && filled && isValid
 
   return (
     <motion.div
@@ -223,16 +209,12 @@ function FloatingTextarea({
         onChange={onChange}
         onFocus={onFocusField}
         onBlur={() => {
-          onBlurField();
-          if (filled) onTouch();
+          onBlurField()
+          if (filled) onTouch()
         }}
         placeholder=" "
-        className={`peer w-full resize-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300
-          ${
-            isFocusedField
-              ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
-              : "border-white/10"
-          }
+        className={`theme-input peer w-full resize-none rounded-lg border px-4 pt-5 pb-2 text-base outline-none transition-all duration-300
+          ${isFocusedField ? focusedInputClass : 'border-[var(--border-inverse)]'}
         `}
       />
       <motion.label
@@ -240,14 +222,14 @@ function FloatingTextarea({
         className="pointer-events-none absolute left-4"
         animate={
           filled || isFocusedField
-            ? { top: 6, fontSize: "10px", color: "rgba(201,168,76,0.7)" }
-            : { top: 14, fontSize: "14px", color: "rgba(107,114,128,1)" }
+            ? { top: 6, fontSize: '10px', color: focusedLabelColor }
+            : { top: 14, fontSize: '14px', color: 'var(--text-placeholder)' }
         }
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
         style={{
           fontWeight: filled || isFocusedField ? 600 : 400,
-          letterSpacing: filled || isFocusedField ? "0.05em" : "0",
-          textTransform: filled || isFocusedField ? "uppercase" : "none",
+          letterSpacing: filled || isFocusedField ? '0.05em' : '0',
+          textTransform: filled || isFocusedField ? 'uppercase' : 'none',
         }}
       >
         {label}
@@ -259,7 +241,7 @@ function FloatingTextarea({
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 15 }}
             className="absolute right-3 top-4 text-green-400"
           >
             <FaCheck className="h-3.5 w-3.5" />
@@ -267,7 +249,7 @@ function FloatingTextarea({
         )}
       </AnimatePresence>
     </motion.div>
-  );
+  )
 }
 
 /** Floating-label select. */
@@ -282,22 +264,21 @@ function FloatingSelect({
   onFocusField,
   onBlurField,
 }: {
-  id: string;
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  required?: boolean;
-  options: readonly string[];
-  isFocusedField: boolean;
-  onFocusField: () => void;
-  onBlurField: () => void;
+  id: string
+  name: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  required?: boolean
+  options: readonly string[]
+  isFocusedField: boolean
+  onFocusField: () => void
+  onBlurField: () => void
 }) {
-  const label = name.charAt(0).toUpperCase() + name.slice(1);
-  const filled = value.length > 0;
+  const label = name.charAt(0).toUpperCase() + name.slice(1)
+  const filled = value.length > 0
 
   return (
     <div className="relative">
-
       <select
         id={id}
         name={name}
@@ -306,13 +287,9 @@ function FloatingSelect({
         onChange={onChange}
         onFocus={onFocusField}
         onBlur={onBlurField}
-        className={`w-full cursor-pointer appearance-none rounded-lg border bg-white/[0.05] px-4 pt-5 pb-2 text-base text-white outline-none transition-all duration-300 [&>option]:bg-navy [&>option]:text-white
-          ${
-            isFocusedField
-              ? "border-gold/50 ring-2 ring-gold/20 shadow-[0_0_16px_rgba(201,168,76,0.12)]"
-              : "border-white/10"
-          }
-          ${!filled ? "text-gray-500" : ""}
+        className={`theme-input w-full cursor-pointer appearance-none rounded-lg border px-4 pt-5 pb-2 text-base outline-none transition-all duration-300 [&>option]:bg-[var(--surface-input-option)] [&>option]:text-[var(--text-inverse)]
+          ${isFocusedField ? focusedInputClass : 'border-[var(--border-inverse)]'}
+          ${!filled ? 'text-[var(--text-placeholder)]' : ''}
         `}
       >
         <option value="" disabled>
@@ -329,21 +306,21 @@ function FloatingSelect({
         className="pointer-events-none absolute left-4"
         animate={
           filled || isFocusedField
-            ? { top: 6, fontSize: "10px", color: "rgba(201,168,76,0.7)" }
-            : { top: 14, fontSize: "14px", color: "rgba(107,114,128,1)" }
+            ? { top: 6, fontSize: '10px', color: focusedLabelColor }
+            : { top: 14, fontSize: '14px', color: 'var(--text-placeholder)' }
         }
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
         style={{
           fontWeight: filled || isFocusedField ? 600 : 400,
-          letterSpacing: filled || isFocusedField ? "0.05em" : "0",
-          textTransform: filled || isFocusedField ? "uppercase" : "none",
+          letterSpacing: filled || isFocusedField ? '0.05em' : '0',
+          textTransform: filled || isFocusedField ? 'uppercase' : 'none',
         }}
       >
         {label}
       </motion.label>
       {/* Chevron */}
       <svg
-        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--text-placeholder)]"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -352,31 +329,24 @@ function FloatingSelect({
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
     </div>
-  );
+  )
 }
 
 /** Animated submit button: idle -> loading -> success. */
-function SubmitButton({
-  status,
-}: {
-  status: "idle" | "loading" | "success";
-}) {
+function SubmitButton({ status }: { status: 'idle' | 'loading' | 'success' }) {
   return (
     <motion.button
       type="submit"
-      disabled={status !== "idle"}
+      disabled={status !== 'idle'}
       className="relative w-full overflow-hidden rounded-lg bg-gold px-8 py-3.5 text-sm font-semibold uppercase tracking-widest text-navy shadow-md transition-colors duration-300 hover:bg-gold-light disabled:cursor-not-allowed"
-      whileHover={status === "idle" ? { scale: 1.01 } : {}}
-      whileTap={status === "idle" ? { scale: 0.98 } : {}}
-      animate={
-        status === "success"
-          ? { backgroundColor: "rgba(34,197,94,1)" }
-          : {}
-      }
+      data-umami-event="contact-submit-click"
+      whileHover={status === 'idle' ? { scale: 1.01 } : {}}
+      whileTap={status === 'idle' ? { scale: 0.98 } : {}}
+      animate={status === 'success' ? { backgroundColor: 'rgba(34,197,94,1)' } : {}}
       transition={{ duration: 0.4 }}
     >
       <AnimatePresence mode="wait">
-        {status === "idle" && (
+        {status === 'idle' && (
           <motion.span
             key="idle"
             initial={{ opacity: 0, y: 10 }}
@@ -385,10 +355,10 @@ function SubmitButton({
             className="flex items-center justify-center gap-2"
           >
             <FaPaperPlane className="h-3.5 w-3.5" />
-            Send Message
+            Open Email Draft
           </motion.span>
         )}
-        {status === "loading" && (
+        {status === 'loading' && (
           <motion.span
             key="loading"
             initial={{ opacity: 0, y: 10 }}
@@ -398,13 +368,13 @@ function SubmitButton({
           >
             <motion.span
               animate={{ rotate: 360 }}
-              transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
               className="inline-block h-4 w-4 rounded-full border-2 border-navy/30 border-t-navy"
             />
-            Sending...
+            Preparing...
           </motion.span>
         )}
-        {status === "success" && (
+        {status === 'success' && (
           <motion.span
             key="success"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -415,69 +385,63 @@ function SubmitButton({
             <motion.span
               initial={{ scale: 0 }}
               animate={{ scale: [0, 1.3, 1] }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
             >
               <FaCheck className="h-4 w-4" />
             </motion.span>
-            Sent!
+            Ready
           </motion.span>
         )}
       </AnimatePresence>
     </motion.button>
-  );
+  )
 }
 
 /** Contact info card with hover lift and subtle glow. */
-function ContactCard({
-  item,
-}: {
-  item: (typeof contactInfo)[number];
-}) {
+function ContactCard({ item }: { item: (typeof contactInfo)[number] }) {
   return (
     <motion.div
       whileHover={{
         y: -3,
-        boxShadow: "0 8px 24px rgba(201,168,76,0.1)",
+        boxShadow: '0 8px 24px rgba(201,168,76,0.1)',
       }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
-      className="group flex items-start gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold/30"
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      className="group flex items-start gap-4 rounded-xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] p-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold/30"
     >
       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gold/20 bg-gold/10 transition-all duration-300 group-hover:bg-gold/20 group-hover:shadow-[0_0_12px_rgba(201,168,76,0.2)]">
         <item.icon className="h-5 w-5 text-gold transition-transform duration-300 group-hover:scale-110" />
       </div>
       <div>
-        <p className="text-sm font-semibold uppercase tracking-wide text-gold/70">
-          {item.label}
-        </p>
-        {"href" in item ? (
+        <p className="text-sm font-semibold uppercase tracking-wide text-gold/70">{item.label}</p>
+        {'href' in item ? (
           <a
             href={item.href}
-            className="mt-1 block text-base text-gray-300 transition-colors hover:text-gold"
+            className="mt-1 block text-base text-[var(--text-inverse-muted)] transition-colors hover:text-gold"
           >
             {item.value}
           </a>
-        ) : "lines" in item ? (
+        ) : 'lines' in item ? (
           item.lines.map((line) => (
             <a
               key={line}
-              href={`tel:${line.replace(/\s/g, "")}`}
-              className="mt-1 block text-base text-gray-300 transition-colors hover:text-gold"
+              href={`tel:${line.replace(/\s/g, '')}`}
+              className="mt-1 block text-base text-[var(--text-inverse-muted)] transition-colors hover:text-gold"
             >
               {line}
             </a>
           ))
         ) : (
-          <p className="mt-1 text-base text-gray-300">{item.value}</p>
+          <p className="mt-1 text-base text-[var(--text-inverse-muted)]">{item.value}</p>
         )}
       </div>
     </motion.div>
-  );
+  )
 }
 
 /** Decorative location pin animation used as a map placeholder. */
 function MapPlaceholder() {
   return (
-    <div className="relative mt-6 flex h-52 sm:h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+    <div className="relative mt-6 flex h-52 sm:h-56 w-full items-center justify-center overflow-hidden rounded-xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)]">
       {/* Stylized grid lines */}
       <div className="absolute inset-0 opacity-[0.04]">
         {Array.from({ length: 8 }).map((_, i) => (
@@ -499,7 +463,7 @@ function MapPlaceholder() {
       {/* Radiating rings */}
       <motion.div
         animate={{ scale: [1, 2.5], opacity: [0.3, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeOut" }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeOut' }}
         className="absolute h-8 w-8 rounded-full border border-gold/30"
       />
       <motion.div
@@ -507,7 +471,7 @@ function MapPlaceholder() {
         transition={{
           duration: 2.5,
           repeat: Infinity,
-          ease: "easeOut",
+          ease: 'easeOut',
         }}
         className="absolute h-8 w-8 rounded-full border border-gold/20"
       />
@@ -515,18 +479,18 @@ function MapPlaceholder() {
       {/* Pin */}
       <motion.div
         animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         className="relative z-10"
       >
         <FaMapMarkerAlt className="h-8 w-8 text-gold drop-shadow-[0_0_8px_rgba(201,168,76,0.5)]" />
       </motion.div>
 
       {/* Label */}
-      <span className="absolute bottom-3 text-[10px] tracking-wider text-white/30 uppercase">
+      <span className="absolute bottom-3 text-[10px] tracking-wider text-[var(--text-inverse-muted)] uppercase">
         Downtown Beirut, Lebanon
       </span>
     </div>
-  );
+  )
 }
 
 /** Animated checkmark using SVG path drawing. */
@@ -535,7 +499,7 @@ function AnimatedCheckmark() {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.15 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.15 }}
       className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border-2 border-gold/40 bg-gold/10"
     >
       <svg
@@ -551,11 +515,11 @@ function AnimatedCheckmark() {
           d="M5 13l4 4L19 7"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+          transition={{ duration: 0.5, delay: 0.35, ease: 'easeOut' }}
         />
       </svg>
     </motion.div>
-  );
+  )
 }
 
 /** Success overlay shown after form submission. */
@@ -565,27 +529,25 @@ function SuccessState({ onReset }: { onReset: () => void }) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      className="relative flex flex-col items-center justify-center rounded-2xl border border-gold/15 bg-white/[0.03] p-12 text-center shadow-lg backdrop-blur-sm"
+      className="relative flex flex-col items-center justify-center rounded-2xl border border-gold/15 bg-[var(--surface-inverse-panel)] p-12 text-center shadow-lg backdrop-blur-sm"
     >
       {/* Clean checkmark */}
       <AnimatedCheckmark />
 
-      <h3 className="mb-2 text-2xl font-bold text-white">
-        Message Sent!
-      </h3>
-      <p className="mb-8 max-w-sm text-sm leading-relaxed text-white/60">
-        Thank you for reaching out. Our team will review your message and get
-        back to you within 24 hours.
+      <h3 className="mb-2 text-2xl font-bold text-[var(--text-inverse)]">Email Draft Ready</h3>
+      <p className="mb-8 max-w-sm text-sm leading-relaxed text-[var(--text-inverse-muted)]">
+        Your email client should open with the details filled in. Send it there so the GCG team can
+        reply from the right inbox.
       </p>
 
       <button
         onClick={onReset}
         className="rounded-lg border border-gold/30 bg-gold/10 px-6 py-2.5 text-sm font-semibold tracking-wider text-gold uppercase transition-colors hover:bg-gold/20"
       >
-        Send Another Message
+        Edit Message
       </button>
     </motion.div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -593,89 +555,107 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 /* ------------------------------------------------------------------ */
 
 function Contact(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' })
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    service: "",
-    message: "",
-  });
+    name: '',
+    email: '',
+    service: '',
+    message: '',
+  })
 
-  const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "loading" | "success"
-  >("idle");
-  const [shakeInvalid, setShakeInvalid] = useState(false);
+  const [focusedField, setFocusedField] = useState<string | null>(null)
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+  const [shakeInvalid, setShakeInvalid] = useState(false)
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
 
-  const markTouched = (field: string) =>
-    setTouched((prev) => ({ ...prev, [field]: true }));
+  const markTouched = (field: string) => setTouched((prev) => ({ ...prev, [field]: true }))
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (submitStatus !== "idle") return;
+    e.preventDefault()
+    if (submitStatus !== 'idle') return
 
     // Basic validation check -- shake invalid fields
-    const nameValid = formData.name.length >= 2;
-    const emailValid = isValidEmail(formData.email);
-    const messageValid = formData.message.length >= 10;
+    const nameValid = formData.name.length >= 2
+    const emailValid = isValidEmail(formData.email)
+    const messageValid = formData.message.length >= 10
 
     if (!nameValid || !emailValid || !messageValid) {
-      setTouched({ name: true, email: true, message: true });
-      setShakeInvalid(true);
-      setTimeout(() => setShakeInvalid(false), 500);
-      return;
+      setTouched({ name: true, email: true, message: true })
+      trackAnalyticsEvent('contact-form-validation-error', {
+        service: formData.service || 'unspecified',
+      })
+      setShakeInvalid(true)
+      setTimeout(() => setShakeInvalid(false), 500)
+      return
     }
 
-    setSubmitStatus("loading");
+    setSubmitStatus('loading')
+    trackAnalyticsEvent('contact-form-attempt', {
+      service: formData.service || 'unspecified',
+    })
 
-    // Simulate network request
-    setTimeout(() => {
-      setSubmitStatus("success");
-    }, 1500);
-  };
+    const subject = encodeURIComponent(
+      `GCG inquiry${formData.service ? `: ${formData.service}` : ''}`,
+    )
+    const body = encodeURIComponent(
+      [
+        `Name: ${formData.name}`,
+        `Email: ${formData.email}`,
+        `Service: ${formData.service || 'Not specified'}`,
+        '',
+        formData.message,
+      ].join('\n'),
+    )
+
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+    window.setTimeout(() => {
+      setSubmitStatus('success')
+      trackAnalyticsEvent('contact-email-draft-opened', {
+        service: formData.service || 'unspecified',
+      })
+    }, 300)
+  }
 
   const handleReset = () => {
-    setFormData({ name: "", email: "", service: "", message: "" });
-    setTouched({});
-    setFocusedField(null);
-    setSubmitStatus("idle");
-    setShakeInvalid(false);
-  };
+    setFormData({ name: '', email: '', service: '', message: '' })
+    setTouched({})
+    setFocusedField(null)
+    setSubmitStatus('idle')
+    setShakeInvalid(false)
+  }
 
   // Determine if any field is focused for the dim-others effect.
   const isFocused = (field: string) => {
-    if (focusedField === null) return true; // nothing focused, all bright
-    return focusedField === field;
-  };
+    if (focusedField === null) return true // nothing focused, all bright
+    return focusedField === field
+  }
 
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="relative overflow-hidden bg-navy py-24 md:py-32"
+      className="theme-inverse relative overflow-hidden py-24 md:py-32"
     >
+      <ScienceBackdrop variant="dark" density="rich" />
       {/* Decorative background blobs */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-gradient-to-br from-gold/15 via-gold-light/8 to-transparent blur-3xl" />
-        <div className="absolute -right-32 bottom-1/4 h-[360px] w-[360px] rounded-full bg-gradient-to-tl from-gold/10 via-transparent to-transparent blur-3xl" />
+        <div className="absolute -left-40 top-1/3 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.10)_0%,transparent_68%)]" />
+        <div className="absolute -right-32 bottom-1/4 h-[360px] w-[360px] rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.07)_0%,transparent_68%)]" />
       </div>
 
       <motion.div
         className="relative mx-auto max-w-6xl px-6 md:px-12"
         variants={containerVariants}
         initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        animate={inView ? 'visible' : 'hidden'}
       >
         {/* Section heading */}
         <motion.div variants={fadeUp} className="mb-4 text-center">
@@ -693,8 +673,8 @@ function Contact(): ReactElement {
           className="mx-auto mb-16 flex items-center justify-center gap-2"
         >
           <motion.div
-            className="flex items-center gap-2 rounded-full border border-gold/20 bg-gold/[0.06] px-4 py-1.5 text-sm text-white/60"
-            whileHover={{ scale: 1.03, borderColor: "rgba(201,168,76,0.4)" }}
+            className="flex items-center gap-2 rounded-full border border-gold/20 bg-gold/[0.06] px-4 py-1.5 text-sm text-[var(--text-inverse-muted)]"
+            whileHover={{ scale: 1.03, borderColor: 'rgba(201,168,76,0.4)' }}
             transition={{ duration: 0.2 }}
           >
             <FaClock className="h-3.5 w-3.5 text-gold/70" />
@@ -718,17 +698,16 @@ function Contact(): ReactElement {
             {/* Decorative divider */}
             <div className="mt-8 hidden h-px w-full bg-gradient-to-r from-gold/30 via-gold/10 to-transparent md:block" />
 
-            <p className="mt-6 hidden text-sm leading-relaxed text-gray-400 md:block">
-              We are available Monday through Friday, 9 AM to 6 PM (GMT+2).
-              Feel free to reach out anytime and we will respond as soon as
-              possible.
+            <p className="mt-6 hidden text-sm leading-relaxed text-[var(--text-inverse-muted)] md:block">
+              We are available Monday through Friday, 9 AM to 6 PM (GMT+2). Feel free to reach out
+              anytime and we will respond as soon as possible.
             </p>
           </motion.div>
 
           {/* ---------- Right column - Form ---------- */}
           <motion.div variants={fadeUp} className="md:col-span-3">
             <AnimatePresence mode="wait">
-              {submitStatus === "success" ? (
+              {submitStatus === 'success' ? (
                 <SuccessState key="success" onReset={handleReset} />
               ) : (
                 <motion.form
@@ -737,7 +716,7 @@ function Contact(): ReactElement {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.3 }}
                   onSubmit={handleSubmit}
-                  className="rounded-2xl border border-gold/15 bg-white/[0.03] p-8 shadow-lg backdrop-blur-sm md:p-10"
+                  className="rounded-2xl border border-gold/15 bg-[var(--surface-inverse-panel)] p-8 shadow-lg backdrop-blur-sm md:p-10"
                 >
                   <div className="space-y-6">
                     {/* Name */}
@@ -747,11 +726,11 @@ function Contact(): ReactElement {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      isFocusedField={isFocused("name")}
-                      onFocusField={() => setFocusedField("name")}
+                      isFocusedField={isFocused('name')}
+                      onFocusField={() => setFocusedField('name')}
                       onBlurField={() => setFocusedField(null)}
                       touched={!!touched.name}
-                      onTouch={() => markTouched("name")}
+                      onTouch={() => markTouched('name')}
                       shake={shakeInvalid}
                     />
 
@@ -764,11 +743,11 @@ function Contact(): ReactElement {
                       onChange={handleChange}
                       required
                       validate={isValidEmail}
-                      isFocusedField={isFocused("email")}
-                      onFocusField={() => setFocusedField("email")}
+                      isFocusedField={isFocused('email')}
+                      onFocusField={() => setFocusedField('email')}
                       onBlurField={() => setFocusedField(null)}
                       touched={!!touched.email}
-                      onTouch={() => markTouched("email")}
+                      onTouch={() => markTouched('email')}
                       shake={shakeInvalid}
                     />
 
@@ -780,8 +759,8 @@ function Contact(): ReactElement {
                       onChange={handleChange}
                       required
                       options={serviceOptions}
-                      isFocusedField={isFocused("service")}
-                      onFocusField={() => setFocusedField("service")}
+                      isFocusedField={isFocused('service')}
+                      onFocusField={() => setFocusedField('service')}
                       onBlurField={() => setFocusedField(null)}
                     />
 
@@ -792,11 +771,11 @@ function Contact(): ReactElement {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      isFocusedField={isFocused("message")}
-                      onFocusField={() => setFocusedField("message")}
+                      isFocusedField={isFocused('message')}
+                      onFocusField={() => setFocusedField('message')}
                       onBlurField={() => setFocusedField(null)}
                       touched={!!touched.message}
-                      onTouch={() => markTouched("message")}
+                      onTouch={() => markTouched('message')}
                       shake={shakeInvalid}
                     />
 
@@ -810,7 +789,7 @@ function Contact(): ReactElement {
         </div>
       </motion.div>
     </section>
-  );
+  )
 }
 
-export default Contact;
+export default Contact

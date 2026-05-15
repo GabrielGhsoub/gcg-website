@@ -1,8 +1,8 @@
-import type { ReactElement } from "react";
-import { useRef } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
 import {
   FaAtom,
   FaFlask,
@@ -11,107 +11,115 @@ import {
   FaCalculator,
   FaLaptopCode,
   FaCogs,
-  FaQuoteLeft,
-} from "react-icons/fa";
+  FaClipboardCheck,
+} from 'react-icons/fa'
 
-import { PageTransition } from "@components/index";
-import { usePageTitle } from "@shared/hooks";
+import PageTransition from '@components/PageTransition'
+import ScienceBackdrop from '@components/ScienceBackdrop'
+import { ROUTES } from '@shared/constants/routes'
+import { useSEO } from '@shared/hooks'
 
 const SUBJECTS = [
   {
     icon: FaCalculator,
-    title: "Mathematics",
+    title: 'Mathematics',
     description:
-      "From algebra and calculus to statistics and discrete mathematics, building strong analytical foundations.",
+      'From algebra and calculus to statistics and discrete mathematics, building strong analytical foundations.',
   },
   {
     icon: FaAtom,
-    title: "Physics",
+    title: 'Physics',
     description:
-      "Classical mechanics, electromagnetism, quantum physics, and thermodynamics with hands-on problem solving.",
+      'Classical mechanics, electromagnetism, quantum physics, and thermodynamics with hands-on problem solving.',
   },
   {
     icon: FaFlask,
-    title: "Chemistry",
+    title: 'Chemistry',
     description:
-      "Organic, inorganic, and physical chemistry with emphasis on molecular reasoning and lab technique.",
+      'Organic, inorganic, and physical chemistry with emphasis on molecular reasoning and lab technique.',
   },
   {
     icon: FaDna,
-    title: "Biology",
+    title: 'Biology',
     description:
-      "Cell biology, genetics, ecology, and human physiology taught through systems-level understanding.",
+      'Cell biology, genetics, ecology, and human physiology taught through systems-level understanding.',
   },
   {
     icon: FaLaptopCode,
-    title: "Computer Science",
+    title: 'Computer Science',
     description:
-      "Programming fundamentals, data structures, algorithms, and computational thinking for all levels.",
+      'Programming fundamentals, data structures, algorithms, and computational thinking for all levels.',
   },
   {
     icon: FaCogs,
-    title: "Engineering",
+    title: 'Engineering',
     description:
-      "Mechanical, electrical, and civil engineering principles with applied problem-solving methodology.",
+      'Mechanical, electrical, and civil engineering principles with applied problem-solving methodology.',
   },
-];
+]
 
 const METHODOLOGY = [
   {
-    title: "Diagnostic Assessment",
+    title: 'Diagnostic Assessment',
     description:
       "We begin with a thorough evaluation of each student's current knowledge, identifying specific gaps and strengths through evidence-based diagnostic tools.",
   },
   {
-    title: "Structured Curriculum Design",
+    title: 'Structured Curriculum Design',
     description:
-      "Based on assessment data, we construct a personalized learning pathway that sequences concepts for optimal retention and comprehension.",
+      'Based on assessment data, we construct a personalized learning pathway that sequences concepts for optimal retention and comprehension.',
   },
   {
-    title: "Active Recall & Spaced Repetition",
+    title: 'Active Recall & Spaced Repetition',
     description:
-      "Our sessions employ proven cognitive science techniques, using active recall testing and spaced repetition to maximize long-term memory formation.",
+      'Our sessions employ proven cognitive science techniques, using active recall testing and spaced repetition to maximize long-term memory formation.',
   },
   {
-    title: "Iterative Feedback Loops",
+    title: 'Iterative Feedback Loops',
     description:
       "Regular performance checkpoints allow us to refine the approach, ensuring continuous improvement and adapting to each student's evolving needs.",
   },
-];
+]
 
 const STATS = [
-  { value: "500+", label: "Students Helped" },
-  { value: "95%", label: "Pass Rate" },
-  { value: "15+", label: "Subjects Covered" },
-];
+  { value: '6', label: 'STEM Areas' },
+  { value: '4', label: 'Learning Loops' },
+  { value: '1', label: 'Personal Plan' },
+]
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-};
+}
 
 function TutoringServices(): ReactElement {
-  usePageTitle("Science Tutoring Services | GCG");
+  useSEO({
+    title: 'Science Tutoring Services | Ghoussoub Consulting Group',
+    description:
+      'Evidence-based STEM tutoring in mathematics, physics, chemistry, biology, computer science, and engineering.',
+    canonicalPath: ROUTES.TUTORING,
+  })
 
-  const subjectsRef = useRef<HTMLDivElement>(null);
-  const subjectsInView = useInView(subjectsRef, { once: true, margin: "-80px" });
+  const subjectsRef = useRef<HTMLDivElement>(null)
+  const subjectsInView = useInView(subjectsRef, { once: true, margin: '-80px' })
 
-  const methodologyRef = useRef<HTMLDivElement>(null);
-  const methodologyInView = useInView(methodologyRef, { once: true, margin: "-80px" });
+  const methodologyRef = useRef<HTMLDivElement>(null)
+  const methodologyInView = useInView(methodologyRef, { once: true, margin: '-80px' })
 
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsInView = useInView(statsRef, { once: true, margin: "-80px" });
+  const statsRef = useRef<HTMLDivElement>(null)
+  const statsInView = useInView(statsRef, { once: true, margin: '-80px' })
 
-  const testimonialRef = useRef<HTMLDivElement>(null);
-  const testimonialInView = useInView(testimonialRef, { once: true, margin: "-80px" });
+  const testimonialRef = useRef<HTMLDivElement>(null)
+  const testimonialInView = useInView(testimonialRef, { once: true, margin: '-80px' })
 
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-navy">
+      <section className="theme-inverse relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+        <ScienceBackdrop variant="dark" density="rich" />
         {/* Molecular background pattern */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-[150px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(169,130,43,0.10)_0%,transparent_56%)]" />
           {/* Subtle molecule nodes */}
           <div className="absolute left-[15%] top-[20%] h-3 w-3 rounded-full bg-gold/15" />
           <div className="absolute left-[22%] top-[35%] h-2 w-2 rounded-full bg-gold/10" />
@@ -133,25 +141,46 @@ function TutoringServices(): ReactElement {
             <FaMicroscope className="h-8 w-8 text-gold" />
           </motion.div>
           <motion.h1
-            className="text-4xl font-bold text-white md:text-5xl"
+            className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Science Tutoring{" "}
+            Science Tutoring{' '}
             <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent">
               Services
             </span>
           </motion.h1>
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base text-white/70"
+            className="mx-auto mt-6 max-w-2xl text-base text-[var(--text-inverse-muted)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Evidence-based instruction across the sciences, engineered to build
-            deep understanding and lasting academic confidence
+            Evidence-based instruction across the sciences, engineered to build deep understanding
+            and lasting academic confidence
           </motion.p>
+          <motion.div
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
+            <Link
+              to={`${ROUTES.HOME}#contact`}
+              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              data-umami-event="tutoring-hero-plan"
+            >
+              Plan Tutoring
+            </Link>
+            <a
+              href="#methodology"
+              className="inline-flex items-center rounded-full border border-[var(--border-inverse)] px-8 py-3 text-base font-semibold text-[var(--text-inverse)] transition-colors hover:border-gold hover:text-gold"
+              data-umami-event="tutoring-hero-methodology"
+            >
+              See Methodology
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -161,7 +190,7 @@ function TutoringServices(): ReactElement {
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={subjectsInView ? "visible" : "hidden"}
+            animate={subjectsInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
@@ -169,8 +198,8 @@ function TutoringServices(): ReactElement {
               Subjects We Cover
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Comprehensive tutoring across core STEM disciplines, delivered by
-              subject-matter specialists with research backgrounds.
+              Comprehensive tutoring across core STEM disciplines, delivered by subject-matter
+              specialists with research backgrounds.
             </p>
           </motion.div>
 
@@ -199,12 +228,12 @@ function TutoringServices(): ReactElement {
       </section>
 
       {/* Teaching Methodology */}
-      <section ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
+      <section id="methodology" ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={methodologyInView ? "visible" : "hidden"}
+            animate={methodologyInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
@@ -212,9 +241,8 @@ function TutoringServices(): ReactElement {
               Our Scientific Approach to Learning
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Every tutoring program is built on cognitive science research,
-              applying the same rigor to teaching that we bring to the subjects
-              themselves.
+              Every tutoring program is built on cognitive science research, applying the same rigor
+              to teaching that we bring to the subjects themselves.
             </p>
           </motion.div>
 
@@ -245,7 +273,7 @@ function TutoringServices(): ReactElement {
       </section>
 
       {/* Stats */}
-      <section ref={statsRef} className="bg-navy py-20">
+      <section ref={statsRef} className="theme-inverse py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             {STATS.map((stat, i) => (
@@ -256,17 +284,15 @@ function TutoringServices(): ReactElement {
                 animate={statsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <div className="text-4xl font-extrabold text-gold md:text-5xl">
-                  {stat.value}
-                </div>
-                <div className="mt-2 text-base text-white/70">{stat.label}</div>
+                <div className="text-4xl font-extrabold text-gold md:text-5xl">{stat.value}</div>
+                <div className="mt-2 text-base text-[var(--text-inverse-muted)]">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial */}
+      {/* Learning Standard */}
       <section ref={testimonialRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -275,17 +301,18 @@ function TutoringServices(): ReactElement {
             animate={testimonialInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            <FaQuoteLeft className="mx-auto mb-6 h-8 w-8 text-gold/30" />
+            <FaClipboardCheck className="mx-auto mb-6 h-8 w-8 text-gold/60" />
+            <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">
+              Tutoring Built Around Evidence
+            </h2>
             <p className="text-base leading-relaxed text-[var(--color-text-primary)] md:text-lg">
-              "I was struggling with organic chemistry and nearly dropped the
-              course. After working with GCG for just six weeks, everything
-              clicked. Their systematic approach didn't just help me pass -- it
-              gave me the confidence to pursue a biochemistry major."
+              Every plan starts with a baseline, identifies the concepts causing friction, and turns
+              each session into a feedback loop that can be adjusted as the learner progresses.
             </p>
             <div className="mt-6">
-              <p className="font-semibold text-[var(--color-text-primary)]">Amara K.</p>
+              <p className="font-semibold text-[var(--color-text-primary)]">Diagnostic baseline</p>
               <p className="text-sm text-[var(--color-text-secondary)]">
-                Undergraduate, Biochemistry
+                Concept repair, recall cadence, and progress checks
               </p>
             </div>
           </motion.div>
@@ -293,25 +320,26 @@ function TutoringServices(): ReactElement {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy py-20">
+      <section className="theme-inverse py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl">
             Book a Free Session
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/60">
-            Schedule an introductory consultation to discuss your academic goals
-            and build a personalized study plan.
+          <p className="mx-auto mt-4 max-w-xl text-base text-[var(--text-inverse-muted)]">
+            Schedule an introductory consultation to discuss your academic goals and build a
+            personalized study plan.
           </p>
           <Link
-            to="/#contact"
+            to={`${ROUTES.HOME}#contact`}
             className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+            data-umami-event="tutoring-bottom-plan"
           >
             Book a Free Session
           </Link>
         </div>
       </section>
     </PageTransition>
-  );
+  )
 }
 
-export default TutoringServices;
+export default TutoringServices

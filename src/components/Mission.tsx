@@ -1,86 +1,81 @@
-import type { ReactElement } from "react";
-import { useRef, useEffect, useState } from "react";
+import type { ReactElement } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 import {
   motion,
   useInView,
-  useScroll,
-  useTransform,
   useMotionValue,
   useSpring,
+  useReducedMotion,
   animate,
-} from "framer-motion";
-import {
-  FaFlask,
-  FaShieldAlt,
-  FaLeaf,
-  FaAward,
-  FaQuoteLeft,
-} from "react-icons/fa";
+} from 'framer-motion'
+import { FaFlask, FaShieldAlt, FaLeaf, FaAward, FaQuoteLeft } from 'react-icons/fa'
 
-import { containerVariants, fadeUp } from "@shared/animations";
+import { containerVariants, fadeUp } from '@shared/animations'
+import ScienceBackdrop from './ScienceBackdrop'
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 
 interface Pillar {
-  icon: React.ReactNode;
-  label: string;
-  description: string;
-  details: string;
+  icon: React.ReactNode
+  label: string
+  description: string
+  details: string
 }
 
 const PILLARS: Pillar[] = [
   {
     icon: <FaFlask className="h-5 w-5" />,
-    label: "Innovation",
-    description: "Pioneering solutions that push boundaries",
+    label: 'Innovation',
+    description: 'Hypothesis-led work before big claims',
     details:
-      "We invest in R&D and emerging technologies, transforming bold ideas into market-ready products that redefine industries.",
+      'Ideas are framed as questions, variables, constraints, and evidence gaps before they become recommendations.',
   },
   {
     icon: <FaShieldAlt className="h-5 w-5" />,
-    label: "Integrity",
-    description: "Transparent and ethical in every interaction",
+    label: 'Integrity',
+    description: 'Transparent and ethical in every interaction',
     details:
-      "Every decision is guided by honesty and accountability. We build trust through open communication and unwavering principles.",
+      'Every decision is guided by honesty and accountability. We build trust through open communication and unwavering principles.',
   },
   {
     icon: <FaLeaf className="h-5 w-5" />,
-    label: "Sustainability",
-    description: "Building a responsible future together",
+    label: 'Sustainability',
+    description: 'Decisions that can hold up over time',
     details:
-      "Our commitment to environmental and social stewardship is embedded in every process, from supply chain to final delivery.",
+      'We favor systems, learning plans, and research paths that can be maintained, measured, and improved.',
   },
   {
     icon: <FaAward className="h-5 w-5" />,
-    label: "Excellence",
-    description: "Relentless pursuit of the highest standards",
+    label: 'Excellence',
+    description: 'Relentless pursuit of the highest standards',
     details:
-      "Quality is never an accident. Through rigorous standards and continuous improvement, we consistently deliver world-class results.",
+      'Quality comes from clear methods: diagnostic baselines, evidence maps, option scoring, and review loops.',
   },
-];
+]
 
 interface Metric {
-  value: number;
-  suffix: string;
-  label: string;
+  value: number
+  suffix: string
+  label: string
 }
 
 const METRICS: Metric[] = [
-  { value: 15, suffix: "+", label: "Years of Experience" },
-  { value: 200, suffix: "+", label: "Projects Delivered" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
-  { value: 30, suffix: "+", label: "Expert Consultants" },
-];
+  { value: 4, suffix: '', label: 'Operating Pillars' },
+  { value: 3, suffix: '', label: 'Service Paths' },
+  { value: 2, suffix: '', label: 'Location Hubs' },
+  { value: 1, suffix: '', label: 'Evidence Standard' },
+]
 
-const MARQUEE_VALUES = [
-  "Innovation",
-  "Integrity",
-  "Sustainability",
-  "Excellence",
-];
+const MARQUEE_VALUES = ['Innovation', 'Integrity', 'Sustainability', 'Excellence']
+
+const ORBIT_LABELS = [
+  { label: 'Consulting', className: 'left-4 top-[18%]' },
+  { label: 'R&D', className: 'right-2 top-1/2' },
+  { label: 'Tutoring', className: 'bottom-[16%] left-[18%]' },
+] as const
 
 /* ------------------------------------------------------------------ */
 /*  Animation variants                                                 */
@@ -91,72 +86,64 @@ const fadeLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
+    transition: { duration: 0.5, ease: 'easeOut' as const },
   },
-};
+}
 
 const pillarVariant = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
+    transition: { duration: 0.5, ease: 'easeOut' as const },
   },
-};
+}
 
 /* ------------------------------------------------------------------ */
 /*  Sub-components                                                     */
 /* ------------------------------------------------------------------ */
 
 /** Animated counter that counts up from 0 to `target` when in view. */
-function AnimatedCounter({
-  target,
-  suffix,
-}: {
-  target: number;
-  suffix: string;
-}) {
-  const motionVal = useMotionValue(0);
-  const springVal = useSpring(motionVal, { stiffness: 60, damping: 20 });
-  const [display, setDisplay] = useState("0");
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+function AnimatedCounter({ target, suffix }: { target: number; suffix: string }) {
+  const motionVal = useMotionValue(0)
+  const springVal = useSpring(motionVal, { stiffness: 60, damping: 20 })
+  const [display, setDisplay] = useState('0')
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-40px' })
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) return
     const controls = animate(motionVal, target, {
       duration: 2,
-      ease: "easeOut",
-    });
-    return controls.stop;
-  }, [inView, motionVal, target]);
+      ease: 'easeOut',
+    })
+    return controls.stop
+  }, [inView, motionVal, target])
 
   useEffect(() => {
-    const unsubscribe = springVal.on("change", (v) =>
-      setDisplay(Math.round(v).toString())
-    );
-    return unsubscribe;
-  }, [springVal]);
+    const unsubscribe = springVal.on('change', (v) => setDisplay(Math.round(v).toString()))
+    return unsubscribe
+  }, [springVal])
 
   return (
     <span ref={ref}>
       {display}
       {suffix}
     </span>
-  );
+  )
 }
 
 /**
  * Marquee-style auto-scrolling banner of the 4 core values.
  * Duplicates the array several times for a seamless infinite loop.
  */
-function ValueMarquee() {
+function ValueMarquee({ active }: { active: boolean }) {
   const icons: Record<string, React.ReactNode> = {
     Innovation: <FaFlask className="h-3.5 w-3.5" />,
     Integrity: <FaShieldAlt className="h-3.5 w-3.5" />,
     Sustainability: <FaLeaf className="h-3.5 w-3.5" />,
     Excellence: <FaAward className="h-3.5 w-3.5" />,
-  };
+  }
 
   // Repeat enough times so that the strip is wider than any viewport
   const repeated = [
@@ -166,23 +153,23 @@ function ValueMarquee() {
     ...MARQUEE_VALUES,
     ...MARQUEE_VALUES,
     ...MARQUEE_VALUES,
-  ];
+  ]
 
   return (
     <div className="relative w-full overflow-hidden py-6" aria-hidden="true">
       {/* Fade edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-navy to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-navy to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[var(--surface-inverse)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[var(--surface-inverse)] to-transparent" />
 
       <motion.div
         className="flex w-max gap-6"
-        animate={{ x: ["0%", "-50%"] }}
+        animate={active ? { x: ['0%', '-50%'] } : { x: '0%' }}
         transition={{
           x: {
-            repeat: Infinity,
-            repeatType: "loop",
+            repeat: active ? Infinity : 0,
+            repeatType: 'loop',
             duration: 45,
-            ease: "linear",
+            ease: 'linear',
           },
         }}
       >
@@ -197,19 +184,13 @@ function ValueMarquee() {
         ))}
       </motion.div>
     </div>
-  );
+  )
 }
 
 /** Highlighted text that animates a gold underline when scrolled into view. */
-function HighlightWord({
-  children,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+function HighlightWord({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-40px' })
 
   return (
     <span ref={ref} className="relative inline-block">
@@ -217,98 +198,43 @@ function HighlightWord({
       {/* Animated gold underline */}
       <motion.span
         className="absolute bottom-0 left-0 h-[3px] rounded-full bg-gradient-to-r from-gold to-gold-light"
-        initial={{ width: "0%" }}
-        animate={inView ? { width: "100%" } : { width: "0%" }}
-        transition={{ duration: 0.8, ease: "easeOut", delay }}
+        initial={{ width: '0%' }}
+        animate={inView ? { width: '100%' } : { width: '0%' }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay }}
       />
       {/* Soft glow behind the underline */}
       <motion.span
         className="absolute -bottom-0.5 left-0 h-[6px] rounded-full bg-gold/20 blur-sm"
-        initial={{ width: "0%" }}
-        animate={inView ? { width: "100%" } : { width: "0%" }}
-        transition={{ duration: 0.8, ease: "easeOut", delay: delay + 0.1 }}
+        initial={{ width: '0%' }}
+        animate={inView ? { width: '100%' } : { width: '0%' }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: delay + 0.1 }}
       />
     </span>
-  );
+  )
 }
 
-/** A value pillar card that expands on hover to reveal more detail. */
+/** Stable value card. Details are preallocated to avoid hover reflow. */
 function PillarCard({ pillar }: { pillar: Pillar }) {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <motion.div
+    <motion.article
       variants={pillarVariant}
-      className="group relative cursor-pointer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={() => setHovered(!hovered)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
-      tabIndex={0}
-      role="button"
-      aria-label={`${pillar.label}: ${pillar.description}. Hover for details.`}
+      className="science-card group relative min-h-[15.5rem] overflow-hidden rounded-xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] p-5 backdrop-blur-sm transition-[border-color,background-color,transform] duration-200 hover:-translate-y-1 hover:border-gold/30 focus-within:border-gold/35"
     >
-      <motion.div
-        animate={{
-          height: hovered ? "auto" : "11rem",
-          boxShadow: hovered
-            ? "0 8px 32px rgba(201,168,76,0.12)"
-            : "0 0px 0px rgba(201,168,76,0)",
-        }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold/25"
-      >
-        {/* Icon */}
-        <motion.div
-          animate={{
-            backgroundColor: hovered
-              ? "rgba(201,168,76,0.25)"
-              : "rgba(201,168,76,0.15)",
-          }}
-          transition={{ duration: 0.3 }}
-          className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg text-gold"
-        >
-          {pillar.icon}
-        </motion.div>
+      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gold/12 text-gold transition-colors duration-200 group-hover:bg-gold/20">
+        {pillar.icon}
+      </div>
 
-        {/* Label */}
-        <h3 className="mb-1 text-base font-bold text-white transition-colors duration-300 group-hover:text-gold">
-          {pillar.label}
-        </h3>
+      <h3 className="mb-1 text-base font-bold text-[var(--text-inverse)] transition-colors duration-200 group-hover:text-gold">
+        {pillar.label}
+      </h3>
 
-        {/* Short description */}
-        <p className="text-sm leading-snug text-white/60">
-          {pillar.description}
-        </p>
+      <p className="text-sm leading-snug text-[var(--text-inverse-muted)]">{pillar.description}</p>
 
-        {/* Expanded detail -- always rendered but hidden via height animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={
-            hovered
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: 6 }
-          }
-          transition={{ duration: 0.3, delay: hovered ? 0.1 : 0 }}
-          className="mt-3 border-t border-white/10 pt-3"
-        >
-          <p className="text-sm leading-relaxed text-white/70">
-            {pillar.details}
-          </p>
-        </motion.div>
-
-        {/* Hint when not hovered */}
-        <motion.span
-          animate={{ opacity: hovered ? 0 : 1 }}
-          transition={{ duration: 0.2 }}
-          className="mt-3 inline-block text-[10px] tracking-wider text-gold/40 uppercase"
-        >
-          Hover to learn more
-        </motion.span>
-      </motion.div>
-    </motion.div>
-  );
+      <div className="mt-3 border-t border-[var(--border-inverse)] pt-3 opacity-85 transition-[opacity,transform] duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+        <p className="text-sm leading-relaxed text-[var(--text-inverse-muted)]">{pillar.details}</p>
+      </div>
+    </motion.article>
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -316,52 +242,37 @@ function PillarCard({ pillar }: { pillar: Pillar }) {
 /* ------------------------------------------------------------------ */
 
 function Mission(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-
-  /* Parallax scroll setup */
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const parallaxSlow = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const parallaxMed = useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const parallaxFast = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const sectionRef = useRef<HTMLElement>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' })
+  const sectionActive = useInView(sectionRef, { once: false, margin: '-15% 0px' })
+  const reduceMotion = useReducedMotion()
+  const runAmbientMotion = sectionActive && !reduceMotion
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-navy py-28 sm:py-36"
+      className="theme-inverse relative w-full overflow-hidden py-28 sm:py-36"
     >
+      <ScienceBackdrop variant="dark" density="calm" />
       {/* ---- Parallax background layers ---- */}
-      <motion.div
-        style={{ y: parallaxSlow }}
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(201,168,76,0.08)_0%,transparent_60%)]"
-      />
-      <motion.div
-        style={{ y: parallaxMed }}
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(201,168,76,0.05)_0%,transparent_50%)]"
-      />
-      <motion.div
-        style={{ y: parallaxFast }}
-        className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-gold/[0.03] blur-3xl"
-      />
-      <motion.div
-        style={{ y: parallaxMed }}
-        className="pointer-events-none absolute -bottom-24 left-1/4 h-72 w-72 rounded-full bg-gold-light/[0.04] blur-3xl"
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at top right, rgba(201,168,76,0.08) 0%, transparent 58%), radial-gradient(ellipse at bottom left, rgba(201,168,76,0.05) 0%, transparent 52%)',
+        }}
       />
 
       {/* ---- Value Marquee Banner ---- */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ValueMarquee />
+        <ValueMarquee active={runAmbientMotion} />
       </div>
 
       {/* ---- Main grid ---- */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={isInView ? 'visible' : 'hidden'}
         className="relative z-10 mx-auto mt-8 grid max-w-7xl gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-8"
       >
         {/* ---------- Left column -- text content ---------- */}
@@ -375,9 +286,9 @@ function Mission(): ReactElement {
 
           <motion.h2
             variants={fadeUp}
-            className="mb-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            className="mb-6 text-4xl font-extrabold tracking-tight text-[var(--text-inverse)] sm:text-5xl lg:text-6xl"
           >
-            Company{" "}
+            Company{' '}
             <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent">
               Mission
             </span>
@@ -385,27 +296,18 @@ function Mission(): ReactElement {
 
           <motion.p
             variants={fadeUp}
-            className="mb-10 max-w-xl text-lg leading-relaxed text-white/80 sm:text-xl"
+            className="mb-10 max-w-xl text-lg leading-relaxed text-[var(--text-inverse-muted)] sm:text-xl"
           >
-            At GCG, our mission is to{" "}
-            <HighlightWord delay={0.2}>innovate</HighlightWord> and lead with{" "}
-            <HighlightWord delay={0.4}>integrity</HighlightWord>, providing
-            exceptional value to our customers through groundbreaking solutions.
-            We are committed to{" "}
-            <HighlightWord delay={0.6}>sustainability</HighlightWord>,{" "}
-            <HighlightWord delay={0.8}>excellence</HighlightWord>, and fostering
-            a culture of continuous improvement. By prioritizing our community,
-            we strive to make a positive impact on the world around us, ensuring
-            a better future for generations to come. Our dedication to quality,
-            customer satisfaction, and ethical business practices guides our path
-            forward as we continue to set new standards in our industry.
+            At GCG, our mission is to <HighlightWord delay={0.2}>innovate</HighlightWord> and lead
+            with <HighlightWord delay={0.4}>integrity</HighlightWord>, turning complex decisions
+            into evidence that people can inspect and act on. We are committed to{' '}
+            <HighlightWord delay={0.6}>sustainability</HighlightWord>,{' '}
+            <HighlightWord delay={0.8}>excellence</HighlightWord>, and work that makes assumptions,
+            risks, and next steps visible.
           </motion.p>
 
           {/* Pillar cards with hover reveal */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-2 gap-3 sm:gap-4"
-          >
+          <motion.div variants={containerVariants} className="grid grid-cols-2 gap-3 sm:gap-4">
             {PILLARS.map((pillar) => (
               <PillarCard key={pillar.label} pillar={pillar} />
             ))}
@@ -421,8 +323,10 @@ function Mission(): ReactElement {
           <div className="relative aspect-square w-full max-w-md [perspective:900px]">
             {/* Outer rotating ring */}
             <motion.div
-              animate={{ rotateY: 360, rotateX: 15 }}
-              transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
+              animate={
+                runAmbientMotion ? { rotateY: 360, rotateX: 15 } : { rotateY: 0, rotateX: 15 }
+              }
+              transition={{ duration: 90, repeat: runAmbientMotion ? Infinity : 0, ease: 'linear' }}
               className="absolute inset-0 rounded-full border border-gold/15 [transform-style:preserve-3d]"
             >
               {/* Orbiting dot with teal/cyan accent */}
@@ -431,8 +335,10 @@ function Mission(): ReactElement {
 
             {/* Inner rotating ring (counter-clockwise) */}
             <motion.div
-              animate={{ rotateY: -360, rotateX: -10 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              animate={
+                runAmbientMotion ? { rotateY: -360, rotateX: -10 } : { rotateY: 0, rotateX: -10 }
+              }
+              transition={{ duration: 60, repeat: runAmbientMotion ? Infinity : 0, ease: 'linear' }}
               className="absolute inset-12 rounded-full border border-gold/10 sm:inset-16 [transform-style:preserve-3d]"
             >
               <div className="absolute -right-1 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-gold/50 shadow-[0_0_6px_2px_rgba(201,168,76,0.25)]" />
@@ -444,13 +350,34 @@ function Mission(): ReactElement {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative h-28 w-28 rounded-full sm:h-36 sm:w-36">
                 {/* Outer glow */}
-                <div className="absolute -inset-4 rounded-full bg-gold/[0.06] blur-3xl" />
+                <div className="absolute -inset-4 rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.08)_0%,transparent_70%)]" />
                 {/* Inner gradient orb */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gold/30 via-gold-light/15 to-transparent shadow-[inset_0_0_20px_rgba(201,168,76,0.2)]" />
                 {/* Highlight */}
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-white/10 to-transparent" />
+                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-[var(--surface-panel)] to-transparent" />
               </div>
             </div>
+
+            {ORBIT_LABELS.map((item, index) => (
+              <motion.div
+                key={item.label}
+                className={`absolute ${item.className} flex items-center gap-2 rounded-full border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] px-3 py-1.5 text-xs font-semibold tracking-widest text-[var(--text-inverse-muted)] uppercase backdrop-blur-sm`}
+                animate={
+                  runAmbientMotion
+                    ? { y: [0, -6, 0], opacity: [0.72, 1, 0.72] }
+                    : { y: 0, opacity: 0.86 }
+                }
+                transition={{
+                  duration: 5 + index,
+                  repeat: runAmbientMotion ? Infinity : 0,
+                  ease: 'easeInOut',
+                  delay: index * 0.45,
+                }}
+              >
+                <span className="h-2 w-2 rounded-full bg-gold shadow-[0_0_12px_rgba(201,168,76,0.65)]" />
+                {item.label}
+              </motion.div>
+            ))}
           </div>
 
           {/* ---- Animated metrics ---- */}
@@ -461,12 +388,12 @@ function Mission(): ReactElement {
             {METRICS.map((m) => (
               <div
                 key={m.label}
-                className="flex flex-col items-center rounded-xl border border-white/10 bg-white/[0.03] px-3 py-4 backdrop-blur-sm"
+                className="science-card flex flex-col items-center rounded-xl border border-[var(--border-inverse)] bg-[var(--surface-inverse-panel)] px-3 py-4 backdrop-blur-sm"
               >
                 <span className="text-2xl font-extrabold text-gold sm:text-3xl">
                   <AnimatedCounter target={m.value} suffix={m.suffix} />
                 </span>
-                <span className="mt-1 text-center text-xs font-medium tracking-widest text-white/60 uppercase">
+                <span className="mt-1 text-center text-xs font-medium tracking-widest text-[var(--text-inverse-muted)] uppercase">
                   {m.label}
                 </span>
               </div>
@@ -479,14 +406,14 @@ function Mission(): ReactElement {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className="relative z-10 mx-auto mt-24 max-w-3xl px-6 text-center"
       >
         {/* Large decorative opening quote mark */}
         <FaQuoteLeft className="mx-auto mb-2 h-12 w-12 text-gold/20" />
 
-        <blockquote className="text-xl leading-relaxed font-light text-white/85 italic sm:text-2xl md:text-3xl">
+        <blockquote className="text-xl leading-relaxed font-light text-[var(--text-inverse)] italic sm:text-2xl md:text-3xl">
           Our commitment to innovation drives everything we do.
         </blockquote>
 
@@ -498,14 +425,12 @@ function Mission(): ReactElement {
         {/* Attribution */}
         <div className="mt-6 flex items-center justify-center gap-3">
           <div className="h-px w-10 bg-gradient-to-r from-transparent to-gold/40" />
-          <p className="text-sm font-semibold tracking-wider text-gold uppercase">
-            GCG Leadership
-          </p>
+          <p className="text-sm font-semibold tracking-wider text-gold uppercase">GCG Leadership</p>
           <div className="h-px w-10 bg-gradient-to-l from-transparent to-gold/40" />
         </div>
       </motion.div>
     </section>
-  );
+  )
 }
 
-export default Mission;
+export default Mission

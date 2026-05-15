@@ -1,81 +1,70 @@
-import type { ReactElement } from "react";
-import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import type { ReactElement } from 'react'
+import { useRef, useEffect, useState, useMemo } from 'react'
 
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion, useInView } from 'framer-motion'
 
-import { containerVariants, fadeUp } from "@shared/animations";
-import SectionHeading from "./SectionHeading";
+import { containerVariants, fadeUp } from '@shared/animations'
+import ScienceBackdrop from './ScienceBackdrop'
+import SectionHeading from './SectionHeading'
 
 /* ------------------------------------------------------------------ */
 /*  Simple count-up stat component                                     */
 /* ------------------------------------------------------------------ */
 
 interface AnimatedStatProps {
-  target: number;
-  suffix?: string;
-  label: string;
-  inView: boolean;
-  delay: number;
+  target: number
+  suffix?: string
+  label: string
+  inView: boolean
+  delay: number
 }
 
-function AnimatedStat({
-  target,
-  suffix = "",
-  label,
-  inView,
-  delay,
-}: AnimatedStatProps) {
-  const [count, setCount] = useState(0);
-  const hasAnimated = useRef(false);
+function AnimatedStat({ target, suffix = '', label, inView, delay }: AnimatedStatProps) {
+  const [count, setCount] = useState(0)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (!inView || hasAnimated.current) return;
-    hasAnimated.current = true;
+    if (!inView || hasAnimated.current) return
+    hasAnimated.current = true
 
-    const duration = 1200; // ms
-    const startTime = performance.now();
-    const delayMs = delay * 1000;
+    const duration = 1200 // ms
+    const startTime = performance.now()
+    const delayMs = delay * 1000
 
     const timeout = setTimeout(() => {
       const step = (now: number) => {
-        const elapsed = now - startTime - delayMs;
-        const progress = Math.min(elapsed / duration, 1);
+        const elapsed = now - startTime - delayMs
+        const progress = Math.min(elapsed / duration, 1)
         // Ease out quad
-        const eased = 1 - (1 - progress) * (1 - progress);
-        setCount(Math.round(eased * target));
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }, delayMs);
+        const eased = 1 - (1 - progress) * (1 - progress)
+        setCount(Math.round(eased * target))
+        if (progress < 1) requestAnimationFrame(step)
+      }
+      requestAnimationFrame(step)
+    }, delayMs)
 
-    return () => clearTimeout(timeout);
-  }, [inView, target, delay]);
+    return () => clearTimeout(timeout)
+  }, [inView, target, delay])
 
   return (
     <motion.div
       className="text-center"
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay, ease: 'easeOut' }}
     >
       <div className="relative mb-2 font-mono text-4xl font-bold text-gold md:text-5xl">
-        <span style={{ fontVariantNumeric: "tabular-nums" }}>
+        <span style={{ fontVariantNumeric: 'tabular-nums' }}>
           {count}
           {suffix}
         </span>
       </div>
 
-      <p className="text-sm tracking-widest text-white/60 uppercase md:text-base">
+      <p className="text-sm tracking-widest text-[var(--text-inverse-muted)] uppercase md:text-base">
         {label}
       </p>
     </motion.div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -83,95 +72,27 @@ function AnimatedStat({
 /* ------------------------------------------------------------------ */
 
 function InteractiveCard() {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
-    stiffness: 120,
-    damping: 18,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), {
-    stiffness: 120,
-    damping: 18,
-  });
-  const glareX = useTransform(mouseX, [-0.5, 0.5], [15, 85]);
-  const glareY = useTransform(mouseY, [-0.5, 0.5], [15, 85]);
-
-  // Parallax depth offsets for inner elements
-  const innerTranslateX = useSpring(
-    useTransform(mouseX, [-0.5, 0.5], [-8, 8]),
-    { stiffness: 100, damping: 20 }
-  );
-  const innerTranslateY = useSpring(
-    useTransform(mouseY, [-0.5, 0.5], [-8, 8]),
-    { stiffness: 100, damping: 20 }
-  );
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const el = cardRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-      mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-    },
-    [mouseX, mouseY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0);
-    mouseY.set(0);
-  }, [mouseX, mouseY]);
+  const cardRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="flex items-center justify-center [perspective:900px]">
       <motion.div
         ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          willChange: "transform",
-          transformStyle: "preserve-3d",
-        }}
-        className="relative h-72 w-full max-w-sm cursor-default rounded-2xl border border-dashed border-gold/25 bg-white/[0.03] backdrop-blur-sm md:h-80"
+        className="relative h-72 w-full max-w-sm cursor-default rounded-2xl border border-dashed border-gold/25 bg-[var(--surface-inverse-panel)] md:h-80"
       >
         {/* Glare layer */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-30"
-          style={{
-            background: useTransform(
-              [glareX, glareY],
-              ([x, y]) =>
-                `radial-gradient(circle at ${x}% ${y}%, rgba(201,168,76,0.3) 0%, transparent 55%)`
-            ),
-          }}
-        />
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_24%_18%,rgba(169,130,43,0.16)_0%,transparent_54%)] opacity-80" />
 
         {/* Subtle shimmer edge */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-2xl"
-          style={{
-            background: useTransform(
-              [glareX],
-              ([x]) =>
-                `linear-gradient(${Number(x) * 3.6}deg, transparent 40%, rgba(201,168,76,0.08) 50%, transparent 60%)`
-            ),
-          }}
-        />
+        <div className="pointer-events-none absolute inset-0 rounded-2xl bg-[linear-gradient(135deg,transparent_42%,rgba(169,130,43,0.08)_50%,transparent_58%)]" />
 
         {/* Inner decorative */}
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             className="relative"
             style={{
-              x: innerTranslateX,
-              y: innerTranslateY,
-              transform: "translateZ(40px)",
-              transformStyle: "preserve-3d",
+              transform: 'translateZ(40px)',
+              transformStyle: 'preserve-3d',
             }}
           >
             <motion.div
@@ -180,13 +101,13 @@ function InteractiveCard() {
               transition={{
                 duration: 30,
                 repeat: Infinity,
-                ease: "linear",
+                ease: 'linear',
               }}
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.span
                 className="text-5xl font-bold text-gold"
-                style={{ transform: "translateZ(20px)" }}
+                style={{ transform: 'translateZ(20px)' }}
               >
                 GCG
               </motion.span>
@@ -196,9 +117,9 @@ function InteractiveCard() {
               className="absolute -right-3 -bottom-3 h-10 w-10 text-gold/40"
               viewBox="0 0 40 40"
               fill="none"
-              style={{ transform: "translateZ(10px)" }}
+              style={{ transform: 'translateZ(10px)' }}
               animate={{ rotate: [0, 60, 0] }}
-              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
             >
               <polygon
                 points="20,2 36,11 36,29 20,38 4,29 4,11"
@@ -212,13 +133,29 @@ function InteractiveCard() {
               className="absolute -top-4 -left-4 h-8 w-8 text-gold/30"
               viewBox="0 0 40 40"
               fill="none"
-              style={{ transform: "translateZ(15px)" }}
+              style={{ transform: 'translateZ(15px)' }}
               animate={{ rotate: [0, 360] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
             >
               <circle cx="20" cy="20" r="3" fill="currentColor" />
-              <ellipse cx="20" cy="20" rx="16" ry="6" stroke="currentColor" strokeWidth="0.8" transform="rotate(-45 20 20)" />
-              <ellipse cx="20" cy="20" rx="16" ry="6" stroke="currentColor" strokeWidth="0.8" transform="rotate(45 20 20)" />
+              <ellipse
+                cx="20"
+                cy="20"
+                rx="16"
+                ry="6"
+                stroke="currentColor"
+                strokeWidth="0.8"
+                transform="rotate(-45 20 20)"
+              />
+              <ellipse
+                cx="20"
+                cy="20"
+                rx="16"
+                ry="6"
+                stroke="currentColor"
+                strokeWidth="0.8"
+                transform="rotate(45 20 20)"
+              />
             </motion.svg>
           </motion.div>
         </div>
@@ -226,8 +163,7 @@ function InteractiveCard() {
         <motion.div
           className="absolute bottom-6 left-8 right-8 text-center"
           style={{
-            x: innerTranslateX,
-            transform: "translateZ(20px)",
+            transform: 'translateZ(20px)',
           }}
         >
           <p className="text-sm font-medium tracking-wide text-gold/70">
@@ -236,7 +172,7 @@ function InteractiveCard() {
         </motion.div>
       </motion.div>
     </div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -244,16 +180,16 @@ function InteractiveCard() {
 /* ------------------------------------------------------------------ */
 
 interface RevealTextProps {
-  children: string;
-  className?: string;
-  delay?: number;
+  children: string
+  className?: string
+  delay?: number
 }
 
-function RevealText({ children, className = "", delay = 0 }: RevealTextProps) {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+function RevealText({ children, className = '', delay = 0 }: RevealTextProps) {
+  const ref = useRef<HTMLParagraphElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
 
-  const words = useMemo(() => children.split(" "), [children]);
+  const words = useMemo(() => children.split(' '), [children])
 
   return (
     <p ref={ref} className={className}>
@@ -261,23 +197,21 @@ function RevealText({ children, className = "", delay = 0 }: RevealTextProps) {
         <span key={i} className="inline-block overflow-hidden">
           <motion.span
             className="inline-block"
-            initial={{ y: "110%", opacity: 0 }}
-            animate={
-              inView ? { y: "0%", opacity: 1 } : { y: "110%", opacity: 0 }
-            }
+            initial={{ y: '110%', opacity: 0 }}
+            animate={inView ? { y: '0%', opacity: 1 } : { y: '110%', opacity: 0 }}
             transition={{
               duration: 0.45,
               ease: [0.22, 0.61, 0.36, 1],
               delay: delay + i * 0.022,
             }}
-            style={{ willChange: "transform, opacity" }}
+            style={{ willChange: 'transform, opacity' }}
           >
             {word}&nbsp;
           </motion.span>
         </span>
       ))}
     </p>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -285,11 +219,11 @@ function RevealText({ children, className = "", delay = 0 }: RevealTextProps) {
 /* ------------------------------------------------------------------ */
 
 interface TimelineProps {
-  inView: boolean;
+  inView: boolean
 }
 
 function VerticalTimeline({ inView }: TimelineProps) {
-  const dotPositions = useMemo(() => [0, 0.3, 0.6, 0.9], []);
+  const dotPositions = useMemo(() => [0, 0.3, 0.6, 0.9], [])
 
   return (
     <div className="absolute left-0 top-0 h-full w-px">
@@ -299,7 +233,7 @@ function VerticalTimeline({ inView }: TimelineProps) {
         initial={{ scaleY: 0 }}
         animate={inView ? { scaleY: 1 } : { scaleY: 0 }}
         transition={{ duration: 1.4, ease: [0.22, 0.61, 0.36, 1], delay: 0.2 }}
-        style={{ transformOrigin: "top" }}
+        style={{ transformOrigin: 'top' }}
       />
 
       {/* Animated dots along the line */}
@@ -311,7 +245,7 @@ function VerticalTimeline({ inView }: TimelineProps) {
           initial={{ scale: 0, opacity: 0 }}
           animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
           transition={{
-            type: "spring",
+            type: 'spring',
             stiffness: 300,
             damping: 15,
             delay: 0.4 + i * 0.2,
@@ -319,15 +253,13 @@ function VerticalTimeline({ inView }: TimelineProps) {
         >
           <div
             className={`rounded-full bg-gold ${
-              i === 0
-                ? "h-3 w-3 shadow-[0_0_10px_rgba(201,168,76,0.6)]"
-                : "h-2 w-2 opacity-60"
+              i === 0 ? 'h-3 w-3 shadow-[0_0_10px_rgba(201,168,76,0.6)]' : 'h-2 w-2 opacity-60'
             }`}
           />
         </motion.div>
       ))}
     </div>
-  );
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -335,24 +267,25 @@ function VerticalTimeline({ inView }: TimelineProps) {
 /* ------------------------------------------------------------------ */
 
 function About(): ReactElement {
-  const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const sectionRef = useRef<HTMLElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-100px' })
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-hidden bg-navy py-28 md:py-36"
+      className="theme-inverse relative overflow-hidden py-28 md:py-36"
     >
+      <ScienceBackdrop variant="dark" density="rich" />
       {/* Noise texture removed for cleaner look */}
 
       {/* Decorative geometric elements */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         {/* Gradient blob */}
-        <div className="absolute -right-32 top-1/4 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-gold/20 via-gold-light/10 to-transparent blur-3xl" />
+        <div className="absolute -right-32 top-1/4 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(169,130,43,0.11)_0%,transparent_68%)]" />
 
         {/* Secondary blob for depth */}
-        <div className="absolute -left-48 bottom-1/4 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-navy-light/30 via-gold/5 to-transparent blur-3xl opacity-50" />
+        <div className="absolute -left-48 bottom-1/4 h-[400px] w-[400px] rounded-full bg-[radial-gradient(circle,rgba(0,126,150,0.07)_0%,transparent_68%)] opacity-70" />
 
         {/* Atom diagram */}
         <svg
@@ -419,13 +352,69 @@ function About(): ReactElement {
             fill="none"
           />
           {/* Base pairs (rungs) */}
-          <line x1="72" y1="40" x2="128" y2="40" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="62" y1="60" x2="138" y2="60" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="58" y1="80" x2="142" y2="80" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="62" y1="100" x2="138" y2="100" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="72" y1="120" x2="128" y2="120" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="58" y1="140" x2="142" y2="140" stroke="currentColor" strokeWidth="1" opacity="0.6" />
-          <line x1="62" y1="160" x2="138" y2="160" stroke="currentColor" strokeWidth="1" opacity="0.6" />
+          <line
+            x1="72"
+            y1="40"
+            x2="128"
+            y2="40"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="62"
+            y1="60"
+            x2="138"
+            y2="60"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="58"
+            y1="80"
+            x2="142"
+            y2="80"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="62"
+            y1="100"
+            x2="138"
+            y2="100"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="72"
+            y1="120"
+            x2="128"
+            y2="120"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="58"
+            y1="140"
+            x2="142"
+            y2="140"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
+          <line
+            x1="62"
+            y1="160"
+            x2="138"
+            y2="160"
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity="0.6"
+          />
         </svg>
       </div>
 
@@ -433,15 +422,11 @@ function About(): ReactElement {
         className="relative z-20 mx-auto max-w-6xl px-6 md:px-12"
         variants={containerVariants}
         initial="hidden"
-        animate={inView ? "visible" : "hidden"}
+        animate={inView ? 'visible' : 'hidden'}
       >
         {/* Heading */}
         <motion.div variants={fadeUp} className="mb-12">
-          <SectionHeading
-            badge="Who We Are"
-            title="About"
-            highlight="Us"
-          />
+          <SectionHeading badge="Who We Are" title="About" highlight="Us" />
         </motion.div>
 
         {/* Content grid */}
@@ -452,24 +437,23 @@ function About(): ReactElement {
             <VerticalTimeline inView={inView} />
 
             <RevealText
-              className="text-lg leading-relaxed text-white/80 md:text-xl"
+              className="text-lg leading-relaxed text-[var(--text-inverse-muted)] md:text-xl"
               delay={0.2}
             >
-              At GCG, we are dedicated to building a brighter future through
-              pioneering innovations and transformative consulting services. Our
-              team specializes in delivering strategic insights, exploring new
-              frontiers in research and development, and providing personalized
-              tutoring services aimed at fostering academic excellence.
+              At GCG, we are dedicated to building a brighter future through pioneering innovations
+              and transformative consulting services. Our team specializes in delivering strategic
+              insights, exploring new frontiers in research and development, and providing
+              personalized tutoring services aimed at fostering academic excellence.
             </RevealText>
 
             <RevealText
-              className="mt-6 text-lg leading-relaxed text-white/80 md:text-xl"
+              className="mt-6 text-lg leading-relaxed text-[var(--text-inverse-muted)] md:text-xl"
               delay={0.6}
             >
-              Our mission is to empower individuals and organizations to reach
-              their full potential, driving growth and making a positive impact on
-              communities. We are committed to nurturing curiosity, advancing
-              knowledge, and unlocking potential to achieve transformative growth.
+              Our mission is to empower individuals and organizations to reach their full potential,
+              driving growth and making a positive impact on communities. We are committed to
+              nurturing curiosity, advancing knowledge, and unlocking potential to achieve
+              transformative growth.
             </RevealText>
           </motion.div>
 
@@ -482,7 +466,7 @@ function About(): ReactElement {
         {/* Stats section */}
         <motion.div
           variants={fadeUp}
-          className="relative mt-20 overflow-hidden rounded-2xl border border-gold/15 bg-white/[0.03] px-6 py-10 backdrop-blur-sm md:px-12 md:py-14"
+          className="science-card relative mt-20 overflow-hidden rounded-2xl border border-gold/15 bg-[var(--surface-inverse-panel)] px-6 py-10 backdrop-blur-sm md:px-12 md:py-14"
         >
           {/* Inner glow */}
           <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-gold/[0.03] via-transparent to-gold/[0.03]" />
@@ -494,33 +478,16 @@ function About(): ReactElement {
           <div className="pointer-events-none absolute right-4 bottom-4 h-8 w-8 border-r border-b border-gold/20 rounded-br-lg" />
 
           <div className="relative grid grid-cols-3 gap-6 md:gap-12">
-            <AnimatedStat
-              target={3}
-              suffix="+"
-              label="Services"
-              inView={inView}
-              delay={0.4}
-            />
-            <AnimatedStat
-              target={2}
-              label="Offices"
-              inView={inView}
-              delay={0.6}
-            />
-            <AnimatedStat
-              target={100}
-              suffix="+"
-              label="Clients"
-              inView={inView}
-              delay={0.8}
-            />
+            <AnimatedStat target={3} label="Service Paths" inView={inView} delay={0.4} />
+            <AnimatedStat target={2} label="Offices" inView={inView} delay={0.6} />
+            <AnimatedStat target={4} label="Proof Steps" inView={inView} delay={0.8} />
           </div>
         </motion.div>
 
         {/* Office locations */}
         <motion.div
           variants={fadeUp}
-          className="mt-8 flex items-center justify-center gap-6 text-base text-white/60"
+          className="mt-8 flex items-center justify-center gap-6 text-base text-[var(--text-inverse-muted)]"
         >
           <span className="flex items-center gap-2">
             <span className="inline-block h-2 w-2 rounded-full bg-gold/60" />
@@ -533,7 +500,7 @@ function About(): ReactElement {
         </motion.div>
       </motion.div>
     </section>
-  );
+  )
 }
 
-export default About;
+export default About

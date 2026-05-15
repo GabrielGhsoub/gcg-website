@@ -1,8 +1,8 @@
-import type { ReactElement } from "react";
-import { useRef } from "react";
+import type { ReactElement } from 'react'
+import { useRef } from 'react'
 
-import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { Link } from 'react-router-dom'
+import { motion, useInView } from 'framer-motion'
 import {
   FaDna,
   FaFlask,
@@ -13,123 +13,126 @@ import {
   FaChartLine,
   FaSearch,
   FaBookOpen,
-} from "react-icons/fa";
+} from 'react-icons/fa'
 
-import { PageTransition } from "@components/index";
-import { usePageTitle } from "@shared/hooks";
+import PageTransition from '@components/PageTransition'
+import ScienceBackdrop from '@components/ScienceBackdrop'
+import { ROUTES } from '@shared/constants/routes'
+import { useSEO } from '@shared/hooks'
 
 const RESEARCH_AREAS = [
   {
     icon: FaDna,
-    title: "Biotechnology & Life Sciences",
+    title: 'Biotechnology & Life Sciences',
     description:
-      "Exploring molecular biology, genomics, and bioinformatics to advance our understanding of living systems and develop novel therapeutic approaches.",
+      'Exploring molecular biology, genomics, and bioinformatics to advance our understanding of living systems and develop novel therapeutic approaches.',
   },
   {
     icon: FaAtom,
-    title: "Materials Science & Engineering",
+    title: 'Materials Science & Engineering',
     description:
-      "Investigating advanced materials, nanoscale structures, and composite systems to engineer solutions with superior mechanical, thermal, and electrical properties.",
+      'Investigating advanced materials, nanoscale structures, and composite systems to engineer solutions with superior mechanical, thermal, and electrical properties.',
   },
   {
     icon: FaLaptopCode,
-    title: "Data Science & AI",
+    title: 'Data Science & AI',
     description:
-      "Applying machine learning, statistical modeling, and computational intelligence to extract insights from complex datasets and automate analytical workflows.",
+      'Applying machine learning, statistical modeling, and computational intelligence to extract insights from complex datasets and automate analytical workflows.',
   },
   {
     icon: FaLeaf,
-    title: "Environmental Science",
+    title: 'Environmental Science',
     description:
-      "Studying ecosystems, climate dynamics, and sustainability metrics to develop evidence-based strategies for environmental conservation and resource management.",
+      'Studying ecosystems, climate dynamics, and sustainability metrics to develop evidence-based strategies for environmental conservation and resource management.',
   },
-];
+]
 
 const METHODOLOGY_STEPS = [
   {
     icon: FaSearch,
-    title: "Discovery",
-    description: "Literature review and landscape analysis to identify gaps and opportunities.",
+    title: 'Discovery',
+    description: 'Literature review and landscape analysis to identify gaps and opportunities.',
   },
   {
     icon: FaFlask,
-    title: "Hypothesis",
-    description: "Formulating testable propositions grounded in existing evidence.",
+    title: 'Hypothesis',
+    description: 'Formulating testable propositions grounded in existing evidence.',
   },
   {
     icon: FaMicroscope,
-    title: "Experimentation",
-    description: "Controlled testing with rigorous protocols and reproducible methodology.",
+    title: 'Experimentation',
+    description: 'Controlled testing with rigorous protocols and reproducible methodology.',
   },
   {
     icon: FaChartLine,
-    title: "Analysis",
-    description: "Statistical evaluation and interpretation of experimental data.",
+    title: 'Analysis',
+    description: 'Statistical evaluation and interpretation of experimental data.',
   },
   {
     icon: FaAtom,
-    title: "Innovation",
-    description: "Translating validated findings into practical applications and solutions.",
+    title: 'Innovation',
+    description: 'Translating validated findings into practical applications and solutions.',
   },
-];
+]
 
-const LAB_CAPABILITIES = [
-  "High-performance computational cluster for large-scale data processing and simulation",
-  "Molecular analysis instrumentation including spectrophotometry and chromatography",
-  "Environmental monitoring and sensor calibration laboratory",
-  "Bioinformatics workstations with access to major genomic databases",
-  "Materials characterization suite for mechanical and thermal testing",
-  "Dedicated clean room for precision sample preparation",
-];
+const DELIVERY_OUTPUTS = [
+  'Literature and landscape review',
+  'Hypothesis and variable map',
+  'Protocol critique and reproducibility checklist',
+  'Data-readiness and analysis plan',
+  'Translation and commercialization options',
+  'Milestone sequence for the next decision',
+]
 
-const PUBLICATIONS = [
+const EVIDENCE_OUTPUTS = [
   {
-    title:
-      "Adaptive Machine Learning Frameworks for Real-Time Environmental Monitoring Systems",
-    journal: "Journal of Computational Environmental Science",
-    year: "2025",
+    title: 'Research Brief',
+    description: 'A concise synthesis of what is known, uncertain, and worth testing next.',
   },
   {
-    title:
-      "Nanoscale Composite Materials with Enhanced Thermal Conductivity: Synthesis and Characterization",
-    journal: "Advanced Materials Research Letters",
-    year: "2024",
+    title: 'Protocol Review',
+    description:
+      'A practical critique of methods, controls, measurement, and reproducibility risks.',
   },
   {
-    title:
-      "Genomic Marker Identification in Drought-Resistant Crop Variants Using Ensemble Methods",
-    journal: "Biotechnology & Applied Genomics",
-    year: "2024",
+    title: 'Translation Roadmap',
+    description: 'A staged path from evidence to application, partnership, or further validation.',
   },
-];
+]
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
-};
+}
 
 function ResearchDevelopment(): ReactElement {
-  usePageTitle("Research & Development | GCG");
+  useSEO({
+    title: 'Research & Development | Ghoussoub Consulting Group',
+    description:
+      "GCG's R&D team supports biotechnology, materials science, AI, and environmental research through rigorous experimental methods.",
+    canonicalPath: ROUTES.RESEARCH,
+  })
 
-  const areasRef = useRef<HTMLDivElement>(null);
-  const areasInView = useInView(areasRef, { once: true, margin: "-80px" });
+  const areasRef = useRef<HTMLDivElement>(null)
+  const areasInView = useInView(areasRef, { once: true, margin: '-80px' })
 
-  const methodologyRef = useRef<HTMLDivElement>(null);
-  const methodologyInView = useInView(methodologyRef, { once: true, margin: "-80px" });
+  const methodologyRef = useRef<HTMLDivElement>(null)
+  const methodologyInView = useInView(methodologyRef, { once: true, margin: '-80px' })
 
-  const labRef = useRef<HTMLDivElement>(null);
-  const labInView = useInView(labRef, { once: true, margin: "-80px" });
+  const labRef = useRef<HTMLDivElement>(null)
+  const labInView = useInView(labRef, { once: true, margin: '-80px' })
 
-  const pubRef = useRef<HTMLDivElement>(null);
-  const pubInView = useInView(pubRef, { once: true, margin: "-80px" });
+  const pubRef = useRef<HTMLDivElement>(null)
+  const pubInView = useInView(pubRef, { once: true, margin: '-80px' })
 
   return (
     <PageTransition>
       {/* Hero */}
-      <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden bg-navy">
+      <section className="theme-inverse relative flex min-h-[60vh] items-center justify-center overflow-hidden">
+        <ScienceBackdrop variant="dark" density="rich" />
         {/* Laboratory background pattern */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 blur-[150px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(169,130,43,0.10)_0%,transparent_56%)]" />
           {/* Hex grid dots */}
           <div className="absolute left-[10%] top-[18%] h-2 w-2 rounded-full bg-gold/12" />
           <div className="absolute left-[18%] top-[30%] h-2.5 w-2.5 rounded-full bg-gold/10" />
@@ -153,25 +156,46 @@ function ResearchDevelopment(): ReactElement {
             <FaFlask className="h-8 w-8 text-gold" />
           </motion.div>
           <motion.h1
-            className="text-4xl font-bold text-white md:text-5xl"
+            className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Research &{" "}
+            Research &{' '}
             <span className="bg-gradient-to-r from-gold to-gold-light bg-clip-text text-transparent">
               Development
             </span>
           </motion.h1>
           <motion.p
-            className="mx-auto mt-6 max-w-2xl text-base text-white/70"
+            className="mx-auto mt-6 max-w-2xl text-base text-[var(--text-inverse-muted)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
-            Advancing knowledge through rigorous scientific inquiry,
-            interdisciplinary collaboration, and methodical experimentation
+            Advancing knowledge through rigorous scientific inquiry, interdisciplinary
+            collaboration, and methodical experimentation
           </motion.p>
+          <motion.div
+            className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.25 }}
+          >
+            <Link
+              to={`${ROUTES.HOME}#contact`}
+              className="inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+              data-umami-event="research-hero-discuss"
+            >
+              Discuss an R&D Project
+            </Link>
+            <a
+              href="#methodology"
+              className="inline-flex items-center rounded-full border border-[var(--border-inverse)] px-8 py-3 text-base font-semibold text-[var(--text-inverse)] transition-colors hover:border-gold hover:text-gold"
+              data-umami-event="research-hero-methodology"
+            >
+              See Methodology
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -181,7 +205,7 @@ function ResearchDevelopment(): ReactElement {
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={areasInView ? "visible" : "hidden"}
+            animate={areasInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
@@ -189,9 +213,8 @@ function ResearchDevelopment(): ReactElement {
               Research Areas
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Our interdisciplinary research spans four core domains, each
-              grounded in empirical methodology and oriented toward real-world
-              application.
+              Our interdisciplinary research spans four core domains, each grounded in empirical
+              methodology and oriented toward real-world application.
             </p>
           </motion.div>
 
@@ -207,7 +230,9 @@ function ResearchDevelopment(): ReactElement {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
                   <area.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">{area.title}</h3>
+                <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
+                  {area.title}
+                </h3>
                 <p className="mt-2 text-base leading-relaxed text-[var(--color-text-secondary)]">
                   {area.description}
                 </p>
@@ -218,12 +243,12 @@ function ResearchDevelopment(): ReactElement {
       </section>
 
       {/* R&D Methodology */}
-      <section ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
+      <section id="methodology" ref={methodologyRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={methodologyInView ? "visible" : "hidden"}
+            animate={methodologyInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
@@ -231,8 +256,7 @@ function ResearchDevelopment(): ReactElement {
               Our R&D Methodology
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              A systematic pipeline from initial inquiry through validated
-              innovation.
+              A systematic pipeline from initial inquiry through validated innovation.
             </p>
           </motion.div>
 
@@ -306,27 +330,27 @@ function ResearchDevelopment(): ReactElement {
         </div>
       </section>
 
-      {/* Lab Capabilities */}
+      {/* Delivery Outputs */}
       <section ref={labRef} className="bg-[var(--color-bg-secondary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={labInView ? "visible" : "hidden"}
+            animate={labInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
-              Laboratory Capabilities
+              Engagement Outputs
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Our facilities are equipped with instrumentation and infrastructure
-              to support research across all four focus areas.
+              R&D support is packaged around practical artifacts that help teams decide what to
+              test, improve, or translate next.
             </p>
           </motion.div>
 
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
-            {LAB_CAPABILITIES.map((capability, i) => (
+            {DELIVERY_OUTPUTS.map((capability, i) => (
               <motion.div
                 key={capability}
                 className="flex items-start gap-3 rounded-xl border border-[var(--color-border-light)] bg-[var(--color-bg-primary)] p-5"
@@ -342,27 +366,27 @@ function ResearchDevelopment(): ReactElement {
         </div>
       </section>
 
-      {/* Publications */}
+      {/* Evidence Outputs */}
       <section ref={pubRef} className="bg-[var(--color-bg-primary)] py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
             initial="hidden"
-            animate={pubInView ? "visible" : "hidden"}
+            animate={pubInView ? 'visible' : 'hidden'}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-4xl font-bold text-[var(--color-text-primary)] md:text-5xl">
-              Recent Publications
+              Evidence Artifacts
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-[var(--color-text-secondary)]">
-              Selected papers from our research team, published in peer-reviewed
-              journals.
+              Outputs are designed to make assumptions, evidence strength, and next steps easier to
+              inspect.
             </p>
           </motion.div>
 
           <div className="mt-12 space-y-6">
-            {PUBLICATIONS.map((pub, i) => (
+            {EVIDENCE_OUTPUTS.map((pub, i) => (
               <motion.div
                 key={pub.title}
                 className="rounded-2xl border border-[var(--color-border-light)] bg-[var(--color-bg-secondary)] p-6"
@@ -372,13 +396,11 @@ function ResearchDevelopment(): ReactElement {
               >
                 <div className="mb-2 flex items-start gap-3">
                   <FaBookOpen className="mt-1 h-4 w-4 shrink-0 text-gold" />
-                  <h3 className="text-base font-semibold leading-snug text-navy">
+                  <h3 className="text-base font-semibold leading-snug text-[var(--color-text-primary)]">
                     {pub.title}
                   </h3>
                 </div>
-                <p className="ml-7 text-sm text-[var(--color-text-secondary)]">
-                  {pub.journal} -- {pub.year}
-                </p>
+                <p className="ml-7 text-sm text-[var(--color-text-secondary)]">{pub.description}</p>
               </motion.div>
             ))}
           </div>
@@ -386,25 +408,26 @@ function ResearchDevelopment(): ReactElement {
       </section>
 
       {/* CTA */}
-      <section className="bg-navy py-20">
+      <section className="theme-inverse py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-white md:text-5xl">
+          <h2 className="text-4xl font-bold text-[var(--text-inverse)] md:text-5xl">
             Discuss Your Research Project
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-white/60">
-            Whether you are exploring a new hypothesis or scaling an existing
-            study, our team is ready to collaborate.
+          <p className="mx-auto mt-4 max-w-xl text-base text-[var(--text-inverse-muted)]">
+            Whether you are exploring a new hypothesis or scaling an existing study, our team is
+            ready to collaborate.
           </p>
           <Link
-            to="/#contact"
+            to={`${ROUTES.HOME}#contact`}
             className="mt-8 inline-flex items-center rounded-full bg-gold px-8 py-3 text-base font-semibold text-navy shadow-lg shadow-gold/20 transition-colors hover:bg-gold-light"
+            data-umami-event="research-bottom-discuss"
           >
             Discuss Your Research Project
           </Link>
         </div>
       </section>
     </PageTransition>
-  );
+  )
 }
 
-export default ResearchDevelopment;
+export default ResearchDevelopment

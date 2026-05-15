@@ -1,1 +1,1 @@
-export { containerVariants, fadeUp, headingVariants, cardVariants } from "./variants";
+export { containerVariants, fadeUp, headingVariants, cardVariants } from './variants'
