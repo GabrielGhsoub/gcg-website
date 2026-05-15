@@ -38,9 +38,9 @@ GCG sits at the intersection of **scientific rigor** and **business consulting**
 ### Current Palette (keep as foundation)
 
 ```css
---color-navy: #000040;        /* Authority, depth */
---color-gold: #c9a84c;        /* Premium, achievement */
---color-cream: #faf8f5;       /* Clean, scholarly */
+--color-navy: #000040; /* Authority, depth */
+--color-gold: #c9a84c; /* Premium, achievement */
+--color-cream: #faf8f5; /* Clean, scholarly */
 ```
 
 ### Recommended Science Accent Colors
@@ -59,12 +59,12 @@ Add these as secondary/tertiary colors used sparingly for science-themed element
   --color-cream: #faf8f5;
 
   /* NEW: Science accent palette */
-  --color-cyan: #00b4d8;         /* Data, technology, digital */
-  --color-cyan-light: #90e0ef;   /* Lighter accents, hover states */
-  --color-emerald: #2dc653;      /* Growth, biology, success */
-  --color-violet: #7b2cbf;       /* Innovation, creativity */
-  --color-coral: #ff6b6b;        /* Energy, alerts, emphasis */
-  --color-slate: #334155;        /* Body text alternative */
+  --color-cyan: #00b4d8; /* Data, technology, digital */
+  --color-cyan-light: #90e0ef; /* Lighter accents, hover states */
+  --color-emerald: #2dc653; /* Growth, biology, success */
+  --color-violet: #7b2cbf; /* Innovation, creativity */
+  --color-coral: #ff6b6b; /* Energy, alerts, emphasis */
+  --color-slate: #334155; /* Body text alternative */
 
   /* Glass/transparency tokens */
   --glass-bg: rgba(255, 255, 255, 0.08);
@@ -75,15 +75,15 @@ Add these as secondary/tertiary colors used sparingly for science-themed element
 
 ### Color Usage Rules
 
-| Element | Color | Rationale |
-|---------|-------|-----------|
-| Backgrounds, headers | Navy | Authority |
-| CTAs, highlights | Gold | Premium action |
-| Data viz, particle links | Cyan | Science/tech feel |
-| Success states, bio-related | Emerald | Growth/nature |
-| Innovation badges, R&D | Violet | Creativity |
-| Error/energy states | Coral | Attention |
-| Particle nodes | Cyan + Gold mix | Science meets consulting |
+| Element                     | Color           | Rationale                |
+| --------------------------- | --------------- | ------------------------ |
+| Backgrounds, headers        | Navy            | Authority                |
+| CTAs, highlights            | Gold            | Premium action           |
+| Data viz, particle links    | Cyan            | Science/tech feel        |
+| Success states, bio-related | Emerald         | Growth/nature            |
+| Innovation badges, R&D      | Violet          | Creativity               |
+| Error/energy states         | Coral           | Attention                |
+| Particle nodes              | Cyan + Gold mix | Science meets consulting |
 
 ### Color Palette by Service Area
 
@@ -101,22 +101,22 @@ Replace the current simple particle system with an interactive molecular network
 
 ```tsx
 // src/components/MolecularNetwork.tsx
-import { useCallback, useMemo } from "react";
-import Particles from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
-import type { Engine, ISourceOptions } from "@tsparticles/engine";
+import { useCallback, useMemo } from 'react'
+import Particles from '@tsparticles/react'
+import { loadSlim } from '@tsparticles/slim'
+import type { Engine, ISourceOptions } from '@tsparticles/engine'
 
 const molecularOptions: ISourceOptions = {
   fullScreen: false,
-  background: { color: { value: "transparent" } },
+  background: { color: { value: 'transparent' } },
   fpsLimit: 60,
   particles: {
     number: { value: 60, density: { enable: true, width: 1200, height: 800 } },
-    color: { value: ["#c9a84c", "#00b4d8", "#7b2cbf"] },
-    shape: { type: "circle" },
+    color: { value: ['#c9a84c', '#00b4d8', '#7b2cbf'] },
+    shape: { type: 'circle' },
     opacity: {
       value: { min: 0.1, max: 0.4 },
-      animation: { enable: true, speed: 0.5, startValue: "random", sync: false },
+      animation: { enable: true, speed: 0.5, startValue: 'random', sync: false },
     },
     size: {
       value: { min: 1, max: 3 },
@@ -124,35 +124,35 @@ const molecularOptions: ISourceOptions = {
     links: {
       enable: true,
       distance: 150,
-      color: "#c9a84c",
+      color: '#c9a84c',
       opacity: 0.12,
       width: 1,
     },
     move: {
       enable: true,
       speed: 0.6,
-      direction: "none",
+      direction: 'none',
       random: true,
       straight: false,
-      outModes: { default: "bounce" },
+      outModes: { default: 'bounce' },
     },
   },
   interactivity: {
     events: {
-      onHover: { enable: true, mode: "grab" },
+      onHover: { enable: true, mode: 'grab' },
       resize: { enable: true },
     },
     modes: {
-      grab: { distance: 180, links: { opacity: 0.3, color: "#00b4d8" } },
+      grab: { distance: 180, links: { opacity: 0.3, color: '#00b4d8' } },
     },
   },
   detectRetina: true,
-};
+}
 
 export default function MolecularNetwork() {
   const init = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
-  }, []);
+    await loadSlim(engine)
+  }, [])
 
   return (
     <Particles
@@ -161,7 +161,7 @@ export default function MolecularNetwork() {
       init={init}
       options={molecularOptions}
     />
-  );
+  )
 }
 ```
 
@@ -173,26 +173,26 @@ Use a pure CSS DNA helix as a decorative element between sections or alongside t
 
 ```tsx
 // src/components/DNAHelix.tsx
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 interface DNAHelixProps {
-  strandCount?: number;
-  vertical?: boolean;
-  className?: string;
-  colorA?: string;
-  colorB?: string;
+  strandCount?: number
+  vertical?: boolean
+  className?: string
+  colorA?: string
+  colorB?: string
 }
 
 export default function DNAHelix({
   strandCount = 12,
   vertical = true,
-  className = "",
-  colorA = "var(--color-cyan)",
-  colorB = "var(--color-gold)",
+  className = '',
+  colorA = 'var(--color-cyan)',
+  colorB = 'var(--color-gold)',
 }: DNAHelixProps) {
   return (
     <motion.div
-      className={`dna-helix ${vertical ? "dna-vertical" : "dna-horizontal"} ${className}`}
+      className={`dna-helix ${vertical ? 'dna-vertical' : 'dna-horizontal'} ${className}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -200,17 +200,13 @@ export default function DNAHelix({
       aria-hidden="true"
     >
       {Array.from({ length: strandCount }, (_, i) => (
-        <div
-          key={i}
-          className="dna-strand"
-          style={{ animationDelay: `${-i * 0.18}s` }}
-        >
+        <div key={i} className="dna-strand" style={{ animationDelay: `${-i * 0.18}s` }}>
           <span className="dna-dot dna-dot-a" style={{ background: colorA }} />
           <span className="dna-dot dna-dot-b" style={{ background: colorB }} />
         </div>
       ))}
     </motion.div>
-  );
+  )
 }
 ```
 
@@ -264,8 +260,12 @@ export default function DNAHelix({
 }
 
 @keyframes dna-rotate {
-  0% { transform: rotateX(0deg); }
-  100% { transform: rotateX(360deg); }
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -287,8 +287,7 @@ Enhance the existing grid overlay to feel more like scientific graph paper.
     /* Major grid lines */
     linear-gradient(rgba(0, 0, 64, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 64, 0.04) 1px, transparent 1px),
-    /* Minor grid lines */
-    linear-gradient(rgba(0, 0, 64, 0.015) 1px, transparent 1px),
+    /* Minor grid lines */ linear-gradient(rgba(0, 0, 64, 0.015) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 64, 0.015) 1px, transparent 1px);
   background-size:
     80px 80px,
@@ -323,7 +322,14 @@ function HexMolecularPattern() {
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       <svg className="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="hex-pattern" x="0" y="0" width="56" height="48" patternUnits="userSpaceOnUse">
+          <pattern
+            id="hex-pattern"
+            x="0"
+            y="0"
+            width="56"
+            height="48"
+            patternUnits="userSpaceOnUse"
+          >
             <polygon
               points="28,2 50,14 50,34 28,46 6,34 6,14"
               fill="none"
@@ -331,12 +337,22 @@ function HexMolecularPattern() {
               strokeWidth="0.8"
             />
             <circle cx="28" cy="2" r="1.2" fill="rgba(201,168,76,0.08)">
-              <animate attributeName="opacity" values="0.08;0.2;0.08" dur="4s" repeatCount="indefinite" />
+              <animate
+                attributeName="opacity"
+                values="0.08;0.2;0.08"
+                dur="4s"
+                repeatCount="indefinite"
+              />
             </circle>
             <circle cx="50" cy="14" r="1" fill="rgba(0,180,216,0.06)" />
             <circle cx="50" cy="34" r="1" fill="rgba(0,0,64,0.05)" />
             <circle cx="28" cy="46" r="1.2" fill="rgba(0,180,216,0.06)">
-              <animate attributeName="opacity" values="0.06;0.15;0.06" dur="5s" repeatCount="indefinite" />
+              <animate
+                attributeName="opacity"
+                values="0.06;0.15;0.06"
+                dur="5s"
+                repeatCount="indefinite"
+              />
             </circle>
             <circle cx="6" cy="34" r="1" fill="rgba(0,0,64,0.05)" />
             <circle cx="6" cy="14" r="1" fill="rgba(201,168,76,0.06)" />
@@ -345,7 +361,7 @@ function HexMolecularPattern() {
         <rect width="100%" height="100%" fill="url(#hex-pattern)" />
       </svg>
     </div>
-  );
+  )
 }
 ```
 
@@ -355,30 +371,30 @@ An animated orbital/electron system showing the three services orbiting a centra
 
 ```tsx
 // src/components/OrbitalDiagram.tsx
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 interface OrbitProps {
-  radius: number;
-  duration: number;
-  delay?: number;
-  label: string;
-  color: string;
+  radius: number
+  duration: number
+  delay?: number
+  label: string
+  color: string
 }
 
 function Orbit({ radius, duration, delay = 0, label, color }: OrbitProps) {
   return (
-    <div className="absolute left-1/2 top-1/2" style={{ width: radius * 2, height: radius * 2, marginLeft: -radius, marginTop: -radius }}>
+    <div
+      className="absolute left-1/2 top-1/2"
+      style={{ width: radius * 2, height: radius * 2, marginLeft: -radius, marginTop: -radius }}
+    >
       {/* Orbit ring */}
-      <div
-        className="absolute inset-0 rounded-full border"
-        style={{ borderColor: `${color}20` }}
-      />
+      <div className="absolute inset-0 rounded-full border" style={{ borderColor: `${color}20` }} />
       {/* Electron */}
       <motion.div
         className="absolute"
-        style={{ width: 40, height: 40, top: -20, left: "50%", marginLeft: -20 }}
+        style={{ width: 40, height: 40, top: -20, left: '50%', marginLeft: -20 }}
         animate={{ rotate: 360 }}
-        transition={{ duration, repeat: Infinity, ease: "linear", delay }}
+        transition={{ duration, repeat: Infinity, ease: 'linear', delay }}
       >
         <div
           className="flex h-10 w-10 items-center justify-center rounded-full text-[10px] font-bold text-white shadow-lg"
@@ -388,7 +404,7 @@ function Orbit({ radius, duration, delay = 0, label, color }: OrbitProps) {
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
 
 export default function OrbitalDiagram() {
@@ -399,11 +415,11 @@ export default function OrbitalDiagram() {
         GCG
       </div>
 
-      <Orbit radius={80}  duration={8}  delay={0}   label="R&D" color="#00b4d8" />
+      <Orbit radius={80} duration={8} delay={0} label="R&D" color="#00b4d8" />
       <Orbit radius={130} duration={12} delay={0.5} label="EDU" color="#2dc653" />
-      <Orbit radius={180} duration={16} delay={1}   label="BIZ" color="#c9a84c" />
+      <Orbit radius={180} duration={16} delay={1} label="BIZ" color="#c9a84c" />
     </div>
-  );
+  )
 }
 ```
 
@@ -415,20 +431,20 @@ A CSS sine-wave divider that separates sections with a scientific aesthetic.
 // src/components/WaveDivider.tsx
 
 interface WaveDividerProps {
-  color?: string;
-  bgColor?: string;
-  flip?: boolean;
+  color?: string
+  bgColor?: string
+  flip?: boolean
 }
 
 export default function WaveDivider({
-  color = "var(--color-cream)",
-  bgColor = "var(--color-navy)",
+  color = 'var(--color-cream)',
+  bgColor = 'var(--color-navy)',
   flip = false,
 }: WaveDividerProps) {
   return (
     <div
       className="relative h-16 w-full md:h-24"
-      style={{ backgroundColor: bgColor, transform: flip ? "scaleY(-1)" : "none" }}
+      style={{ backgroundColor: bgColor, transform: flip ? 'scaleY(-1)' : 'none' }}
     >
       <svg
         viewBox="0 0 1440 80"
@@ -447,7 +463,7 @@ export default function WaveDivider({
         />
       </svg>
     </div>
-  );
+  )
 }
 ```
 
@@ -461,11 +477,11 @@ Create a shared animation config file that all components can import.
 
 ```tsx
 // src/lib/animations.ts
-import type { Variants, Transition } from "framer-motion";
+import type { Variants, Transition } from 'framer-motion'
 
 /* ---- Shared easing curves ---- */
-export const EASE_SCIENCE: number[] = [0.22, 1, 0.36, 1];
-export const EASE_SMOOTH: number[] = [0.4, 0, 0.2, 1];
+export const EASE_SCIENCE: number[] = [0.22, 1, 0.36, 1]
+export const EASE_SMOOTH: number[] = [0.4, 0, 0.2, 1]
 
 /* ---- Fade-up (default for headings, cards) ---- */
 export const fadeUp: Variants = {
@@ -475,7 +491,7 @@ export const fadeUp: Variants = {
     y: 0,
     transition: { duration: 0.6, ease: EASE_SCIENCE, delay },
   }),
-};
+}
 
 /* ---- Scale-in (for icons, badges) ---- */
 export const scaleIn: Variants = {
@@ -485,7 +501,7 @@ export const scaleIn: Variants = {
     scale: 1,
     transition: { duration: 0.5, ease: EASE_SCIENCE, delay },
   }),
-};
+}
 
 /* ---- Slide-in from left (for data/stat reveals) ---- */
 export const slideInLeft: Variants = {
@@ -495,7 +511,7 @@ export const slideInLeft: Variants = {
     x: 0,
     transition: { duration: 0.6, ease: EASE_SCIENCE, delay },
   }),
-};
+}
 
 /* ---- Stagger container ---- */
 export const staggerContainer: Variants = {
@@ -503,28 +519,25 @@ export const staggerContainer: Variants = {
   visible: {
     transition: { staggerChildren: 0.12, delayChildren: 0.1 },
   },
-};
+}
 
 /* ---- Typewriter reveal (for scientific text) ---- */
 export const typewriter: Variants = {
   hidden: { width: 0 },
   visible: {
-    width: "auto",
+    width: 'auto',
     transition: { duration: 1.2, ease: EASE_SMOOTH },
   },
-};
+}
 
 /* ---- Pulse glow (for active nodes/dots) ---- */
 export const pulseGlow: Variants = {
-  initial: { boxShadow: "0 0 0 0 rgba(201, 168, 76, 0)" },
+  initial: { boxShadow: '0 0 0 0 rgba(201, 168, 76, 0)' },
   animate: {
-    boxShadow: [
-      "0 0 0 0 rgba(201, 168, 76, 0.4)",
-      "0 0 0 12px rgba(201, 168, 76, 0)",
-    ],
+    boxShadow: ['0 0 0 0 rgba(201, 168, 76, 0.4)', '0 0 0 12px rgba(201, 168, 76, 0)'],
     transition: { duration: 1.5, repeat: Infinity },
   },
-};
+}
 
 /* ---- Draw line (for connecting elements, borders) ---- */
 export const drawLine: Variants = {
@@ -534,7 +547,7 @@ export const drawLine: Variants = {
     opacity: 1,
     transition: { duration: 1.5, ease: EASE_SMOOTH },
   },
-};
+}
 ```
 
 ### 4.2 Animated Statistics Counter
@@ -543,44 +556,44 @@ Use for the "Impact Numbers" section (projects completed, students tutored, etc.
 
 ```tsx
 // src/components/AnimatedCounter.tsx
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface AnimatedCounterProps {
-  end: number;
-  duration?: number;
-  suffix?: string;
-  prefix?: string;
-  label: string;
-  icon?: React.ReactNode;
+  end: number
+  duration?: number
+  suffix?: string
+  prefix?: string
+  label: string
+  icon?: React.ReactNode
 }
 
 export default function AnimatedCounter({
   end,
   duration = 2,
-  suffix = "",
-  prefix = "",
+  suffix = '',
+  prefix = '',
   label,
   icon,
 }: AnimatedCounterProps) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-100px' })
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) return
 
-    let startTime: number | null = null;
+    let startTime: number | null = null
     const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1)
       // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * end));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [inView, end, duration]);
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * end))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [inView, end, duration])
 
   return (
     <motion.div
@@ -592,13 +605,13 @@ export default function AnimatedCounter({
     >
       {icon && <div className="mx-auto mb-3 text-cyan">{icon}</div>}
       <div className="text-4xl font-extrabold text-navy md:text-5xl">
-        {prefix}{count}{suffix}
+        {prefix}
+        {count}
+        {suffix}
       </div>
-      <div className="mt-2 text-sm font-medium uppercase tracking-widest text-navy/50">
-        {label}
-      </div>
+      <div className="mt-2 text-sm font-medium uppercase tracking-widest text-navy/50">{label}</div>
     </motion.div>
-  );
+  )
 }
 ```
 
@@ -608,20 +621,20 @@ Premium glass-effect cards for the services section or team profiles.
 
 ```tsx
 // src/components/GlassCard.tsx
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 interface GlassCardProps {
-  children: React.ReactNode;
-  className?: string;
-  hoverGlow?: boolean;
-  glowColor?: string;
+  children: React.ReactNode
+  className?: string
+  hoverGlow?: boolean
+  glowColor?: string
 }
 
 export default function GlassCard({
   children,
-  className = "",
+  className = '',
   hoverGlow = true,
-  glowColor = "rgba(201, 168, 76, 0.15)",
+  glowColor = 'rgba(201, 168, 76, 0.15)',
 }: GlassCardProps) {
   return (
     <motion.div
@@ -632,11 +645,11 @@ export default function GlassCard({
         backdrop-blur-xl
         shadow-[0_8px_32px_rgba(0,0,0,0.12)]
         transition-all duration-500
-        ${hoverGlow ? "hover:border-gold/30 hover:shadow-[0_8px_40px_rgba(201,168,76,0.1)]" : ""}
+        ${hoverGlow ? 'hover:border-gold/30 hover:shadow-[0_8px_40px_rgba(201,168,76,0.1)]' : ''}
         ${className}
       `}
       whileHover={hoverGlow ? { y: -4 } : undefined}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >
       {/* Gradient shine overlay */}
       <div
@@ -647,7 +660,7 @@ export default function GlassCard({
       />
       {children}
     </motion.div>
-  );
+  )
 }
 ```
 
@@ -682,32 +695,35 @@ Floating molecular structures that move at different speeds during scroll, creat
 
 ```tsx
 // src/components/FloatingMolecules.tsx
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 interface Molecule {
-  x: string;
-  y: string;
-  size: number;
-  speed: number;
-  color: string;
-  bonds?: number;
+  x: string
+  y: string
+  size: number
+  speed: number
+  color: string
+  bonds?: number
 }
 
 const molecules: Molecule[] = [
-  { x: "10%", y: "20%", size: 6, speed: 0.3, color: "var(--color-cyan)", bonds: 3 },
-  { x: "85%", y: "15%", size: 4, speed: 0.5, color: "var(--color-gold)", bonds: 2 },
-  { x: "70%", y: "60%", size: 8, speed: 0.2, color: "var(--color-violet)", bonds: 4 },
-  { x: "20%", y: "75%", size: 5, speed: 0.4, color: "var(--color-cyan)", bonds: 2 },
-  { x: "50%", y: "40%", size: 3, speed: 0.6, color: "var(--color-gold)", bonds: 1 },
-];
+  { x: '10%', y: '20%', size: 6, speed: 0.3, color: 'var(--color-cyan)', bonds: 3 },
+  { x: '85%', y: '15%', size: 4, speed: 0.5, color: 'var(--color-gold)', bonds: 2 },
+  { x: '70%', y: '60%', size: 8, speed: 0.2, color: 'var(--color-violet)', bonds: 4 },
+  { x: '20%', y: '75%', size: 5, speed: 0.4, color: 'var(--color-cyan)', bonds: 2 },
+  { x: '50%', y: '40%', size: 3, speed: 0.6, color: 'var(--color-gold)', bonds: 1 },
+]
 
-export default function FloatingMolecules({ className = "" }: { className?: string }) {
-  const { scrollYProgress } = useScroll();
+export default function FloatingMolecules({ className = '' }: { className?: string }) {
+  const { scrollYProgress } = useScroll()
 
   return (
-    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+    <div
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+      aria-hidden="true"
+    >
       {molecules.map((mol, i) => {
-        const y = useTransform(scrollYProgress, [0, 1], [0, -200 * mol.speed]);
+        const y = useTransform(scrollYProgress, [0, 1], [0, -200 * mol.speed])
         return (
           <motion.div
             key={i}
@@ -723,10 +739,10 @@ export default function FloatingMolecules({ className = "" }: { className?: stri
               y,
             }}
           />
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 ```
 
@@ -736,16 +752,16 @@ A typewriter-style text reveal that makes headings appear as if being typed on a
 
 ```tsx
 // src/components/ScienceHeading.tsx
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion'
 
 interface ScienceHeadingProps {
-  text: string;
-  className?: string;
-  tag?: "h1" | "h2" | "h3";
+  text: string
+  className?: string
+  tag?: 'h1' | 'h2' | 'h3'
 }
 
-export default function ScienceHeading({ text, className = "", tag = "h2" }: ScienceHeadingProps) {
-  const Tag = motion[tag];
+export default function ScienceHeading({ text, className = '', tag = 'h2' }: ScienceHeadingProps) {
+  const Tag = motion[tag]
 
   return (
     <Tag
@@ -754,7 +770,7 @@ export default function ScienceHeading({ text, className = "", tag = "h2" }: Sci
       whileInView="visible"
       viewport={{ once: true }}
     >
-      {text.split("").map((char, i) => (
+      {text.split('').map((char, i) => (
         <motion.span
           key={i}
           variants={{
@@ -776,7 +792,7 @@ export default function ScienceHeading({ text, className = "", tag = "h2" }: Sci
         transition={{ duration: 0.8, repeat: 3 }}
       />
     </Tag>
-  );
+  )
 }
 ```
 
@@ -791,47 +807,47 @@ The project already uses `react-icons`. Here is a mapping of science-relevant ic
 ```tsx
 import {
   // Research & Discovery
-  FaMicroscope,     // Research, lab work
-  FaFlask,          // Experiments, R&D
-  FaAtom,           // Science, fundamental research
-  FaDna,            // Biotech, genetics
-  FaVial,           // Testing, experimentation
+  FaMicroscope, // Research, lab work
+  FaFlask, // Experiments, R&D
+  FaAtom, // Science, fundamental research
+  FaDna, // Biotech, genetics
+  FaVial, // Testing, experimentation
 
   // Innovation & Technology
-  FaLightbulb,      // Ideas, innovation
-  FaRocket,         // Launch, acceleration
-  FaCogs,           // Process, engineering
-  FaMicrochip,      // Technology
+  FaLightbulb, // Ideas, innovation
+  FaRocket, // Launch, acceleration
+  FaCogs, // Process, engineering
+  FaMicrochip, // Technology
   FaProjectDiagram, // Systems, networks
 
   // Data & Analysis
-  FaChartLine,      // Growth, trends
-  FaChartBar,       // Statistics, metrics
-  FaDatabase,       // Data, storage
-  FaSearchPlus,     // Discovery, analysis
+  FaChartLine, // Growth, trends
+  FaChartBar, // Statistics, metrics
+  FaDatabase, // Data, storage
+  FaSearchPlus, // Discovery, analysis
 
   // Education & Tutoring
-  FaGraduationCap,  // Academic, education
-  FaBook,           // Knowledge, learning
+  FaGraduationCap, // Academic, education
+  FaBook, // Knowledge, learning
   FaChalkboardTeacher, // Teaching, tutoring
-  FaBrain,          // Intelligence, understanding
-  FaUserGraduate,   // Students
+  FaBrain, // Intelligence, understanding
+  FaUserGraduate, // Students
 
   // Consulting & Strategy
-  FaHandshake,      // Partnerships
-  FaCompass,        // Direction, strategy
-  FaBullseye,       // Goals, precision
-  FaGlobe,          // Global reach (Beirut + Paris)
-  FaRoute,          // Roadmap, methodology
-} from "react-icons/fa";
+  FaHandshake, // Partnerships
+  FaCompass, // Direction, strategy
+  FaBullseye, // Goals, precision
+  FaGlobe, // Global reach (Beirut + Paris)
+  FaRoute, // Roadmap, methodology
+} from 'react-icons/fa'
 
 import {
   // Additional science icons from different icon sets
-  HiBeaker,         // Lab work
-  HiAcademicCap,    // Education
-  HiSparkles,       // Innovation
-  HiGlobeAlt,       // International
-} from "react-icons/hi2";
+  HiBeaker, // Lab work
+  HiAcademicCap, // Education
+  HiSparkles, // Innovation
+  HiGlobeAlt, // International
+} from 'react-icons/hi2'
 ```
 
 ### Custom SVG Icons to Create
@@ -850,31 +866,37 @@ For unique brand identity, create these custom SVG components:
 ### 6.1 Home Page
 
 **Hero Section**:
+
 - Replace simple floating particles with the `MolecularNetwork` component (tsParticles with linking lines)
 - Keep the rotating taglines but add a subtle waveform animation behind the text
 - Add a faint scientific graph-paper grid overlay (already partially exists, enhance it)
 - Consider adding the DNA helix as a vertical decorative element on the left or right edge
 
 **About Section**:
+
 - Add an animated statistics bar: "150+ Projects | 500+ Students Tutored | 12 Countries | 2 Offices"
 - Use the `AnimatedCounter` component triggered on scroll
 - Background: subtle hexagonal molecular pattern
 
 **Services Section**:
+
 - Upgrade cards to `GlassCard` components on a navy background
 - Add the `OrbitalDiagram` as a visual centerpiece showing how the three services interconnect
 - Each service card should have a unique accent color (R&D = cyan, Tutoring = emerald, Consulting = gold)
 
 **Process Section**:
+
 - Redesign as a horizontal "experiment pipeline" with numbered steps connected by animated lines (use `drawLine` variant)
 - Steps: Discover > Analyze > Strategize > Implement > Measure
 - Each step node pulses with `pulseGlow` animation when scrolled into view
 
 **Testimonials Section**:
+
 - Add a subtle DNA helix background on one side
 - Glass-card styling for testimonial quotes
 
 **Contact Section**:
+
 - Dual-column layout: form on left, map/location info on right
 - Highlight Beirut and Paris with a minimalist world map connecting the two cities
 - Use glassmorphism for the form container on a navy background
@@ -882,30 +904,36 @@ For unique brand identity, create these custom SVG components:
 ### 6.2 Research & Development Page
 
 **Hero Enhancement**:
+
 - Add animated molecular visualization in the background (three.js or tsParticles with complex config)
 - A floating periodic-table-style badge showing element abbreviation "Rd" as a branding element
 - Graph paper grid background
 
 **Content Sections**:
+
 - "Research Areas" -- Display as a periodic table grid where each area is a "element card"
 - "Methodology" -- Show as a scientific method flowchart (Hypothesis > Experiment > Analysis > Conclusion)
 - "Publications" -- Styled like academic journal citations
 - "Lab Capabilities" -- Visual grid with icons and glassmorphism cards
 
 **New Section -- "Our Scientific Method"**:
+
 ```
 1. OBSERVE    -->  2. HYPOTHESIZE  -->  3. EXPERIMENT  -->  4. ANALYZE  -->  5. CONCLUDE
    [icon]            [icon]              [icon]              [icon]           [icon]
 ```
+
 Animate the arrows drawing themselves as the user scrolls.
 
 ### 6.3 Tutoring Services Page
 
 **Hero Enhancement**:
+
 - Chalkboard-inspired dark section with handwritten-style equations floating in the background
 - Animated atomic model orbiting near the headline
 
 **Content Sections**:
+
 - "Subjects" -- Display as a chemistry periodic table layout
 - "Our Approach" -- Visual learning pathway with milestone nodes
 - "Student Success" -- Animated counters showing improvement metrics
@@ -931,18 +959,18 @@ Animate the arrows drawing themselves as the user scrolls.
 
 Based on analysis of top science consulting firms:
 
-| Section | Purpose | Priority |
-|---------|---------|----------|
-| Hero + Value Prop | Immediate credibility | Critical |
-| Services Overview | What you do | Critical |
-| Methodology / Process | How you work | High |
-| Case Studies | Proof of results | High |
-| Team / Expertise | Trust building | High |
-| Publications / Insights | Thought leadership | Medium |
-| Impact Numbers | Quick credibility | Medium |
-| Client Logos / Partnerships | Social proof | Medium |
-| FAQ | Address objections | Low |
-| Newsletter / Blog | Ongoing engagement | Low |
+| Section                     | Purpose               | Priority |
+| --------------------------- | --------------------- | -------- |
+| Hero + Value Prop           | Immediate credibility | Critical |
+| Services Overview           | What you do           | Critical |
+| Methodology / Process       | How you work          | High     |
+| Case Studies                | Proof of results      | High     |
+| Team / Expertise            | Trust building        | High     |
+| Publications / Insights     | Thought leadership    | Medium   |
+| Impact Numbers              | Quick credibility     | Medium   |
+| Client Logos / Partnerships | Social proof          | Medium   |
+| FAQ                         | Address objections    | Low      |
+| Newsletter / Blog           | Ongoing engagement    | Low      |
 
 ### 7.2 Case Study Format
 
@@ -970,12 +998,14 @@ TECHNOLOGIES / METHODS USED
 ### 7.3 Recommended Content Pieces
 
 **For R&D**:
+
 - "Our Research Methodology" -- detailed page explaining the scientific rigor
 - White papers / research summaries (PDF downloads)
 - Research areas taxonomy with descriptions
 - Partnership/collaboration model explanation
 
 **For Tutoring**:
+
 - Subject catalog with curriculum outlines
 - "Meet Our Tutors" profiles with academic credentials
 - Student testimonial videos or quotes
@@ -983,6 +1013,7 @@ TECHNOLOGIES / METHODS USED
 - Before/after metrics visualization
 
 **For Consulting**:
+
 - Industry expertise areas
 - Engagement models (project-based, retainer, advisory)
 - Case study library filterable by industry/service
@@ -1010,9 +1041,9 @@ The current Inter font is clean but generic. Consider:
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 @theme {
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;  /* Geometric, techy */
-  --font-sans: 'Inter', system-ui, sans-serif;              /* Clean body text */
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;   /* For data/code snippets */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif; /* Geometric, techy */
+  --font-sans: 'Inter', system-ui, sans-serif; /* Clean body text */
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace; /* For data/code snippets */
 }
 ```
 
@@ -1030,6 +1061,7 @@ The current Inter font is clean but generic. Consider:
 ### Monospace Accents for Science Feel
 
 Use monospace font for:
+
 - Section labels/tags (e.g., "// SERVICES", "01. RESEARCH")
 - Data points and statistics
 - Code-like decorative elements
@@ -1048,18 +1080,18 @@ Use monospace font for:
 
 ### Science/R&D Consulting Firms to Study
 
-| Company | URL | What to Note |
-|---------|-----|--------------|
-| IDEO | ideo.com | Innovation storytelling, case study format, bold imagery |
-| McKinsey (Science practice) | mckinsey.com | Clean data visualization, authority, white paper layout |
-| BCG Henderson Institute | bcghendersoninstitute.com | Research publication layout, academic credibility |
-| Kepler Consulting | kepler-consulting.com | Innovation case studies, methodology focus |
-| Design Science | dscience.com | Human factors approach, scientific method branding |
-| Contra Agency (science) | contra.agency | Science-specific web design, molecular imagery |
-| Exponent (science consulting) | exponent.com | Technical expertise display, team credentials |
-| Lux Research | luxresearchinc.com | Data-driven visuals, innovation forecasting |
-| RAND Corporation | rand.org | Research publications, policy research layout |
-| Kaber Technologies | kaber.com | Innovation consulting, product-to-market storytelling |
+| Company                       | URL                       | What to Note                                             |
+| ----------------------------- | ------------------------- | -------------------------------------------------------- |
+| IDEO                          | ideo.com                  | Innovation storytelling, case study format, bold imagery |
+| McKinsey (Science practice)   | mckinsey.com              | Clean data visualization, authority, white paper layout  |
+| BCG Henderson Institute       | bcghendersoninstitute.com | Research publication layout, academic credibility        |
+| Kepler Consulting             | kepler-consulting.com     | Innovation case studies, methodology focus               |
+| Design Science                | dscience.com              | Human factors approach, scientific method branding       |
+| Contra Agency (science)       | contra.agency             | Science-specific web design, molecular imagery           |
+| Exponent (science consulting) | exponent.com              | Technical expertise display, team credentials            |
+| Lux Research                  | luxresearchinc.com        | Data-driven visuals, innovation forecasting              |
+| RAND Corporation              | rand.org                  | Research publications, policy research layout            |
+| Kaber Technologies            | kaber.com                 | Innovation consulting, product-to-market storytelling    |
 
 ### Design Pattern Takeaways
 

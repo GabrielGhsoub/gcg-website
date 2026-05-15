@@ -1,21 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>GCG | Ghoussoub Consulting Group</title>
     <script>
       // SPA redirect for GitHub Pages
       // Redirects all 404s back to index.html with the path preserved
-      var seg = 1; // number of path segments to keep (1 for project pages)
-      var l = window.location;
-      var path = l.pathname.split('/').slice(seg + 1).join('/');
-      var q = l.search;
-      var h = l.hash;
-      var base = l.pathname.split('/').slice(0, seg + 1).join('/') + '/';
+      var seg = 1 // number of path segments to keep (1 for project pages)
+      var l = window.location
+      var path = l.pathname
+        .split('/')
+        .slice(seg + 1)
+        .join('/')
+      var q = l.search
+      var h = l.hash
+      var base =
+        l.pathname
+          .split('/')
+          .slice(0, seg + 1)
+          .join('/') + '/'
       if (path || q || h) {
-        sessionStorage.setItem('spa-redirect', path + q + h);
+        sessionStorage.setItem('spa-redirect', path + q + h)
       }
-      l.replace(base);
+      l.replace(base)
     </script>
   </head>
   <body></body>
