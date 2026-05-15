@@ -4,7 +4,7 @@ import { SOCIAL_LINKS } from './constants/social-links'
 
 export const SITE_NAME = 'Ghoussoub Consulting Group'
 export const SITE_SHORT_NAME = 'GCG'
-export const SITE_URL = 'https://gcginnovate.com'
+export const SITE_URL = 'https://gabrielghsoub.github.io'
 export const SITE_BASE_PATH = '/gcg-website/'
 export const DEFAULT_SEO_DESCRIPTION =
   'Ghoussoub Consulting Group provides science-driven consulting, research and development, and STEM tutoring for organizations, researchers, and learners.'

@@ -20,7 +20,7 @@ Analytics are disabled until `VITE_UMAMI_WEBSITE_ID` is set. Copy `.env.example`
 ```bash
 VITE_UMAMI_WEBSITE_ID=your-website-id
 VITE_UMAMI_SCRIPT_URL=https://cloud.umami.is/script.js
-VITE_UMAMI_DOMAINS=gcginnovate.com,www.gcginnovate.com
+VITE_UMAMI_DOMAINS=gabrielghsoub.github.io,gcginnovate.com,www.gcginnovate.com
 VITE_UMAMI_PERFORMANCE=true
 ```
 

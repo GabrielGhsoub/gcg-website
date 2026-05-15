@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gcginnovate.com/gcg-website/sitemap.xml
+Sitemap: https://gabrielghsoub.github.io/gcg-website/sitemap.xml
